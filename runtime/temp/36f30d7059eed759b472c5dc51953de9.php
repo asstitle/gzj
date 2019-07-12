@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:59:"D:\wamp\www\xy\public/../application/xyb\view\menu\add.html";i:1562893861;s:52:"D:\wamp\www\xy\application\xyb\view\Public\head.html";i:1562840357;s:54:"D:\wamp\www\xy\application\xyb\view\Public\header.html";i:1562840357;s:55:"D:\wamp\www\xy\application\xyb\view\Public\sidebar.html";i:1562840357;s:59:"D:\wamp\www\xy\application\xyb\view\Public\breadcrumbs.html";i:1562840357;s:51:"D:\wamp\www\xy\application\xyb\view\Public\set.html";i:1562840357;s:54:"D:\wamp\www\xy\application\xyb\view\Public\footer.html";i:1562840357;s:56:"D:\wamp\www\xy\application\xyb\view\Public\footerjs.html";i:1562840357;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:59:"D:\wamp\www\xy\public/../application/xyb\view\menu\add.html";i:1562893861;s:52:"D:\wamp\www\xy\application\xyb\view\Public\head.html";i:1562901696;s:54:"D:\wamp\www\xy\application\xyb\view\Public\header.html";i:1562840357;s:55:"D:\wamp\www\xy\application\xyb\view\Public\sidebar.html";i:1562840357;s:59:"D:\wamp\www\xy\application\xyb\view\Public\breadcrumbs.html";i:1562840357;s:51:"D:\wamp\www\xy\application\xyb\view\Public\set.html";i:1562840357;s:54:"D:\wamp\www\xy\application\xyb\view\Public\footer.html";i:1562840357;s:56:"D:\wamp\www\xy\application\xyb\view\Public\footerjs.html";i:1562897379;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -44,6 +44,15 @@
     <script src="/static//xyb/js/respond.js"></script>
     <![endif]-->
 </head>
+<script type="text/javascript">
+    //全局变量
+    var GV = {
+        ROOT: "/",
+        WEB_ROOT: "/",
+        JS_ROOT: "/static//xyb/js/",
+        APP: 'xyb'/*当前应用名*/
+    };
+</script>
 <body class="no-skin">
     <!-- #section:basics/navbar.layout -->
     <div id="navbar" class="navbar navbar-default">
@@ -697,8 +706,6 @@
 <script src="/static//xyb/js/bootstrap.js"></script>
 
 <!-- page specific plugin scripts -->
-<script charset="utf-8" src="/static//kindeditor/kindeditor-min.js"></script>
-<script charset="utf-8" src="/static//kindeditor/lang/zh_CN.js"></script>
 <script src="/static//xyb/js/bootbox.js"></script>
 <!-- ace scripts -->
 <script src="/static//xyb/js/ace/elements.scroller.js"></script>

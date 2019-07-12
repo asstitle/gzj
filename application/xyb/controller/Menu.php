@@ -39,7 +39,7 @@ class Menu extends Base
                     </tr>";
         $category = $tree->getTree(0, $str);
         $this->assign("category", $category);
-       return $this->fetch();
+        return $this->fetch();
     }
     //添加菜单
     public function add(){

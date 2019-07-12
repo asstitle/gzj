@@ -245,4 +245,16 @@ return [
     ],
     //MD5加密
     'MD5_KEY' => 'hhs!@#$',
+    //验证码
+    'captcha'  => [
+        // 是否画混淆曲线
+        'useCurve' => false,
+        // 验证码位数
+        'length'   => 4,
+        // 验证码字体大小(px)
+        'fontSize' => 30,
+        // 验证成功后是否重置
+        'reset'    => true,
+        'codeSet' => '2345679abcdefghjkmnpqrstwxyzACEFGHJKLMNPQRSTWXYZ'
+    ],
 ];

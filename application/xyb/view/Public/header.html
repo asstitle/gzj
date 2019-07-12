@@ -75,7 +75,7 @@
                             <img class="nav-user-photo" src="__PUBLIC__xyb/img/user.jpg" alt="Jason's Photo" />
                             <span class="user-info">
 									<small>Welcome,</small>
-									Jason
+									<{$Think.session.uname}>
 								</span>
 
                             <i class="ace-icon fa fa-caret-down"></i>
@@ -99,7 +99,7 @@
                             <li class="divider"></li>
 
                             <li>
-                                <a href="#">
+                                <a href="<{:url('login/sign_out')}>">
                                     <i class="ace-icon fa fa-power-off"></i>
                                     退出
                                 </a>

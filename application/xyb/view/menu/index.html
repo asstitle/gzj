@@ -71,3 +71,16 @@
 <!-- inline scripts related to this page -->
 </body>
 </html>
+<script src="__PUBLIC__xyb/js/jquery-1.10.2.min.js"></script>
+<script src="__PUBLIC__xyb/js/wind.js"></script>
+<script src="__PUBLIC__xyb/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        Wind.css('treeTable');
+        Wind.use('treeTable', function() {
+            $("#menus-table").treeTable({
+                indent : 20
+            });
+        });
+    });
+</script>

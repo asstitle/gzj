@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:62:"D:\wamp\www\xy\public/../application/xyb\view\index\index.html";i:1562840357;s:52:"D:\wamp\www\xy\application\xyb\view\Public\head.html";i:1562840357;s:54:"D:\wamp\www\xy\application\xyb\view\Public\header.html";i:1562840357;s:55:"D:\wamp\www\xy\application\xyb\view\Public\sidebar.html";i:1562840357;s:59:"D:\wamp\www\xy\application\xyb\view\Public\breadcrumbs.html";i:1562840357;s:51:"D:\wamp\www\xy\application\xyb\view\Public\set.html";i:1562840357;s:54:"D:\wamp\www\xy\application\xyb\view\Public\footer.html";i:1562840357;s:56:"D:\wamp\www\xy\application\xyb\view\Public\footerjs.html";i:1562840357;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:62:"D:\wamp\www\xy\public/../application/xyb\view\index\index.html";i:1562840357;s:52:"D:\wamp\www\xy\application\xyb\view\Public\head.html";i:1562901696;s:54:"D:\wamp\www\xy\application\xyb\view\Public\header.html";i:1562915826;s:55:"D:\wamp\www\xy\application\xyb\view\Public\sidebar.html";i:1562923236;s:59:"D:\wamp\www\xy\application\xyb\view\Public\breadcrumbs.html";i:1562840357;s:51:"D:\wamp\www\xy\application\xyb\view\Public\set.html";i:1562840357;s:54:"D:\wamp\www\xy\application\xyb\view\Public\footer.html";i:1562840357;s:56:"D:\wamp\www\xy\application\xyb\view\Public\footerjs.html";i:1562897379;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -44,6 +44,15 @@
     <script src="/static//xyb/js/respond.js"></script>
     <![endif]-->
 </head>
+<script type="text/javascript">
+    //全局变量
+    var GV = {
+        ROOT: "/",
+        WEB_ROOT: "/",
+        JS_ROOT: "/static//xyb/js/",
+        APP: 'xyb'/*当前应用名*/
+    };
+</script>
 <body class="no-skin">
     <!-- #section:basics/navbar.layout -->
     <div id="navbar" class="navbar navbar-default">
@@ -122,7 +131,7 @@
                             <img class="nav-user-photo" src="/static/xyb/img/user.jpg" alt="Jason's Photo" />
                             <span class="user-info">
 									<small>Welcome,</small>
-									Jason
+									<?php echo \think\Session::get('uname'); ?>
 								</span>
 
                             <i class="ace-icon fa fa-caret-down"></i>
@@ -146,7 +155,7 @@
                             <li class="divider"></li>
 
                             <li>
-                                <a href="#">
+                                <a href="<?php echo url('login/sign_out'); ?>">
                                     <i class="ace-icon fa fa-power-off"></i>
                                     退出
                                 </a>
@@ -217,221 +226,36 @@
 
                 <b class="arrow"></b>
             </li>
-
+             <?php if(is_array($menus) || $menus instanceof \think\Collection || $menus instanceof \think\Paginator): $i = 0; $__LIST__ = $menus;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$v): $mod = ($i % 2 );++$i;?>
             <li class="">
-                <a href="#" class="dropdown-toggle">
+                <a href="<?php echo $v['name']; ?>" class="dropdown-toggle">
                     <i class="menu-icon fa fa-desktop"></i>
                     <span class="menu-text">
-								基本设置
+								<?php echo $v['title']; ?>
 							</span>
 
                     <b class="arrow fa fa-angle-down"></b>
                 </a>
-
+                <?php if(!(empty($v['children']) || (($v['children'] instanceof \think\Collection || $v['children'] instanceof \think\Paginator ) && $v['children']->isEmpty()))): ?>
                 <b class="arrow"></b>
 
                 <ul class="submenu">
-
+                    <?php if(is_array($v['children']) || $v['children'] instanceof \think\Collection || $v['children'] instanceof \think\Paginator): $i = 0; $__LIST__ = $v['children'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vv): $mod = ($i % 2 );++$i;?>
                     <li class="">
-                        <a href="typography.html">
+                        <a href="<?php echo $vv['name']; ?>">
                             <i class="menu-icon fa fa-caret-right"></i>
-                            班级信息
+                            <?php echo $vv['title']; ?>
                         </a>
 
                         <b class="arrow"></b>
                     </li>
-
-                    <li class="">
-                        <a href="elements.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            学年学期
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="">
-                        <a href="buttons.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                           作息时间
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="">
-                        <a href="content-slider.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                           课程信息
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="">
-                        <a href="treeview.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                           任教信息
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
+                    <?php endforeach; endif; else: echo "" ;endif; ?>
                 </ul>
+                <?php endif; ?>
             </li>
+             <?php endforeach; endif; else: echo "" ;endif; ?>
 
-            <li class="">
-                <a href="#" class="dropdown-toggle">
-                    <i class="menu-icon fa fa-list"></i>
-                    <span class="menu-text"> 我的日程 </span>
 
-                    <b class="arrow fa fa-angle-down"></b>
-                </a>
-
-                <b class="arrow"></b>
-
-                <ul class="submenu">
-                    <li class="">
-                        <a href="tables.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            我的课表
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="">
-                        <a href="jqgrid.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            调课情况
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="">
-                <a href="#" class="dropdown-toggle">
-                    <i class="menu-icon fa fa-pencil-square-o"></i>
-                    <span class="menu-text"> 班级课表 </span>
-
-                    <b class="arrow fa fa-angle-down"></b>
-                </a>
-
-                <b class="arrow"></b>
-
-                <ul class="submenu">
-                    <li class="">
-                        <a href="form-elements.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            原始课表
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="">
-                        <a href="form-elements-2.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                           实时班课表
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-                </ul>
-            </li>
-            <li class="">
-                <a href="#" class="dropdown-toggle">
-                    <i class="menu-icon fa fa-pencil-square-o"></i>
-                    <span class="menu-text"> 调代课申请 </span>
-
-                    <b class="arrow fa fa-angle-down"></b>
-                </a>
-
-                <b class="arrow"></b>
-
-                <ul class="submenu">
-                    <li class="">
-                        <a href="form-elements.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            代课申请
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="">
-                        <a href="form-elements-2.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            调课申请
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-                </ul>
-            </li>
-            <li class="">
-                <a href="#" class="dropdown-toggle">
-                    <i class="menu-icon fa fa-pencil-square-o"></i>
-                    <span class="menu-text"> 用户管理 </span>
-
-                    <b class="arrow fa fa-angle-down"></b>
-                </a>
-
-                <b class="arrow"></b>
-
-                <ul class="submenu">
-                    <li class="">
-                        <a href="<?php echo url('rbac/index'); ?>">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            角色管理
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="">
-                        <a href="<?php echo url('user/index'); ?>">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            系统用户
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="">
-                <a href="#" class="dropdown-toggle">
-                    <i class="menu-icon fa fa-pencil-square-o"></i>
-                    <span class="menu-text"> 菜单管理 </span>
-
-                    <b class="arrow fa fa-angle-down"></b>
-                </a>
-
-                <b class="arrow"></b>
-
-                <ul class="submenu">
-                    <li class="">
-                        <a href="<?php echo url('menu/index'); ?>">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                           菜单列表
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="">
-                        <a href="<?php echo url('menu/add'); ?>">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            添加菜单
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-                </ul>
-            </li>
         </ul><!-- /.nav-list -->
 
         <!-- #section:basics/sidebar.layout.minimize -->
@@ -625,8 +449,6 @@
 <script src="/static//xyb/js/bootstrap.js"></script>
 
 <!-- page specific plugin scripts -->
-<script charset="utf-8" src="/static//kindeditor/kindeditor-min.js"></script>
-<script charset="utf-8" src="/static//kindeditor/lang/zh_CN.js"></script>
 <script src="/static//xyb/js/bootbox.js"></script>
 <!-- ace scripts -->
 <script src="/static//xyb/js/ace/elements.scroller.js"></script>
