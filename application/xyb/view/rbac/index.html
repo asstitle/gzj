@@ -1,0 +1,94 @@
+{include file="Public/head"/}
+<body class="no-skin">
+{include file="Public/header"/}
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('main-container', 'fixed')
+        } catch (e) {
+        }
+    </script>
+    {include file="Public/sidebar"/}
+    <div class="main-content">
+        <div class="main-content-inner">
+            <!-- #section:basics/content.breadcrumbs -->
+            {include file="Public/breadcrumbs" /}
+
+            <!-- /section:basics/content.breadcrumbs -->
+            <div class="page-content">
+
+                {include file="Public/set"/}
+
+                <!-- /section:settings.box -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="tabbable">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a>角色管理</a></li>
+                                        <li><a href="<{:url('rbac/role_add')}>">添加角色</a></li>
+                                    </ul>
+                                    <div style="margin-top: 20px;"></div>
+                                    <form action="/admin/rbac/listorders.html" method="post" class="margin-top-20">
+                                        <table class="table table-hover table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th width="40">ID</th>
+                                                <th align="left">角色名称</th>
+                                                <th align="left">角色描述</th>
+                                                <th width="60" align="left">状态</th>
+                                                <th width="160">操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {foreach name="roles" item="v"}
+                                                <tr>
+                                                    <td><{$v.id}></td>
+                                                    <td><{$v.name}></td>
+                                                    <td><{$v.remark}></td>
+                                                    <td>
+                                                        {if condition="$v['status'] eq 1"}
+                                                            <font color="red">√</font>
+                                                            {else /}
+                                                            <font color="red">╳</font>
+                                                        {/if}
+                                                    </td>
+                                                    <td>
+                                                        {if condition="$v['id'] eq 1"}
+                                                            <font color="#cccccc">配置权限</font>  <!-- <a href="javascript:openIframeDialog('{:url('rbac/member',array('id'=>$vo['id']))}','成员管理');">成员管理</a> | -->
+                                                            <font color="#cccccc">编辑</font>  <font color="#cccccc">删除</font>
+                                                            {else /}
+                                                            <a href="{:url('Rbac/authorize',array('id'=>$v['id']))}">配置权限</a>
+                                                            <!-- <a href="javascript:openIframeDialog('{:url('rbac/member',array('id'=>$vo['id']))}','成员管理');">成员管理</a>| -->
+                                                            <a href="{:url('Rbac/roleedit',array('id'=>$v['id']))}">编辑</a>
+                                                            <a class="js-ajax-delete" href="{:url('Rbac/roledelete',array('id'=>$v['id']))}">删除</a>
+                                                         {/if}
+                                                    </td>
+                                                </tr>
+                                            {/foreach}
+                                            </tbody>
+                                        </table>
+                                    </form>
+
+                                    <!-- /.tab-content -->
+                                </div><!-- /.tabbable -->
+                            </div><!-- /.col -->
+                        </div><!-- /.row -->
+
+                        <!-- PAGE CONTENT ENDS -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.page-content -->
+        </div>
+    </div><!-- /.main-content -->
+
+    {include file="Public/footer"/}
+
+</div><!-- /.main-container -->
+
+{include file="Public/footerjs"/}
+<!-- inline scripts related to this page -->
+</body>
+</html>
