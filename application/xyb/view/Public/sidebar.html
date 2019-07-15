@@ -42,41 +42,254 @@
 
         <ul class="nav nav-list">
             <li class="active">
-                <a href="index.html">
+                <a href="<{:url('index/index')}>">
                     <i class="menu-icon fa fa-tachometer"></i>
                     <span class="menu-text"> 控制台 </span>
                 </a>
 
                 <b class="arrow"></b>
             </li>
-             {volist name='menus' id="v"}
+
             <li class="">
-                <a href="<{$v.name}>" class="dropdown-toggle">
+                <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-desktop"></i>
                     <span class="menu-text">
-								<{$v.title}>
+								用户管理
 							</span>
 
                     <b class="arrow fa fa-angle-down"></b>
                 </a>
-                {notempty name="$v.children"}
+
                 <b class="arrow"></b>
 
                 <ul class="submenu">
-                    {volist name="$v.children" id="vv"}
+
                     <li class="">
-                        <a href="<{$vv.name}>">
+                        <a href="<{:url('user/user_business')}>">
                             <i class="menu-icon fa fa-caret-right"></i>
-                            <{$vv.title}>
+                            商家用户
                         </a>
 
                         <b class="arrow"></b>
                     </li>
-                    {/volist}
+
+                    <li class="">
+                        <a href="<{:url('user/user_common')}>">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                           普通用户
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="">
+                        <a href="<{:url('user/index')}>">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                           系统用户
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
                 </ul>
-                {/notempty}
             </li>
-             {/volist}
+
+            <li class="">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-list"></i>
+                    <span class="menu-text"> 意见管理 </span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="">
+                        <a href="<{:url('suggest/index')}>">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            意见反馈
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-list"></i>
+                    <span class="menu-text"> 黑名单管理 </span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="">
+                        <a href="tables.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            黑名单列表
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-pencil-square-o"></i>
+                    <span class="menu-text"> 消息管理 </span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="">
+                        <a href="form-elements.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            消息推送列表
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-list-alt"></i>
+                    <span class="menu-text">金额明细</span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="">
+                        <a href="form-elements.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            明细列表
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>
+            <li class="">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-tag"></i>
+                    <span class="menu-text"> 招聘管理 </span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="">
+                        <a href="profile.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                          在招职位
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="">
+                        <a href="profile.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            关闭职位
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>
+            <li class="">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-tag"></i>
+                    <span class="menu-text"> 商铺(房)管理 </span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="">
+                        <a href="profile.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            发布中
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="">
+                        <a href="profile.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            已关闭
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>
+            <li class="">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-tag"></i>
+                    <span class="menu-text"> 二手车 </span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="">
+                        <a href="profile.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            发布中
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="">
+                        <a href="profile.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            已关闭
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-file-o"></i>
+
+                    <span class="menu-text">
+								资料管理
+							</span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="">
+                        <a href="faq.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                           资料审核
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>
 
 
         </ul><!-- /.nav-list -->

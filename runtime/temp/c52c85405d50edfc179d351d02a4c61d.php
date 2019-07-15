@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:62:"D:\wamp\www\xy\public/../application/xyb\view\index\index.html";i:1562840357;s:52:"D:\wamp\www\xy\application\xyb\view\Public\head.html";i:1563182361;s:54:"D:\wamp\www\xy\application\xyb\view\Public\header.html";i:1563182398;s:55:"D:\wamp\www\xy\application\xyb\view\Public\sidebar.html";i:1563182580;s:59:"D:\wamp\www\xy\application\xyb\view\Public\breadcrumbs.html";i:1562840357;s:51:"D:\wamp\www\xy\application\xyb\view\Public\set.html";i:1562840357;s:54:"D:\wamp\www\xy\application\xyb\view\Public\footer.html";i:1562840357;s:56:"D:\wamp\www\xy\application\xyb\view\Public\footerjs.html";i:1562897379;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:67:"D:\wamp\www\xy\public/../application/xyb\view\user\user_common.html";i:1563183350;s:52:"D:\wamp\www\xy\application\xyb\view\Public\head.html";i:1563182361;s:54:"D:\wamp\www\xy\application\xyb\view\Public\header.html";i:1563182398;s:55:"D:\wamp\www\xy\application\xyb\view\Public\sidebar.html";i:1563183879;s:59:"D:\wamp\www\xy\application\xyb\view\Public\breadcrumbs.html";i:1562840357;s:51:"D:\wamp\www\xy\application\xyb\view\Public\set.html";i:1562840357;s:54:"D:\wamp\www\xy\application\xyb\view\Public\footer.html";i:1562840357;s:56:"D:\wamp\www\xy\application\xyb\view\Public\footerjs.html";i:1562897379;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -242,7 +242,7 @@
                 <ul class="submenu">
 
                     <li class="">
-                        <a href="typography.html">
+                        <a href="<?php echo url('user/user_business'); ?>">
                             <i class="menu-icon fa fa-caret-right"></i>
                             商家用户
                         </a>
@@ -251,7 +251,7 @@
                     </li>
 
                     <li class="">
-                        <a href="elements.html">
+                        <a href="<?php echo url('user/user_common'); ?>">
                             <i class="menu-icon fa fa-caret-right"></i>
                            普通用户
                         </a>
@@ -281,7 +281,7 @@
 
                 <ul class="submenu">
                     <li class="">
-                        <a href="tables.html">
+                        <a href="<?php echo url('suggest/index'); ?>">
                             <i class="menu-icon fa fa-caret-right"></i>
                             意见反馈
                         </a>
@@ -465,42 +465,6 @@
 
                         <b class="arrow"></b>
                     </li>
-
-                    <li class="">
-                        <a href="error-404.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            Error 404
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="">
-                        <a href="error-500.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            Error 500
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="">
-                        <a href="grid.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            Grid
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="">
-                        <a href="blank.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            Blank Page
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
                 </ul>
             </li>
 
@@ -641,25 +605,53 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="tabbable">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a>普通用户</a></li>
+                                    </ul>
+                                    <div style="margin-top: 20px;"></div>
+                                    <form action="" method="post" class="margin-top-20">
+                                        <table class="table table-hover table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th width="40">ID</th>
+                                                <th align="left">名称</th>
+                                                <th align="left">联系人</th>
+                                                <th align="left">联系电话</th>
+                                                <th align="left">超级会员</th>
+                                                <th align="left">状态</th>
+                                                <th align="left">详情</th>
+                                                <th width="160">操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>xx公司</td>
+                                                <td>张三</td>
+                                                <td>18125963301</td>
+                                                <td>是</td>
+                                                <td>待审核</td>
+                                                <td>查看</td>
+                                                <td><a>编辑</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>李四</td>
+                                                <td>李四</td>
+                                                <td>18125963300</td>
+                                                <td>是</td>
+                                                <td>待审核</td>
+                                                <td>查看</td>
+                                                <td><a>编辑</a></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </form>
 
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h3 class="panel-title">
-                                                红花山小学简介
-                                            </h3>
-                                        </div>
-                                        <div class="panel-body">
-                                            深圳市光明新区红花山小学为2016年新建的公办小学，学校位于公明街道富利北路与松白公路交汇处，位于公明核心商圈，毗邻中粮云景国际小区。学校占地面积10500平方米，建筑面积12500平方米，办学规模为24个教学班，学生人数约1200人，2016年秋季开始招收一年级新生四个教学班约200人。 学校按照现代化学校高标准规划建设，设施设备齐全，配有多功能报告厅、图书馆、音乐室、美术室、舞蹈室、体育馆、科技创新实验室、语音室、200米跑道运动操场等，可满足多元化、个性化教育教学需要。
-                                        </div>
-                                    </div>
-
-                                   <!-- /.tab-content -->
+                                    <!-- /.tab-content -->
                                 </div><!-- /.tabbable -->
                             </div><!-- /.col -->
                         </div><!-- /.row -->
-
-
-
 
                         <!-- PAGE CONTENT ENDS -->
                     </div><!-- /.col -->

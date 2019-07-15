@@ -6,6 +6,15 @@ use app\common\Controller\Base;
 use think\Db;
 class User extends Base
 {
+
+    //商家用户
+    public function user_business(){
+        return $this->fetch();
+    }
+    //普通用户
+    public function user_common(){
+        return $this->fetch();
+    }
     //系统用户列表
    public function index(){
        $info=Db::name('user')->order('last_login_time desc')->paginate(10);

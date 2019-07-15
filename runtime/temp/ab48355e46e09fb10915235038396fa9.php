@@ -1,10 +1,10 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:64:"D:\wamp\www\xy\public/../application/xyb\view\user\add_user.html";i:1562840357;s:52:"D:\wamp\www\xy\application\xyb\view\Public\head.html";i:1562901696;s:54:"D:\wamp\www\xy\application\xyb\view\Public\header.html";i:1562915826;s:55:"D:\wamp\www\xy\application\xyb\view\Public\sidebar.html";i:1562840357;s:59:"D:\wamp\www\xy\application\xyb\view\Public\breadcrumbs.html";i:1562840357;s:51:"D:\wamp\www\xy\application\xyb\view\Public\set.html";i:1562840357;s:54:"D:\wamp\www\xy\application\xyb\view\Public\footer.html";i:1562840357;s:56:"D:\wamp\www\xy\application\xyb\view\Public\footerjs.html";i:1562897379;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:64:"D:\wamp\www\xy\public/../application/xyb\view\user\add_user.html";i:1562840357;s:52:"D:\wamp\www\xy\application\xyb\view\Public\head.html";i:1563182361;s:54:"D:\wamp\www\xy\application\xyb\view\Public\header.html";i:1563182398;s:55:"D:\wamp\www\xy\application\xyb\view\Public\sidebar.html";i:1563182779;s:59:"D:\wamp\www\xy\application\xyb\view\Public\breadcrumbs.html";i:1562840357;s:51:"D:\wamp\www\xy\application\xyb\view\Public\set.html";i:1562840357;s:54:"D:\wamp\www\xy\application\xyb\view\Public\footer.html";i:1562840357;s:56:"D:\wamp\www\xy\application\xyb\view\Public\footerjs.html";i:1562897379;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta charset="utf-8"/>
-    <title>代调课系统</title>
+    <title>工作家</title>
 
     <meta name="keywords" content=""/>
     <meta name="description" content=""/>
@@ -81,7 +81,7 @@
                 <a href="{:Url('index/index')}" class="navbar-brand">
                     <small>
                         <i class="fa fa-leaf"></i>
-                        代调课系统
+                       工作家管理系统
                     </small>
                 </a>
 
@@ -219,7 +219,7 @@
 
         <ul class="nav nav-list">
             <li class="active">
-                <a href="index.html">
+                <a href="<?php echo url('index/index'); ?>">
                     <i class="menu-icon fa fa-tachometer"></i>
                     <span class="menu-text"> 控制台 </span>
                 </a>
@@ -231,7 +231,7 @@
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-desktop"></i>
                     <span class="menu-text">
-								基本设置
+								用户管理
 							</span>
 
                     <b class="arrow fa fa-angle-down"></b>
@@ -242,57 +242,37 @@
                 <ul class="submenu">
 
                     <li class="">
-                        <a href="typography.html">
+                        <a href="<?php echo url('user/user_business'); ?>">
                             <i class="menu-icon fa fa-caret-right"></i>
-                            班级信息
+                            商家用户
                         </a>
 
                         <b class="arrow"></b>
                     </li>
 
                     <li class="">
-                        <a href="elements.html">
+                        <a href="<?php echo url('user/user_common'); ?>">
                             <i class="menu-icon fa fa-caret-right"></i>
-                            学年学期
+                           普通用户
                         </a>
 
                         <b class="arrow"></b>
                     </li>
-
                     <li class="">
-                        <a href="buttons.html">
+                        <a href="<?php echo url('user/index'); ?>">
                             <i class="menu-icon fa fa-caret-right"></i>
-                           作息时间
+                           系统用户
                         </a>
 
                         <b class="arrow"></b>
                     </li>
-
-                    <li class="">
-                        <a href="content-slider.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                           课程信息
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="">
-                        <a href="treeview.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                           任教信息
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
                 </ul>
             </li>
 
             <li class="">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-list"></i>
-                    <span class="menu-text"> 我的日程 </span>
+                    <span class="menu-text"> 意见管理 </span>
 
                     <b class="arrow fa fa-angle-down"></b>
                 </a>
@@ -303,16 +283,29 @@
                     <li class="">
                         <a href="tables.html">
                             <i class="menu-icon fa fa-caret-right"></i>
-                            我的课表
+                            意见反馈
                         </a>
 
                         <b class="arrow"></b>
                     </li>
+                </ul>
+            </li>
 
+            <li class="">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-list"></i>
+                    <span class="menu-text"> 黑名单管理 </span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
                     <li class="">
-                        <a href="jqgrid.html">
+                        <a href="tables.html">
                             <i class="menu-icon fa fa-caret-right"></i>
-                            调课情况
+                            黑名单列表
                         </a>
 
                         <b class="arrow"></b>
@@ -323,7 +316,7 @@
             <li class="">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-pencil-square-o"></i>
-                    <span class="menu-text"> 班级课表 </span>
+                    <span class="menu-text"> 消息管理 </span>
 
                     <b class="arrow fa fa-angle-down"></b>
                 </a>
@@ -334,26 +327,18 @@
                     <li class="">
                         <a href="form-elements.html">
                             <i class="menu-icon fa fa-caret-right"></i>
-                            原始课表
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="">
-                        <a href="form-elements-2.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                           实时班课表
+                            消息推送列表
                         </a>
 
                         <b class="arrow"></b>
                     </li>
                 </ul>
             </li>
+
             <li class="">
                 <a href="#" class="dropdown-toggle">
-                    <i class="menu-icon fa fa-pencil-square-o"></i>
-                    <span class="menu-text"> 调代课申请 </span>
+                    <i class="menu-icon fa fa-list-alt"></i>
+                    <span class="menu-text">金额明细</span>
 
                     <b class="arrow fa fa-angle-down"></b>
                 </a>
@@ -364,16 +349,7 @@
                     <li class="">
                         <a href="form-elements.html">
                             <i class="menu-icon fa fa-caret-right"></i>
-                            代课申请
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="">
-                        <a href="form-elements-2.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            调课申请
+                            明细列表
                         </a>
 
                         <b class="arrow"></b>
@@ -382,8 +358,8 @@
             </li>
             <li class="">
                 <a href="#" class="dropdown-toggle">
-                    <i class="menu-icon fa fa-pencil-square-o"></i>
-                    <span class="menu-text"> 用户管理 </span>
+                    <i class="menu-icon fa fa-tag"></i>
+                    <span class="menu-text"> 招聘管理 </span>
 
                     <b class="arrow fa fa-angle-down"></b>
                 </a>
@@ -392,18 +368,74 @@
 
                 <ul class="submenu">
                     <li class="">
-                        <a href="<?php echo url('rbac/index'); ?>">
+                        <a href="profile.html">
                             <i class="menu-icon fa fa-caret-right"></i>
-                            角色管理
+                          在招职位
                         </a>
 
                         <b class="arrow"></b>
                     </li>
-
                     <li class="">
-                        <a href="<?php echo url('user/index'); ?>">
+                        <a href="profile.html">
                             <i class="menu-icon fa fa-caret-right"></i>
-                            系统用户
+                            关闭职位
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>
+            <li class="">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-tag"></i>
+                    <span class="menu-text"> 商铺(房)管理 </span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="">
+                        <a href="profile.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            发布中
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="">
+                        <a href="profile.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            已关闭
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>
+            <li class="">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-tag"></i>
+                    <span class="menu-text"> 二手车 </span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="">
+                        <a href="profile.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            发布中
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="">
+                        <a href="profile.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            已关闭
                         </a>
 
                         <b class="arrow"></b>
@@ -413,8 +445,11 @@
 
             <li class="">
                 <a href="#" class="dropdown-toggle">
-                    <i class="menu-icon fa fa-pencil-square-o"></i>
-                    <span class="menu-text"> 菜单管理 </span>
+                    <i class="menu-icon fa fa-file-o"></i>
+
+                    <span class="menu-text">
+								资料管理
+							</span>
 
                     <b class="arrow fa fa-angle-down"></b>
                 </a>
@@ -423,24 +458,53 @@
 
                 <ul class="submenu">
                     <li class="">
-                        <a href="<?php echo url('menu/index'); ?>">
+                        <a href="faq.html">
                             <i class="menu-icon fa fa-caret-right"></i>
-                           菜单列表
+                           资料审核
                         </a>
 
                         <b class="arrow"></b>
                     </li>
 
                     <li class="">
-                        <a href="<?php echo url('menu/add'); ?>">
+                        <a href="error-404.html">
                             <i class="menu-icon fa fa-caret-right"></i>
-                            添加菜单
+                            Error 404
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+
+                    <li class="">
+                        <a href="error-500.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Error 500
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+
+                    <li class="">
+                        <a href="grid.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Grid
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+
+                    <li class="">
+                        <a href="blank.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Blank Page
                         </a>
 
                         <b class="arrow"></b>
                     </li>
                 </ul>
             </li>
+
+
         </ul><!-- /.nav-list -->
 
         <!-- #section:basics/sidebar.layout.minimize -->

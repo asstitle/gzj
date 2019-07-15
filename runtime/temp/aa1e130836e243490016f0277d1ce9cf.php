@@ -1,10 +1,10 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:61:"D:\wamp\www\xy\public/../application/xyb\view\user\index.html";i:1562840357;s:52:"D:\wamp\www\xy\application\xyb\view\Public\head.html";i:1562901696;s:54:"D:\wamp\www\xy\application\xyb\view\Public\header.html";i:1562915826;s:55:"D:\wamp\www\xy\application\xyb\view\Public\sidebar.html";i:1562923236;s:59:"D:\wamp\www\xy\application\xyb\view\Public\breadcrumbs.html";i:1562840357;s:51:"D:\wamp\www\xy\application\xyb\view\Public\set.html";i:1562840357;s:54:"D:\wamp\www\xy\application\xyb\view\Public\footer.html";i:1562840357;s:56:"D:\wamp\www\xy\application\xyb\view\Public\footerjs.html";i:1562897379;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:61:"D:\wamp\www\xy\public/../application/xyb\view\user\index.html";i:1562840357;s:52:"D:\wamp\www\xy\application\xyb\view\Public\head.html";i:1563182361;s:54:"D:\wamp\www\xy\application\xyb\view\Public\header.html";i:1563182398;s:55:"D:\wamp\www\xy\application\xyb\view\Public\sidebar.html";i:1563182779;s:59:"D:\wamp\www\xy\application\xyb\view\Public\breadcrumbs.html";i:1562840357;s:51:"D:\wamp\www\xy\application\xyb\view\Public\set.html";i:1562840357;s:54:"D:\wamp\www\xy\application\xyb\view\Public\footer.html";i:1562840357;s:56:"D:\wamp\www\xy\application\xyb\view\Public\footerjs.html";i:1562897379;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta charset="utf-8"/>
-    <title>代调课系统</title>
+    <title>工作家</title>
 
     <meta name="keywords" content=""/>
     <meta name="description" content=""/>
@@ -81,7 +81,7 @@
                 <a href="{:Url('index/index')}" class="navbar-brand">
                     <small>
                         <i class="fa fa-leaf"></i>
-                        代调课系统
+                       工作家管理系统
                     </small>
                 </a>
 
@@ -219,41 +219,290 @@
 
         <ul class="nav nav-list">
             <li class="active">
-                <a href="index.html">
+                <a href="<?php echo url('index/index'); ?>">
                     <i class="menu-icon fa fa-tachometer"></i>
                     <span class="menu-text"> 控制台 </span>
                 </a>
 
                 <b class="arrow"></b>
             </li>
-             <?php if(is_array($menus) || $menus instanceof \think\Collection || $menus instanceof \think\Paginator): $i = 0; $__LIST__ = $menus;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$v): $mod = ($i % 2 );++$i;?>
+
             <li class="">
-                <a href="<?php echo $v['name']; ?>" class="dropdown-toggle">
+                <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-desktop"></i>
                     <span class="menu-text">
-								<?php echo $v['title']; ?>
+								用户管理
 							</span>
 
                     <b class="arrow fa fa-angle-down"></b>
                 </a>
-                <?php if(!(empty($v['children']) || (($v['children'] instanceof \think\Collection || $v['children'] instanceof \think\Paginator ) && $v['children']->isEmpty()))): ?>
+
                 <b class="arrow"></b>
 
                 <ul class="submenu">
-                    <?php if(is_array($v['children']) || $v['children'] instanceof \think\Collection || $v['children'] instanceof \think\Paginator): $i = 0; $__LIST__ = $v['children'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vv): $mod = ($i % 2 );++$i;?>
+
                     <li class="">
-                        <a href="<?php echo $vv['name']; ?>">
+                        <a href="<?php echo url('user/user_business'); ?>">
                             <i class="menu-icon fa fa-caret-right"></i>
-                            <?php echo $vv['title']; ?>
+                            商家用户
                         </a>
 
                         <b class="arrow"></b>
                     </li>
-                    <?php endforeach; endif; else: echo "" ;endif; ?>
+
+                    <li class="">
+                        <a href="<?php echo url('user/user_common'); ?>">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                           普通用户
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="">
+                        <a href="<?php echo url('user/index'); ?>">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                           系统用户
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
                 </ul>
-                <?php endif; ?>
             </li>
-             <?php endforeach; endif; else: echo "" ;endif; ?>
+
+            <li class="">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-list"></i>
+                    <span class="menu-text"> 意见管理 </span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="">
+                        <a href="tables.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            意见反馈
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-list"></i>
+                    <span class="menu-text"> 黑名单管理 </span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="">
+                        <a href="tables.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            黑名单列表
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-pencil-square-o"></i>
+                    <span class="menu-text"> 消息管理 </span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="">
+                        <a href="form-elements.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            消息推送列表
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-list-alt"></i>
+                    <span class="menu-text">金额明细</span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="">
+                        <a href="form-elements.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            明细列表
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>
+            <li class="">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-tag"></i>
+                    <span class="menu-text"> 招聘管理 </span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="">
+                        <a href="profile.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                          在招职位
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="">
+                        <a href="profile.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            关闭职位
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>
+            <li class="">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-tag"></i>
+                    <span class="menu-text"> 商铺(房)管理 </span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="">
+                        <a href="profile.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            发布中
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="">
+                        <a href="profile.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            已关闭
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>
+            <li class="">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-tag"></i>
+                    <span class="menu-text"> 二手车 </span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="">
+                        <a href="profile.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            发布中
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="">
+                        <a href="profile.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            已关闭
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-file-o"></i>
+
+                    <span class="menu-text">
+								资料管理
+							</span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="">
+                        <a href="faq.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                           资料审核
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+
+                    <li class="">
+                        <a href="error-404.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Error 404
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+
+                    <li class="">
+                        <a href="error-500.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Error 500
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+
+                    <li class="">
+                        <a href="grid.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Grid
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+
+                    <li class="">
+                        <a href="blank.html">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Blank Page
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>
 
 
         </ul><!-- /.nav-list -->

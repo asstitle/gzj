@@ -1,11 +1,11 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:62:"D:\wamp\www\xy\public/../application/xyb\view\login\index.html";i:1562913739;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:62:"D:\wamp\www\xy\public/../application/xyb\view\login\index.html";i:1563178897;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>代调课系统</title>
-    <meta name="keywords" content="代调课系统" />
-    <meta name="description" content="代调课系统" />
+    <title>工作家后台管理系统</title>
+    <meta name="keywords" content="工作家后台管理系统" />
+    <meta name="description" content="工作家后台管理系统" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- basic styles -->
@@ -75,7 +75,7 @@
                 <div class="login-container">
                     <div class="center">
                         <h1>
-                            <span class="white" style="font-size: 20px;">红花山小学</span>
+                            <span class="white" style="font-size: 20px;">工作家</span>
                         </h1>
                     </div>
 
