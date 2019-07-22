@@ -245,6 +245,7 @@ return [
     ],
     //MD5加密
     'MD5_KEY' => 'hhs!@#$',
+    'api_KEY' => 'g^&z++j$$',
     //验证码
     'captcha'  => [
         // 是否画混淆曲线
