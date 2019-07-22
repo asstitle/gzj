@@ -1982,22 +1982,22 @@ pre.prettyprint {
 .sidebar {
   width: 190px;
   float: left;
-  position: static;
-  padding-left: 0;
-  padding-right: 0;
+  position: relative;
+  border: 1px solid #ccc;
+  border-width: 0 1px 0 0;
+  background-color: #f2f2f2;
 }
 .sidebar:before {
   content: "";
   display: block;
-  width: inherit;
-  position: absolute;
-  top: 0;
+  width: 190px;
+  position: fixed;
   bottom: 0;
+  top: 0;
   z-index: -1;
-  background-color: inherit;
-  border-style: inherit;
-  border-color: inherit;
-  border-width: inherit;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  border-width: 0 1px 0 0;
 }
 /**li .@{icon} {
  & , .nav-list & {

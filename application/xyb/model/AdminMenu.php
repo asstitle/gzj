@@ -106,7 +106,6 @@ class AdminMenu extends Model
                     $params = "?" . htmlspecialchars_decode($a['param']);
                 }
 
-
                 $url = url("{$app}/{$controller}/{$action}{$params}");
 
                 $app = str_replace('/', '_', $app);

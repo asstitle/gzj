@@ -2,7 +2,7 @@
 
 namespace app\xyb\Controller;
 
-use app\common\Controller\Base;
+use app\common\controller\Base;
 
 class Suggest extends Base
 {

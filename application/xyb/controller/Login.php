@@ -28,7 +28,7 @@ class Login extends Controller
                   Db::name('user')->where(array('id'=>$info['id']))->update(array('last_login_time'=>time()));
                   session('id',$info['id']);
                   session('uname',$info['user_login']);
-                  $this->success('登录成功','/','',1);
+                  $this->success('登录成功','/xyb/index/index','',1);
               }
           }
       }else{

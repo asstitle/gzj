@@ -1,0 +1,117 @@
+{include file="Public/head"/}
+<body class="no-skin">
+{include file="Public/header"/}
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('main-container', 'fixed')
+        } catch (e) {
+        }
+    </script>
+    {include file="Public/sidebar"/}
+    <div class="main-content">
+        <div class="main-content-inner">
+            <!-- #section:basics/content.breadcrumbs -->
+            {include file="Public/breadcrumbs" /}
+
+            <!-- /section:basics/content.breadcrumbs -->
+            <div class="page-content">
+
+                {include file="Public/set"/}
+
+                <!-- /section:settings.box -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="tabbable">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a>已关闭</a></li>
+                                    </ul>
+                                    <div style="margin-top: 20px;"></div>
+                                    <form action="" method="post" class="margin-top-20">
+                                        <table class="table table-hover table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th width="40">ID</th>
+                                                <th align="left">公司名称</th>
+                                                <th align="left">汽车品牌</th>
+                                                <th align="left">车型</th>
+                                                <th align="left">年限</th>
+                                                <th align="left">公里数</th>
+                                                <th align="left">手动/自动</th>
+                                                <th align="left">颜色</th>
+                                                <th align="left">价格</th>
+                                                <th align="left">汽车图片</th>
+                                                <th align="left">发布时间</th>
+                                                <th width="160">操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>信息公司</td>
+                                                <td>大众</td>
+                                                <td>SUV</td>
+                                                <td>3年</td>
+                                                <td>10000KM</td>
+                                                <td>自动</td>
+                                                <td>黑色</td>
+                                                <td>10w</td>
+                                                <td><img src="./1.jpg"/></td>
+                                                <td>2019-7-11</td>
+                                                <th width="160"><a>编辑</a>|<a>删除</a></th>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>信息公司</td>
+                                                <td>大众</td>
+                                                <td>SUV</td>
+                                                <td>3年</td>
+                                                <td>10000KM</td>
+                                                <td>自动</td>
+                                                <td>黑色</td>
+                                                <td>10w</td>
+                                                <td><img src="./1.jpg"/></td>
+                                                <td>2019-7-11</td>
+                                                <th width="160"><a>编辑</a>|<a>删除</a></th>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>信息公司</td>
+                                                <td>大众</td>
+                                                <td>SUV</td>
+                                                <td>3年</td>
+                                                <td>10000KM</td>
+                                                <td>自动</td>
+                                                <td>黑色</td>
+                                                <td>10w</td>
+                                                <td><img src="./1.jpg"/></td>
+                                                <td>2019-7-11</td>
+                                                <th width="160"><a>编辑</a>|<a>删除</a></th>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </form>
+
+                                    <!-- /.tab-content -->
+                                </div><!-- /.tabbable -->
+                            </div><!-- /.col -->
+                        </div><!-- /.row -->
+
+                        <!-- PAGE CONTENT ENDS -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.page-content -->
+        </div>
+    </div><!-- /.main-content -->
+
+    {include file="Public/footer"/}
+
+</div><!-- /.main-container -->
+
+{include file="Public/footerjs"/}
+<!-- inline scripts related to this page -->
+</body>
+</html>

@@ -1,4 +1,5 @@
-    <!-- #section:basics/sidebar -->
+<div class="bg_div"></div>
+<!-- #section:basics/sidebar -->
     <div id="sidebar" class="sidebar responsive">
         <script type="text/javascript">
             try {
@@ -41,7 +42,7 @@
         </div><!-- /.sidebar-shortcuts -->
 
         <ul class="nav nav-list">
-            <li class="active">
+            <!--<li class="active">
                 <a href="<{:url('index/index')}>">
                     <i class="menu-icon fa fa-tachometer"></i>
                     <span class="menu-text"> 控制台 </span>
@@ -113,51 +114,6 @@
                     </li>
                 </ul>
             </li>
-
-            <li class="">
-                <a href="#" class="dropdown-toggle">
-                    <i class="menu-icon fa fa-list"></i>
-                    <span class="menu-text"> 黑名单管理 </span>
-
-                    <b class="arrow fa fa-angle-down"></b>
-                </a>
-
-                <b class="arrow"></b>
-
-                <ul class="submenu">
-                    <li class="">
-                        <a href="tables.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            黑名单列表
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="">
-                <a href="#" class="dropdown-toggle">
-                    <i class="menu-icon fa fa-pencil-square-o"></i>
-                    <span class="menu-text"> 消息管理 </span>
-
-                    <b class="arrow fa fa-angle-down"></b>
-                </a>
-
-                <b class="arrow"></b>
-
-                <ul class="submenu">
-                    <li class="">
-                        <a href="form-elements.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            消息推送列表
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-                </ul>
-            </li>
-
             <li class="">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-list-alt"></i>
@@ -170,7 +126,7 @@
 
                 <ul class="submenu">
                     <li class="">
-                        <a href="form-elements.html">
+                        <a href="<{:url('consume/info')}>">
                             <i class="menu-icon fa fa-caret-right"></i>
                             明细列表
                         </a>
@@ -191,7 +147,7 @@
 
                 <ul class="submenu">
                     <li class="">
-                        <a href="profile.html">
+                        <a href="<{:url('recruit/release')}>">
                             <i class="menu-icon fa fa-caret-right"></i>
                           在招职位
                         </a>
@@ -199,7 +155,7 @@
                         <b class="arrow"></b>
                     </li>
                     <li class="">
-                        <a href="profile.html">
+                        <a href="<{:url('recruit/closed')}>">
                             <i class="menu-icon fa fa-caret-right"></i>
                             关闭职位
                         </a>
@@ -219,7 +175,7 @@
 
                 <ul class="submenu">
                     <li class="">
-                        <a href="profile.html">
+                        <a href="<{:url('shops/release')}>">
                             <i class="menu-icon fa fa-caret-right"></i>
                             发布中
                         </a>
@@ -227,7 +183,7 @@
                         <b class="arrow"></b>
                     </li>
                     <li class="">
-                        <a href="profile.html">
+                        <a href="<{:url('shops/closed')}>">
                             <i class="menu-icon fa fa-caret-right"></i>
                             已关闭
                         </a>
@@ -248,7 +204,7 @@
 
                 <ul class="submenu">
                     <li class="">
-                        <a href="profile.html">
+                        <a href="<{:url('car/release')}>">
                             <i class="menu-icon fa fa-caret-right"></i>
                             发布中
                         </a>
@@ -256,7 +212,7 @@
                         <b class="arrow"></b>
                     </li>
                     <li class="">
-                        <a href="profile.html">
+                        <a href="<{:url('car/closed')}>">
                             <i class="menu-icon fa fa-caret-right"></i>
                             已关闭
                         </a>
@@ -281,9 +237,17 @@
 
                 <ul class="submenu">
                     <li class="">
-                        <a href="faq.html">
+                        <a href="<{:url('profile/enterprise_info')}>">
                             <i class="menu-icon fa fa-caret-right"></i>
-                           资料审核
+                           公司资料审核
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="">
+                        <a href="<{:url('profile/person_info')}>">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            个人资料审核
                         </a>
 
                         <b class="arrow"></b>
@@ -291,6 +255,104 @@
                 </ul>
             </li>
 
+            <li class="">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-file-o"></i>
+
+                    <span class="menu-text">
+								菜单管理
+							</span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="">
+                        <a href="<{:url('menu/index')}>">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            菜单列表
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="">
+                        <a href="<{:url('menu/add')}>">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                           添加菜单
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>-->
+            {volist name="menus" id="v"}
+                <li
+                {if condition="($v['id'] eq $current['id']) OR ($v['id'] eq $current['pid']) OR ($v['id'] eq $current['ppid'])"}
+                    class="active
+                    {if condition="$current['pid'] neq '0'"}open{/if}
+                    "
+                {/if}
+                >
+                <a href="{empty name="v.name"}#
+                {else/}
+                <{:url($v['name'])}></a>{/empty}"
+                {notempty name="v.children"}class="dropdown-toggle"{/notempty}
+                >
+                <i class="<{$v.icon}>"></i>
+                <span class="menu-text">
+                                    <{$v.title}>
+                                </span>
+                {notempty name="v.children"}
+                    <b class="arrow fa fa-angle-down"></b>
+                {/notempty}
+                </a>
+
+                <b class="arrow"></b>
+                {notempty name="v.children"}
+                    <ul class="submenu">
+                        {volist name="v.children" id="vv"}
+
+                            <li
+                            {if condition="($vv['id'] eq $current['id']) OR ($vv['id'] eq $current['pid'])"} class="active
+                                {if condition="$current['ppid'] neq '0'"}open{/if}
+                                "
+                            {/if}
+                            >
+                            <a href="{empty name="vv.children"}<{:url($vv['name'])}>
+                            {else/}
+                            #{/empty}"
+                            {notempty name="vv.children"}class="dropdown-toggle"{/notempty}
+                            >
+                            <i class="<{$vv.icon}>"></i>
+                            <{$vv.title}>
+                            {notempty name="vv.children"}<b class="arrow fa fa-angle-down"></b>{/notempty}
+                            </a>
+
+                            <b class="arrow"></b>
+                            {notempty name="vv.children"}
+                                <ul class="submenu">
+                                    {volist name="vv.children" id="vvv"}
+                                        <li
+                                        {if condition="$vvv['id'] eq $current['id']"}class="active"{/if}
+                                        >
+                                        <a href="<{:url($vvv['name'])}>">
+                                            <i class="<{$vvv.icon}>"></i>
+                                            <{$vvv.title}>
+                                        </a>
+                                        <b class="arrow"></b>
+                                        </li>
+                                    {/volist}
+                                </ul>
+                            {/notempty}
+                            </li>
+
+                        {/volist}
+                    </ul>
+                {/notempty}
+                </li>
+            {/volist}
 
         </ul><!-- /.nav-list -->
 

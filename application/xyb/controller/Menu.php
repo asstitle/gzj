@@ -1,6 +1,6 @@
 <?php
 namespace app\xyb\Controller;
-use app\common\Controller\Base;
+use app\common\controller\Base;
 use think\Db;
 use tree\Tree;
 class Menu extends Base

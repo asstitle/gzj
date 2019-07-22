@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:69:"D:\wamp\www\xy\public/../application/xyb\view\user\user_business.html";i:1563183281;s:52:"D:\wamp\www\xy\application\xyb\view\Public\head.html";i:1563182361;s:54:"D:\wamp\www\xy\application\xyb\view\Public\header.html";i:1563182398;s:55:"D:\wamp\www\xy\application\xyb\view\Public\sidebar.html";i:1563183879;s:59:"D:\wamp\www\xy\application\xyb\view\Public\breadcrumbs.html";i:1562840357;s:51:"D:\wamp\www\xy\application\xyb\view\Public\set.html";i:1562840357;s:54:"D:\wamp\www\xy\application\xyb\view\Public\footer.html";i:1562840357;s:56:"D:\wamp\www\xy\application\xyb\view\Public\footerjs.html";i:1562897379;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:69:"D:\wamp\www\xy\public/../application/xyb\view\user\user_business.html";i:1563267075;s:52:"D:\wamp\www\xy\application\xyb\view\Public\head.html";i:1563265628;s:54:"D:\wamp\www\xy\application\xyb\view\Public\header.html";i:1563265812;s:55:"D:\wamp\www\xy\application\xyb\view\Public\sidebar.html";i:1563763737;s:59:"D:\wamp\www\xy\application\xyb\view\Public\breadcrumbs.html";i:1562840357;s:51:"D:\wamp\www\xy\application\xyb\view\Public\set.html";i:1562840357;s:54:"D:\wamp\www\xy\application\xyb\view\Public\footer.html";i:1562840357;s:56:"D:\wamp\www\xy\application\xyb\view\Public\footerjs.html";i:1562897379;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -30,12 +30,15 @@
     <!--[if lte IE 9]>
     <link rel="stylesheet" href="/static//xyb/css/ace-ie.css"/>
 
+
     <![endif]-->
 
     <!-- inline styles related to this page -->
-
+    <link rel="stylesheet" href="/static//xyb/css/common.css"/>
     <!-- ace settings handler -->
     <script src="/static//xyb/js/ace-extra.js"></script>
+    <script src="/static//xyb/js/jquery-1.9.1.min.js"></script>
+    <script src="/static//xyb/layer/layer.js"></script>
 
     <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
 
@@ -54,7 +57,7 @@
     };
 </script>
 <body class="no-skin">
-    <!-- #section:basics/navbar.layout -->
+ <!-- #section:basics/navbar.layout -->
     <div id="navbar" class="navbar navbar-default">
         <script type="text/javascript">
             try {
@@ -175,7 +178,8 @@
         } catch (e) {
         }
     </script>
-        <!-- #section:basics/sidebar -->
+    <div class="bg_div"></div>
+<!-- #section:basics/sidebar -->
     <div id="sidebar" class="sidebar responsive">
         <script type="text/javascript">
             try {
@@ -218,7 +222,7 @@
         </div><!-- /.sidebar-shortcuts -->
 
         <ul class="nav nav-list">
-            <li class="active">
+            <!--<li class="active">
                 <a href="<?php echo url('index/index'); ?>">
                     <i class="menu-icon fa fa-tachometer"></i>
                     <span class="menu-text"> 控制台 </span>
@@ -290,51 +294,6 @@
                     </li>
                 </ul>
             </li>
-
-            <li class="">
-                <a href="#" class="dropdown-toggle">
-                    <i class="menu-icon fa fa-list"></i>
-                    <span class="menu-text"> 黑名单管理 </span>
-
-                    <b class="arrow fa fa-angle-down"></b>
-                </a>
-
-                <b class="arrow"></b>
-
-                <ul class="submenu">
-                    <li class="">
-                        <a href="tables.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            黑名单列表
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="">
-                <a href="#" class="dropdown-toggle">
-                    <i class="menu-icon fa fa-pencil-square-o"></i>
-                    <span class="menu-text"> 消息管理 </span>
-
-                    <b class="arrow fa fa-angle-down"></b>
-                </a>
-
-                <b class="arrow"></b>
-
-                <ul class="submenu">
-                    <li class="">
-                        <a href="form-elements.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            消息推送列表
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-                </ul>
-            </li>
-
             <li class="">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-list-alt"></i>
@@ -347,7 +306,7 @@
 
                 <ul class="submenu">
                     <li class="">
-                        <a href="form-elements.html">
+                        <a href="<?php echo url('consume/info'); ?>">
                             <i class="menu-icon fa fa-caret-right"></i>
                             明细列表
                         </a>
@@ -368,7 +327,7 @@
 
                 <ul class="submenu">
                     <li class="">
-                        <a href="profile.html">
+                        <a href="<?php echo url('recruit/release'); ?>">
                             <i class="menu-icon fa fa-caret-right"></i>
                           在招职位
                         </a>
@@ -376,7 +335,7 @@
                         <b class="arrow"></b>
                     </li>
                     <li class="">
-                        <a href="profile.html">
+                        <a href="<?php echo url('recruit/closed'); ?>">
                             <i class="menu-icon fa fa-caret-right"></i>
                             关闭职位
                         </a>
@@ -396,7 +355,7 @@
 
                 <ul class="submenu">
                     <li class="">
-                        <a href="profile.html">
+                        <a href="<?php echo url('shops/release'); ?>">
                             <i class="menu-icon fa fa-caret-right"></i>
                             发布中
                         </a>
@@ -404,7 +363,7 @@
                         <b class="arrow"></b>
                     </li>
                     <li class="">
-                        <a href="profile.html">
+                        <a href="<?php echo url('shops/closed'); ?>">
                             <i class="menu-icon fa fa-caret-right"></i>
                             已关闭
                         </a>
@@ -425,7 +384,7 @@
 
                 <ul class="submenu">
                     <li class="">
-                        <a href="profile.html">
+                        <a href="<?php echo url('car/release'); ?>">
                             <i class="menu-icon fa fa-caret-right"></i>
                             发布中
                         </a>
@@ -433,7 +392,7 @@
                         <b class="arrow"></b>
                     </li>
                     <li class="">
-                        <a href="profile.html">
+                        <a href="<?php echo url('car/closed'); ?>">
                             <i class="menu-icon fa fa-caret-right"></i>
                             已关闭
                         </a>
@@ -458,9 +417,17 @@
 
                 <ul class="submenu">
                     <li class="">
-                        <a href="faq.html">
+                        <a href="<?php echo url('profile/enterprise_info'); ?>">
                             <i class="menu-icon fa fa-caret-right"></i>
-                           资料审核
+                           公司资料审核
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="">
+                        <a href="<?php echo url('profile/person_info'); ?>">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            个人资料审核
                         </a>
 
                         <b class="arrow"></b>
@@ -468,6 +435,102 @@
                 </ul>
             </li>
 
+            <li class="">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-file-o"></i>
+
+                    <span class="menu-text">
+								菜单管理
+							</span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="">
+                        <a href="<?php echo url('menu/index'); ?>">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            菜单列表
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="">
+                        <a href="<?php echo url('menu/add'); ?>">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                           添加菜单
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>-->
+            <?php if(is_array($menus) || $menus instanceof \think\Collection || $menus instanceof \think\Paginator): $i = 0; $__LIST__ = $menus;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$v): $mod = ($i % 2 );++$i;?>
+                <li
+                <?php if(($v['id'] == $current['id']) OR ($v['id'] == $current['pid']) OR ($v['id'] == $current['ppid'])): ?>
+                    class="active
+                    <?php if($current['pid'] != '0'): ?>open<?php endif; ?>
+                    "
+                <?php endif; ?>
+                >
+                <a href="<?php if(empty($v['name']) || (($v['name'] instanceof \think\Collection || $v['name'] instanceof \think\Paginator ) && $v['name']->isEmpty())): ?>#
+                <?php else: ?>
+                <?php echo url($v['name']); ?></a><?php endif; ?>"
+                <?php if(!(empty($v['children']) || (($v['children'] instanceof \think\Collection || $v['children'] instanceof \think\Paginator ) && $v['children']->isEmpty()))): ?>class="dropdown-toggle"<?php endif; ?>
+                >
+                <i class="<?php echo $v['icon']; ?>"></i>
+                <span class="menu-text">
+                                    <?php echo $v['title']; ?>
+                                </span>
+                <?php if(!(empty($v['children']) || (($v['children'] instanceof \think\Collection || $v['children'] instanceof \think\Paginator ) && $v['children']->isEmpty()))): ?>
+                    <b class="arrow fa fa-angle-down"></b>
+                <?php endif; ?>
+                </a>
+
+                <b class="arrow"></b>
+                <?php if(!(empty($v['children']) || (($v['children'] instanceof \think\Collection || $v['children'] instanceof \think\Paginator ) && $v['children']->isEmpty()))): ?>
+                    <ul class="submenu">
+                        <?php if(is_array($v['children']) || $v['children'] instanceof \think\Collection || $v['children'] instanceof \think\Paginator): $i = 0; $__LIST__ = $v['children'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vv): $mod = ($i % 2 );++$i;?>
+
+                            <li
+                            <?php if(($vv['id'] == $current['id']) OR ($vv['id'] == $current['pid'])): ?> class="active
+                                <?php if($current['ppid'] != '0'): ?>open<?php endif; ?>
+                                "
+                            <?php endif; ?>
+                            >
+                            <a href="<?php if(empty($vv['children']) || (($vv['children'] instanceof \think\Collection || $vv['children'] instanceof \think\Paginator ) && $vv['children']->isEmpty())): ?><?php echo url($vv['name']); else: ?>
+                            #<?php endif; ?>"
+                            <?php if(!(empty($vv['children']) || (($vv['children'] instanceof \think\Collection || $vv['children'] instanceof \think\Paginator ) && $vv['children']->isEmpty()))): ?>class="dropdown-toggle"<?php endif; ?>
+                            >
+                            <i class="<?php echo $vv['icon']; ?>"></i>
+                            <?php echo $vv['title']; if(!(empty($vv['children']) || (($vv['children'] instanceof \think\Collection || $vv['children'] instanceof \think\Paginator ) && $vv['children']->isEmpty()))): ?><b class="arrow fa fa-angle-down"></b><?php endif; ?>
+                            </a>
+
+                            <b class="arrow"></b>
+                            <?php if(!(empty($vv['children']) || (($vv['children'] instanceof \think\Collection || $vv['children'] instanceof \think\Paginator ) && $vv['children']->isEmpty()))): ?>
+                                <ul class="submenu">
+                                    <?php if(is_array($vv['children']) || $vv['children'] instanceof \think\Collection || $vv['children'] instanceof \think\Paginator): $i = 0; $__LIST__ = $vv['children'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vvv): $mod = ($i % 2 );++$i;?>
+                                        <li
+                                        <?php if($vvv['id'] == $current['id']): ?>class="active"<?php endif; ?>
+                                        >
+                                        <a href="<?php echo url($vvv['name']); ?>">
+                                            <i class="<?php echo $vvv['icon']; ?>"></i>
+                                            <?php echo $vvv['title']; ?>
+                                        </a>
+                                        <b class="arrow"></b>
+                                        </li>
+                                    <?php endforeach; endif; else: echo "" ;endif; ?>
+                                </ul>
+                            <?php endif; ?>
+                            </li>
+
+                        <?php endforeach; endif; else: echo "" ;endif; ?>
+                    </ul>
+                <?php endif; ?>
+                </li>
+            <?php endforeach; endif; else: echo "" ;endif; ?>
 
         </ul><!-- /.nav-list -->
 
@@ -633,7 +696,7 @@
                                                   <td>商家</td>
                                                   <td>是</td>
                                                   <td>待审核</td>
-                                                  <td>查看</td>
+                                                  <td><span class="cat_info" value="<?php echo url('user/user_cat_info'); ?>" title="详情">查看</span></td>
                                                   <td><a>编辑</a></td>
                                               </tr>
                                               <tr>
@@ -644,7 +707,7 @@
                                                   <td>个人</td>
                                                   <td>是</td>
                                                   <td>待审核</td>
-                                                  <td>查看</td>
+                                                  <td><span class="cat_info" value="<?php echo url('user/user_cat_info'); ?>" title="详情">查看</span></td>
                                                   <td><a>编辑</a></td>
                                               </tr>
                                             </tbody>
@@ -720,3 +783,24 @@
 <!-- inline scripts related to this page -->
 </body>
 </html>
+<script>
+    $('.cat_info').click(function(){
+        var url = $(this).attr('value');
+        var title = $(this).attr('title');
+        $('.bg_div').fadeIn();
+        layer.open({
+            title: title,
+            type: 2,
+            area: ['70%', '90%'],
+            fix: true, //固定
+            maxmin: false,
+//                      scrollbar: false,
+//                      move: false,
+            shade: 0,
+            content: url,
+            end: function(){
+                $('.bg_div').fadeOut();
+            }
+        });
+    });
+</script>

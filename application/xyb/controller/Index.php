@@ -1,7 +1,7 @@
 <?php
 
 namespace app\xyb\Controller;
-use app\common\Controller\Base;
+use app\common\controller\Base;
 
 class Index extends Base
 {

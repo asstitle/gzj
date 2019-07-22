@@ -1,8 +1,7 @@
 <?php
 
 namespace app\xyb\Controller;
-
-use app\common\Controller\Base;
+use app\common\controller\Base;
 use think\Db;
 class User extends Base
 {
@@ -59,5 +58,9 @@ class User extends Base
            } else {
                $this->error("请为此用户指定角色！");
            }
+   }
+   //查看用户详细信息
+   public function user_cat_info(){
+        return $this->fetch();
    }
 }

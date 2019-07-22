@@ -54,7 +54,7 @@
                                                   <td>商家</td>
                                                   <td>是</td>
                                                   <td>待审核</td>
-                                                  <td>查看</td>
+                                                  <td><span class="cat_info" value="<{:url('user/user_cat_info')}>" title="详情">查看</span></td>
                                                   <td><a>编辑</a></td>
                                               </tr>
                                               <tr>
@@ -65,7 +65,7 @@
                                                   <td>个人</td>
                                                   <td>是</td>
                                                   <td>待审核</td>
-                                                  <td>查看</td>
+                                                  <td><span class="cat_info" value="<{:url('user/user_cat_info')}>" title="详情">查看</span></td>
                                                   <td><a>编辑</a></td>
                                               </tr>
                                             </tbody>
@@ -92,3 +92,24 @@
 <!-- inline scripts related to this page -->
 </body>
 </html>
+<script>
+    $('.cat_info').click(function(){
+        var url = $(this).attr('value');
+        var title = $(this).attr('title');
+        $('.bg_div').fadeIn();
+        layer.open({
+            title: title,
+            type: 2,
+            area: ['70%', '90%'],
+            fix: true, //固定
+            maxmin: false,
+//                      scrollbar: false,
+//                      move: false,
+            shade: 0,
+            content: url,
+            end: function(){
+                $('.bg_div').fadeOut();
+            }
+        });
+    });
+</script>
