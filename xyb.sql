@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2019-07-11 17:54:06
+Date: 2019-07-22 11:03:36
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -24,199 +24,48 @@ CREATE TABLE `xyb_admin_menu` (
   `parent_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '父菜单id',
   `type` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '菜单类型;1:有界面可访问菜单,2:无界面可访问菜单,0:只作为菜单',
   `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '状态;1:显示,0:不显示',
-  `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
+  `list_order` float NOT NULL DEFAULT '0' COMMENT '排序',
   `app` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '应用名',
   `controller` varchar(30) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '控制器名',
   `action` varchar(30) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '操作名称',
   `param` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '额外参数',
   `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '菜单名称',
-  `icon` varchar(20) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '菜单图标',
+  `icon` varchar(60) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '菜单图标',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`id`),
   KEY `status` (`status`),
   KEY `parent_id` (`parent_id`),
   KEY `controller` (`controller`)
-) ENGINE=InnoDB AUTO_INCREMENT=177 DEFAULT CHARSET=utf8mb4 COMMENT='后台菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COMMENT='后台菜单表';
 
 -- ----------------------------
 -- Records of xyb_admin_menu
 -- ----------------------------
-INSERT INTO `xyb_admin_menu` VALUES ('1', '0', '0', '0', '20', 'admin', 'Plugin', 'default', '', '插件中心', 'cloud', '插件中心');
-INSERT INTO `xyb_admin_menu` VALUES ('2', '1', '1', '1', '10000', 'admin', 'Hook', 'index', '', '钩子管理', '', '钩子管理');
-INSERT INTO `xyb_admin_menu` VALUES ('3', '2', '1', '0', '10000', 'admin', 'Hook', 'plugins', '', '钩子插件管理', '', '钩子插件管理');
-INSERT INTO `xyb_admin_menu` VALUES ('4', '2', '2', '0', '10000', 'admin', 'Hook', 'pluginListOrder', '', '钩子插件排序', '', '钩子插件排序');
-INSERT INTO `xyb_admin_menu` VALUES ('5', '2', '1', '0', '10000', 'admin', 'Hook', 'sync', '', '同步钩子', '', '同步钩子');
-INSERT INTO `xyb_admin_menu` VALUES ('6', '0', '0', '1', '0', 'admin', 'Setting', 'default', '', '设置', 'cogs', '系统设置入口');
-INSERT INTO `xyb_admin_menu` VALUES ('7', '6', '1', '0', '50', 'admin', 'Link', 'index', '', '友情链接', '', '友情链接管理');
-INSERT INTO `xyb_admin_menu` VALUES ('8', '7', '1', '0', '10000', 'admin', 'Link', 'add', '', '添加友情链接', '', '添加友情链接');
-INSERT INTO `xyb_admin_menu` VALUES ('9', '7', '2', '0', '10000', 'admin', 'Link', 'addPost', '', '添加友情链接提交保存', '', '添加友情链接提交保存');
-INSERT INTO `xyb_admin_menu` VALUES ('10', '7', '1', '0', '10000', 'admin', 'Link', 'edit', '', '编辑友情链接', '', '编辑友情链接');
-INSERT INTO `xyb_admin_menu` VALUES ('11', '7', '2', '0', '10000', 'admin', 'Link', 'editPost', '', '编辑友情链接提交保存', '', '编辑友情链接提交保存');
-INSERT INTO `xyb_admin_menu` VALUES ('12', '7', '2', '0', '10000', 'admin', 'Link', 'delete', '', '删除友情链接', '', '删除友情链接');
-INSERT INTO `xyb_admin_menu` VALUES ('13', '7', '2', '0', '10000', 'admin', 'Link', 'listOrder', '', '友情链接排序', '', '友情链接排序');
-INSERT INTO `xyb_admin_menu` VALUES ('14', '7', '2', '0', '10000', 'admin', 'Link', 'toggle', '', '友情链接显示隐藏', '', '友情链接显示隐藏');
-INSERT INTO `xyb_admin_menu` VALUES ('15', '6', '1', '0', '10', 'admin', 'Mailer', 'index', '', '邮箱配置', '', '邮箱配置');
-INSERT INTO `xyb_admin_menu` VALUES ('16', '15', '2', '0', '10000', 'admin', 'Mailer', 'indexPost', '', '邮箱配置提交保存', '', '邮箱配置提交保存');
-INSERT INTO `xyb_admin_menu` VALUES ('17', '15', '1', '0', '10000', 'admin', 'Mailer', 'template', '', '邮件模板', '', '邮件模板');
-INSERT INTO `xyb_admin_menu` VALUES ('18', '15', '2', '0', '10000', 'admin', 'Mailer', 'templatePost', '', '邮件模板提交', '', '邮件模板提交');
-INSERT INTO `xyb_admin_menu` VALUES ('19', '15', '1', '0', '10000', 'admin', 'Mailer', 'test', '', '邮件发送测试', '', '邮件发送测试');
-INSERT INTO `xyb_admin_menu` VALUES ('20', '6', '1', '0', '10000', 'admin', 'Menu', 'index', '', '后台菜单', '', '后台菜单管理');
-INSERT INTO `xyb_admin_menu` VALUES ('21', '20', '1', '0', '10000', 'admin', 'Menu', 'lists', '', '所有菜单', '', '后台所有菜单列表');
-INSERT INTO `xyb_admin_menu` VALUES ('22', '20', '1', '0', '10000', 'admin', 'Menu', 'add', '', '后台菜单添加', '', '后台菜单添加');
-INSERT INTO `xyb_admin_menu` VALUES ('23', '20', '2', '0', '10000', 'admin', 'Menu', 'addPost', '', '后台菜单添加提交保存', '', '后台菜单添加提交保存');
-INSERT INTO `xyb_admin_menu` VALUES ('24', '20', '1', '0', '10000', 'admin', 'Menu', 'edit', '', '后台菜单编辑', '', '后台菜单编辑');
-INSERT INTO `xyb_admin_menu` VALUES ('25', '20', '2', '0', '10000', 'admin', 'Menu', 'editPost', '', '后台菜单编辑提交保存', '', '后台菜单编辑提交保存');
-INSERT INTO `xyb_admin_menu` VALUES ('26', '20', '2', '0', '10000', 'admin', 'Menu', 'delete', '', '后台菜单删除', '', '后台菜单删除');
-INSERT INTO `xyb_admin_menu` VALUES ('27', '20', '2', '0', '10000', 'admin', 'Menu', 'listOrder', '', '后台菜单排序', '', '后台菜单排序');
-INSERT INTO `xyb_admin_menu` VALUES ('28', '20', '1', '0', '10000', 'admin', 'Menu', 'getActions', '', '导入新后台菜单', '', '导入新后台菜单');
-INSERT INTO `xyb_admin_menu` VALUES ('29', '6', '1', '0', '30', 'admin', 'Nav', 'index', '', '导航管理', '', '导航管理');
-INSERT INTO `xyb_admin_menu` VALUES ('30', '29', '1', '0', '10000', 'admin', 'Nav', 'add', '', '添加导航', '', '添加导航');
-INSERT INTO `xyb_admin_menu` VALUES ('31', '29', '2', '0', '10000', 'admin', 'Nav', 'addPost', '', '添加导航提交保存', '', '添加导航提交保存');
-INSERT INTO `xyb_admin_menu` VALUES ('32', '29', '1', '0', '10000', 'admin', 'Nav', 'edit', '', '编辑导航', '', '编辑导航');
-INSERT INTO `xyb_admin_menu` VALUES ('33', '29', '2', '0', '10000', 'admin', 'Nav', 'editPost', '', '编辑导航提交保存', '', '编辑导航提交保存');
-INSERT INTO `xyb_admin_menu` VALUES ('34', '29', '2', '0', '10000', 'admin', 'Nav', 'delete', '', '删除导航', '', '删除导航');
-INSERT INTO `xyb_admin_menu` VALUES ('35', '29', '1', '0', '10000', 'admin', 'NavMenu', 'index', '', '导航菜单', '', '导航菜单');
-INSERT INTO `xyb_admin_menu` VALUES ('36', '35', '1', '0', '10000', 'admin', 'NavMenu', 'add', '', '添加导航菜单', '', '添加导航菜单');
-INSERT INTO `xyb_admin_menu` VALUES ('37', '35', '2', '0', '10000', 'admin', 'NavMenu', 'addPost', '', '添加导航菜单提交保存', '', '添加导航菜单提交保存');
-INSERT INTO `xyb_admin_menu` VALUES ('38', '35', '1', '0', '10000', 'admin', 'NavMenu', 'edit', '', '编辑导航菜单', '', '编辑导航菜单');
-INSERT INTO `xyb_admin_menu` VALUES ('39', '35', '2', '0', '10000', 'admin', 'NavMenu', 'editPost', '', '编辑导航菜单提交保存', '', '编辑导航菜单提交保存');
-INSERT INTO `xyb_admin_menu` VALUES ('40', '35', '2', '0', '10000', 'admin', 'NavMenu', 'delete', '', '删除导航菜单', '', '删除导航菜单');
-INSERT INTO `xyb_admin_menu` VALUES ('41', '35', '2', '0', '10000', 'admin', 'NavMenu', 'listOrder', '', '导航菜单排序', '', '导航菜单排序');
-INSERT INTO `xyb_admin_menu` VALUES ('42', '1', '1', '1', '10000', 'admin', 'Plugin', 'index', '', '插件列表', '', '插件列表');
-INSERT INTO `xyb_admin_menu` VALUES ('43', '42', '2', '0', '10000', 'admin', 'Plugin', 'toggle', '', '插件启用禁用', '', '插件启用禁用');
-INSERT INTO `xyb_admin_menu` VALUES ('44', '42', '1', '0', '10000', 'admin', 'Plugin', 'setting', '', '插件设置', '', '插件设置');
-INSERT INTO `xyb_admin_menu` VALUES ('45', '42', '2', '0', '10000', 'admin', 'Plugin', 'settingPost', '', '插件设置提交', '', '插件设置提交');
-INSERT INTO `xyb_admin_menu` VALUES ('46', '42', '2', '0', '10000', 'admin', 'Plugin', 'install', '', '插件安装', '', '插件安装');
-INSERT INTO `xyb_admin_menu` VALUES ('47', '42', '2', '0', '10000', 'admin', 'Plugin', 'update', '', '插件更新', '', '插件更新');
-INSERT INTO `xyb_admin_menu` VALUES ('48', '42', '2', '0', '10000', 'admin', 'Plugin', 'uninstall', '', '卸载插件', '', '卸载插件');
-INSERT INTO `xyb_admin_menu` VALUES ('49', '109', '0', '1', '10000', 'admin', 'User', 'default', '', '管理组', '', '管理组');
-INSERT INTO `xyb_admin_menu` VALUES ('50', '49', '1', '1', '10000', 'admin', 'Rbac', 'index', '', '角色管理', '', '角色管理');
-INSERT INTO `xyb_admin_menu` VALUES ('51', '50', '1', '0', '10000', 'admin', 'Rbac', 'roleAdd', '', '添加角色', '', '添加角色');
-INSERT INTO `xyb_admin_menu` VALUES ('52', '50', '2', '0', '10000', 'admin', 'Rbac', 'roleAddPost', '', '添加角色提交', '', '添加角色提交');
-INSERT INTO `xyb_admin_menu` VALUES ('53', '50', '1', '0', '10000', 'admin', 'Rbac', 'roleEdit', '', '编辑角色', '', '编辑角色');
-INSERT INTO `xyb_admin_menu` VALUES ('54', '50', '2', '0', '10000', 'admin', 'Rbac', 'roleEditPost', '', '编辑角色提交', '', '编辑角色提交');
-INSERT INTO `xyb_admin_menu` VALUES ('55', '50', '2', '0', '10000', 'admin', 'Rbac', 'roleDelete', '', '删除角色', '', '删除角色');
-INSERT INTO `xyb_admin_menu` VALUES ('56', '50', '1', '0', '10000', 'admin', 'Rbac', 'authorize', '', '设置角色权限', '', '设置角色权限');
-INSERT INTO `xyb_admin_menu` VALUES ('57', '50', '2', '0', '10000', 'admin', 'Rbac', 'authorizePost', '', '角色授权提交', '', '角色授权提交');
-INSERT INTO `xyb_admin_menu` VALUES ('58', '0', '1', '0', '10000', 'admin', 'RecycleBin', 'index', '', '回收站', '', '回收站');
-INSERT INTO `xyb_admin_menu` VALUES ('59', '58', '2', '0', '10000', 'admin', 'RecycleBin', 'restore', '', '回收站还原', '', '回收站还原');
-INSERT INTO `xyb_admin_menu` VALUES ('60', '58', '2', '0', '10000', 'admin', 'RecycleBin', 'delete', '', '回收站彻底删除', '', '回收站彻底删除');
-INSERT INTO `xyb_admin_menu` VALUES ('61', '6', '1', '0', '10000', 'admin', 'Route', 'index', '', 'URL美化', '', 'URL规则管理');
-INSERT INTO `xyb_admin_menu` VALUES ('62', '61', '1', '0', '10000', 'admin', 'Route', 'add', '', '添加路由规则', '', '添加路由规则');
-INSERT INTO `xyb_admin_menu` VALUES ('63', '61', '2', '0', '10000', 'admin', 'Route', 'addPost', '', '添加路由规则提交', '', '添加路由规则提交');
-INSERT INTO `xyb_admin_menu` VALUES ('64', '61', '1', '0', '10000', 'admin', 'Route', 'edit', '', '路由规则编辑', '', '路由规则编辑');
-INSERT INTO `xyb_admin_menu` VALUES ('65', '61', '2', '0', '10000', 'admin', 'Route', 'editPost', '', '路由规则编辑提交', '', '路由规则编辑提交');
-INSERT INTO `xyb_admin_menu` VALUES ('66', '61', '2', '0', '10000', 'admin', 'Route', 'delete', '', '路由规则删除', '', '路由规则删除');
-INSERT INTO `xyb_admin_menu` VALUES ('67', '61', '2', '0', '10000', 'admin', 'Route', 'ban', '', '路由规则禁用', '', '路由规则禁用');
-INSERT INTO `xyb_admin_menu` VALUES ('68', '61', '2', '0', '10000', 'admin', 'Route', 'open', '', '路由规则启用', '', '路由规则启用');
-INSERT INTO `xyb_admin_menu` VALUES ('69', '61', '2', '0', '10000', 'admin', 'Route', 'listOrder', '', '路由规则排序', '', '路由规则排序');
-INSERT INTO `xyb_admin_menu` VALUES ('70', '61', '1', '0', '10000', 'admin', 'Route', 'select', '', '选择URL', '', '选择URL');
-INSERT INTO `xyb_admin_menu` VALUES ('71', '6', '1', '0', '0', 'admin', 'Setting', 'site', '', '网站信息', '', '网站信息');
-INSERT INTO `xyb_admin_menu` VALUES ('72', '71', '2', '0', '10000', 'admin', 'Setting', 'sitePost', '', '网站信息设置提交', '', '网站信息设置提交');
-INSERT INTO `xyb_admin_menu` VALUES ('73', '6', '1', '0', '10000', 'admin', 'Setting', 'password', '', '密码修改', '', '密码修改');
-INSERT INTO `xyb_admin_menu` VALUES ('74', '73', '2', '0', '10000', 'admin', 'Setting', 'passwordPost', '', '密码修改提交', '', '密码修改提交');
-INSERT INTO `xyb_admin_menu` VALUES ('75', '6', '1', '0', '10000', 'admin', 'Setting', 'upload', '', '上传设置', '', '上传设置');
-INSERT INTO `xyb_admin_menu` VALUES ('76', '75', '2', '0', '10000', 'admin', 'Setting', 'uploadPost', '', '上传设置提交', '', '上传设置提交');
-INSERT INTO `xyb_admin_menu` VALUES ('77', '6', '1', '0', '10000', 'admin', 'Setting', 'clearCache', '', '清除缓存', '', '清除缓存');
-INSERT INTO `xyb_admin_menu` VALUES ('78', '6', '1', '0', '40', 'admin', 'Slide', 'index', '', '幻灯片管理', '', '幻灯片管理');
-INSERT INTO `xyb_admin_menu` VALUES ('79', '78', '1', '0', '10000', 'admin', 'Slide', 'add', '', '添加幻灯片', '', '添加幻灯片');
-INSERT INTO `xyb_admin_menu` VALUES ('80', '78', '2', '0', '10000', 'admin', 'Slide', 'addPost', '', '添加幻灯片提交', '', '添加幻灯片提交');
-INSERT INTO `xyb_admin_menu` VALUES ('81', '78', '1', '0', '10000', 'admin', 'Slide', 'edit', '', '编辑幻灯片', '', '编辑幻灯片');
-INSERT INTO `xyb_admin_menu` VALUES ('82', '78', '2', '0', '10000', 'admin', 'Slide', 'editPost', '', '编辑幻灯片提交', '', '编辑幻灯片提交');
-INSERT INTO `xyb_admin_menu` VALUES ('83', '78', '2', '0', '10000', 'admin', 'Slide', 'delete', '', '删除幻灯片', '', '删除幻灯片');
-INSERT INTO `xyb_admin_menu` VALUES ('84', '78', '1', '0', '10000', 'admin', 'SlideItem', 'index', '', '幻灯片页面列表', '', '幻灯片页面列表');
-INSERT INTO `xyb_admin_menu` VALUES ('85', '84', '1', '0', '10000', 'admin', 'SlideItem', 'add', '', '幻灯片页面添加', '', '幻灯片页面添加');
-INSERT INTO `xyb_admin_menu` VALUES ('86', '84', '2', '0', '10000', 'admin', 'SlideItem', 'addPost', '', '幻灯片页面添加提交', '', '幻灯片页面添加提交');
-INSERT INTO `xyb_admin_menu` VALUES ('87', '84', '1', '0', '10000', 'admin', 'SlideItem', 'edit', '', '幻灯片页面编辑', '', '幻灯片页面编辑');
-INSERT INTO `xyb_admin_menu` VALUES ('88', '84', '2', '0', '10000', 'admin', 'SlideItem', 'editPost', '', '幻灯片页面编辑提交', '', '幻灯片页面编辑提交');
-INSERT INTO `xyb_admin_menu` VALUES ('89', '84', '2', '0', '10000', 'admin', 'SlideItem', 'delete', '', '幻灯片页面删除', '', '幻灯片页面删除');
-INSERT INTO `xyb_admin_menu` VALUES ('90', '84', '2', '0', '10000', 'admin', 'SlideItem', 'ban', '', '幻灯片页面隐藏', '', '幻灯片页面隐藏');
-INSERT INTO `xyb_admin_menu` VALUES ('91', '84', '2', '0', '10000', 'admin', 'SlideItem', 'cancelBan', '', '幻灯片页面显示', '', '幻灯片页面显示');
-INSERT INTO `xyb_admin_menu` VALUES ('92', '84', '2', '0', '10000', 'admin', 'SlideItem', 'listOrder', '', '幻灯片页面排序', '', '幻灯片页面排序');
-INSERT INTO `xyb_admin_menu` VALUES ('93', '6', '1', '1', '10000', 'admin', 'Storage', 'index', '', '文件存储', '', '文件存储');
-INSERT INTO `xyb_admin_menu` VALUES ('94', '93', '2', '0', '10000', 'admin', 'Storage', 'settingPost', '', '文件存储设置提交', '', '文件存储设置提交');
-INSERT INTO `xyb_admin_menu` VALUES ('95', '6', '1', '0', '20', 'admin', 'Theme', 'index', '', '模板管理', '', '模板管理');
-INSERT INTO `xyb_admin_menu` VALUES ('96', '95', '1', '0', '10000', 'admin', 'Theme', 'install', '', '安装模板', '', '安装模板');
-INSERT INTO `xyb_admin_menu` VALUES ('97', '95', '2', '0', '10000', 'admin', 'Theme', 'uninstall', '', '卸载模板', '', '卸载模板');
-INSERT INTO `xyb_admin_menu` VALUES ('98', '95', '2', '0', '10000', 'admin', 'Theme', 'installTheme', '', '模板安装', '', '模板安装');
-INSERT INTO `xyb_admin_menu` VALUES ('99', '95', '2', '0', '10000', 'admin', 'Theme', 'update', '', '模板更新', '', '模板更新');
-INSERT INTO `xyb_admin_menu` VALUES ('100', '95', '2', '0', '10000', 'admin', 'Theme', 'active', '', '启用模板', '', '启用模板');
-INSERT INTO `xyb_admin_menu` VALUES ('101', '95', '1', '0', '10000', 'admin', 'Theme', 'files', '', '模板文件列表', '', '启用模板');
-INSERT INTO `xyb_admin_menu` VALUES ('102', '95', '1', '0', '10000', 'admin', 'Theme', 'fileSetting', '', '模板文件设置', '', '模板文件设置');
-INSERT INTO `xyb_admin_menu` VALUES ('103', '95', '1', '0', '10000', 'admin', 'Theme', 'fileArrayData', '', '模板文件数组数据列表', '', '模板文件数组数据列表');
-INSERT INTO `xyb_admin_menu` VALUES ('104', '95', '2', '0', '10000', 'admin', 'Theme', 'fileArrayDataEdit', '', '模板文件数组数据添加编辑', '', '模板文件数组数据添加编辑');
-INSERT INTO `xyb_admin_menu` VALUES ('105', '95', '2', '0', '10000', 'admin', 'Theme', 'fileArrayDataEditPost', '', '模板文件数组数据添加编辑提交保存', '', '模板文件数组数据添加编辑提交保存');
-INSERT INTO `xyb_admin_menu` VALUES ('106', '95', '2', '0', '10000', 'admin', 'Theme', 'fileArrayDataDelete', '', '模板文件数组数据删除', '', '模板文件数组数据删除');
-INSERT INTO `xyb_admin_menu` VALUES ('107', '95', '2', '0', '10000', 'admin', 'Theme', 'settingPost', '', '模板文件编辑提交保存', '', '模板文件编辑提交保存');
-INSERT INTO `xyb_admin_menu` VALUES ('108', '95', '1', '0', '10000', 'admin', 'Theme', 'dataSource', '', '模板文件设置数据源', '', '模板文件设置数据源');
-INSERT INTO `xyb_admin_menu` VALUES ('109', '0', '0', '1', '10', 'user', 'AdminIndex', 'default', '', '用户管理', 'group', '用户管理');
-INSERT INTO `xyb_admin_menu` VALUES ('110', '49', '1', '1', '10000', 'admin', 'User', 'index', '', '管理员', '', '管理员管理');
-INSERT INTO `xyb_admin_menu` VALUES ('111', '110', '1', '0', '10000', 'admin', 'User', 'add', '', '管理员添加', '', '管理员添加');
-INSERT INTO `xyb_admin_menu` VALUES ('112', '110', '2', '0', '10000', 'admin', 'User', 'addPost', '', '管理员添加提交', '', '管理员添加提交');
-INSERT INTO `xyb_admin_menu` VALUES ('113', '110', '1', '0', '10000', 'admin', 'User', 'edit', '', '管理员编辑', '', '管理员编辑');
-INSERT INTO `xyb_admin_menu` VALUES ('114', '110', '2', '0', '10000', 'admin', 'User', 'editPost', '', '管理员编辑提交', '', '管理员编辑提交');
-INSERT INTO `xyb_admin_menu` VALUES ('115', '110', '1', '0', '10000', 'admin', 'User', 'userInfo', '', '个人信息', '', '管理员个人信息修改');
-INSERT INTO `xyb_admin_menu` VALUES ('116', '110', '2', '0', '10000', 'admin', 'User', 'userInfoPost', '', '管理员个人信息修改提交', '', '管理员个人信息修改提交');
-INSERT INTO `xyb_admin_menu` VALUES ('117', '110', '2', '0', '10000', 'admin', 'User', 'delete', '', '管理员删除', '', '管理员删除');
-INSERT INTO `xyb_admin_menu` VALUES ('118', '110', '2', '0', '10000', 'admin', 'User', 'ban', '', '停用管理员', '', '停用管理员');
-INSERT INTO `xyb_admin_menu` VALUES ('119', '110', '2', '0', '10000', 'admin', 'User', 'cancelBan', '', '启用管理员', '', '启用管理员');
-INSERT INTO `xyb_admin_menu` VALUES ('120', '0', '0', '1', '30', 'portal', 'AdminIndex', 'default', '', '门户管理', 'th', '门户管理');
-INSERT INTO `xyb_admin_menu` VALUES ('121', '120', '1', '1', '10000', 'portal', 'AdminArticle', 'index', '', '文章管理', '', '文章列表');
-INSERT INTO `xyb_admin_menu` VALUES ('122', '121', '1', '0', '10000', 'portal', 'AdminArticle', 'add', '', '添加文章', '', '添加文章');
-INSERT INTO `xyb_admin_menu` VALUES ('123', '121', '2', '0', '10000', 'portal', 'AdminArticle', 'addPost', '', '添加文章提交', '', '添加文章提交');
-INSERT INTO `xyb_admin_menu` VALUES ('124', '121', '1', '0', '10000', 'portal', 'AdminArticle', 'edit', '', '编辑文章', '', '编辑文章');
-INSERT INTO `xyb_admin_menu` VALUES ('125', '121', '2', '0', '10000', 'portal', 'AdminArticle', 'editPost', '', '编辑文章提交', '', '编辑文章提交');
-INSERT INTO `xyb_admin_menu` VALUES ('126', '121', '2', '0', '10000', 'portal', 'AdminArticle', 'delete', '', '文章删除', '', '文章删除');
-INSERT INTO `xyb_admin_menu` VALUES ('127', '121', '2', '0', '10000', 'portal', 'AdminArticle', 'publish', '', '文章发布', '', '文章发布');
-INSERT INTO `xyb_admin_menu` VALUES ('128', '121', '2', '0', '10000', 'portal', 'AdminArticle', 'top', '', '文章置顶', '', '文章置顶');
-INSERT INTO `xyb_admin_menu` VALUES ('129', '121', '2', '0', '10000', 'portal', 'AdminArticle', 'recommend', '', '文章推荐', '', '文章推荐');
-INSERT INTO `xyb_admin_menu` VALUES ('130', '121', '2', '0', '10000', 'portal', 'AdminArticle', 'listOrder', '', '文章排序', '', '文章排序');
-INSERT INTO `xyb_admin_menu` VALUES ('131', '120', '1', '1', '10000', 'portal', 'AdminCategory', 'index', '', '分类管理', '', '文章分类列表');
-INSERT INTO `xyb_admin_menu` VALUES ('132', '131', '1', '0', '10000', 'portal', 'AdminCategory', 'add', '', '添加文章分类', '', '添加文章分类');
-INSERT INTO `xyb_admin_menu` VALUES ('133', '131', '2', '0', '10000', 'portal', 'AdminCategory', 'addPost', '', '添加文章分类提交', '', '添加文章分类提交');
-INSERT INTO `xyb_admin_menu` VALUES ('134', '131', '1', '0', '10000', 'portal', 'AdminCategory', 'edit', '', '编辑文章分类', '', '编辑文章分类');
-INSERT INTO `xyb_admin_menu` VALUES ('135', '131', '2', '0', '10000', 'portal', 'AdminCategory', 'editPost', '', '编辑文章分类提交', '', '编辑文章分类提交');
-INSERT INTO `xyb_admin_menu` VALUES ('136', '131', '1', '0', '10000', 'portal', 'AdminCategory', 'select', '', '文章分类选择对话框', '', '文章分类选择对话框');
-INSERT INTO `xyb_admin_menu` VALUES ('137', '131', '2', '0', '10000', 'portal', 'AdminCategory', 'listOrder', '', '文章分类排序', '', '文章分类排序');
-INSERT INTO `xyb_admin_menu` VALUES ('138', '131', '2', '0', '10000', 'portal', 'AdminCategory', 'delete', '', '删除文章分类', '', '删除文章分类');
-INSERT INTO `xyb_admin_menu` VALUES ('139', '120', '1', '1', '10000', 'portal', 'AdminPage', 'index', '', '页面管理', '', '页面管理');
-INSERT INTO `xyb_admin_menu` VALUES ('140', '139', '1', '0', '10000', 'portal', 'AdminPage', 'add', '', '添加页面', '', '添加页面');
-INSERT INTO `xyb_admin_menu` VALUES ('141', '139', '2', '0', '10000', 'portal', 'AdminPage', 'addPost', '', '添加页面提交', '', '添加页面提交');
-INSERT INTO `xyb_admin_menu` VALUES ('142', '139', '1', '0', '10000', 'portal', 'AdminPage', 'edit', '', '编辑页面', '', '编辑页面');
-INSERT INTO `xyb_admin_menu` VALUES ('143', '139', '2', '0', '10000', 'portal', 'AdminPage', 'editPost', '', '编辑页面提交', '', '编辑页面提交');
-INSERT INTO `xyb_admin_menu` VALUES ('144', '139', '2', '0', '10000', 'portal', 'AdminPage', 'delete', '', '删除页面', '', '删除页面');
-INSERT INTO `xyb_admin_menu` VALUES ('145', '120', '1', '1', '10000', 'portal', 'AdminTag', 'index', '', '文章标签', '', '文章标签');
-INSERT INTO `xyb_admin_menu` VALUES ('146', '145', '1', '0', '10000', 'portal', 'AdminTag', 'add', '', '添加文章标签', '', '添加文章标签');
-INSERT INTO `xyb_admin_menu` VALUES ('147', '145', '2', '0', '10000', 'portal', 'AdminTag', 'addPost', '', '添加文章标签提交', '', '添加文章标签提交');
-INSERT INTO `xyb_admin_menu` VALUES ('148', '145', '2', '0', '10000', 'portal', 'AdminTag', 'upStatus', '', '更新标签状态', '', '更新标签状态');
-INSERT INTO `xyb_admin_menu` VALUES ('149', '145', '2', '0', '10000', 'portal', 'AdminTag', 'delete', '', '删除文章标签', '', '删除文章标签');
-INSERT INTO `xyb_admin_menu` VALUES ('150', '0', '1', '0', '10000', 'user', 'AdminAsset', 'index', '', '资源管理', 'file', '资源管理列表');
-INSERT INTO `xyb_admin_menu` VALUES ('151', '150', '2', '0', '10000', 'user', 'AdminAsset', 'delete', '', '删除文件', '', '删除文件');
-INSERT INTO `xyb_admin_menu` VALUES ('152', '109', '0', '1', '10000', 'user', 'AdminIndex', 'default1', '', '用户组', '', '用户组');
-INSERT INTO `xyb_admin_menu` VALUES ('153', '152', '1', '1', '10000', 'user', 'AdminIndex', 'index', '', '本站用户', '', '本站用户');
-INSERT INTO `xyb_admin_menu` VALUES ('154', '153', '2', '0', '10000', 'user', 'AdminIndex', 'ban', '', '本站用户拉黑', '', '本站用户拉黑');
-INSERT INTO `xyb_admin_menu` VALUES ('155', '153', '2', '0', '10000', 'user', 'AdminIndex', 'cancelBan', '', '本站用户启用', '', '本站用户启用');
-INSERT INTO `xyb_admin_menu` VALUES ('156', '152', '1', '1', '10000', 'user', 'AdminOauth', 'index', '', '第三方用户', '', '第三方用户');
-INSERT INTO `xyb_admin_menu` VALUES ('157', '156', '2', '0', '10000', 'user', 'AdminOauth', 'delete', '', '删除第三方用户绑定', '', '删除第三方用户绑定');
-INSERT INTO `xyb_admin_menu` VALUES ('158', '6', '1', '1', '10000', 'user', 'AdminUserAction', 'index', '', '用户操作管理', '', '用户操作管理');
-INSERT INTO `xyb_admin_menu` VALUES ('159', '158', '1', '0', '10000', 'user', 'AdminUserAction', 'edit', '', '编辑用户操作', '', '编辑用户操作');
-INSERT INTO `xyb_admin_menu` VALUES ('160', '158', '2', '0', '10000', 'user', 'AdminUserAction', 'editPost', '', '编辑用户操作提交', '', '编辑用户操作提交');
-INSERT INTO `xyb_admin_menu` VALUES ('161', '158', '1', '0', '10000', 'user', 'AdminUserAction', 'sync', '', '同步用户操作', '', '同步用户操作');
-INSERT INTO `xyb_admin_menu` VALUES ('162', '0', '1', '1', '10000', 'Admin', 'Schedule', 'default', '', '我的日程', '', '');
-INSERT INTO `xyb_admin_menu` VALUES ('163', '162', '1', '1', '10000', 'Admin', 'Schedule', 'index', '', '我的课表', '', '');
-INSERT INTO `xyb_admin_menu` VALUES ('164', '162', '1', '1', '10000', 'Admin', 'Schedule', 'adjustment', '', '调课情况', '', '');
-INSERT INTO `xyb_admin_menu` VALUES ('165', '0', '1', '1', '10000', 'Admin', 'Grade', 'default', '', '班级课表', '', '');
-INSERT INTO `xyb_admin_menu` VALUES ('166', '165', '1', '1', '10000', 'Admin', 'Grade', 'origin_kb', '', '原始课表', '', '');
-INSERT INTO `xyb_admin_menu` VALUES ('167', '165', '1', '1', '10000', 'Admin', 'Grade', 'real_kb', '', '实时班课表', '', '');
-INSERT INTO `xyb_admin_menu` VALUES ('168', '0', '1', '1', '10000', 'Admin', 'Apply', 'default', '', '调代课申请', '', '');
-INSERT INTO `xyb_admin_menu` VALUES ('169', '168', '1', '1', '10000', 'Admin', 'Apply', 'dk_apply', '', '代课申请', '', '');
-INSERT INTO `xyb_admin_menu` VALUES ('170', '168', '1', '1', '10000', 'Admin', 'Apply', 'tk_apply', '', '调课申请', '', '');
-INSERT INTO `xyb_admin_menu` VALUES ('171', '0', '1', '1', '10000', 'Admin', 'BasicSet', 'default', '', '基本设置', '', '');
-INSERT INTO `xyb_admin_menu` VALUES ('172', '171', '1', '1', '10000', 'Admin', 'BasicSet', 'class_info', '', '班级信息', '', '');
-INSERT INTO `xyb_admin_menu` VALUES ('173', '171', '1', '1', '10000', 'Admin', 'BasicSet', 'school_semester', '', '学年学期', '', '');
-INSERT INTO `xyb_admin_menu` VALUES ('174', '171', '1', '1', '10000', 'Admin', 'BasicSet', 'time_table', '', '作息时间', '', '');
-INSERT INTO `xyb_admin_menu` VALUES ('175', '171', '1', '1', '10000', 'Admin', 'BasicSet', 'course_info', '', '课程信息', '', '');
-INSERT INTO `xyb_admin_menu` VALUES ('176', '171', '1', '1', '10000', 'Admin', 'BasicSet', 'teach_info', '', '任教信息', '', '');
+INSERT INTO `xyb_admin_menu` VALUES ('1', '0', '1', '1', '0', 'xyb', 'user', 'default', '', '用户管理', 'menu-icon fa fa-users', '');
+INSERT INTO `xyb_admin_menu` VALUES ('2', '1', '1', '1', '0', 'xyb', 'user', 'user_business', '', '商户管理', '', '');
+INSERT INTO `xyb_admin_menu` VALUES ('3', '1', '1', '1', '0', 'xyb', 'user', 'user_common', '', '普通用户', '', '');
+INSERT INTO `xyb_admin_menu` VALUES ('4', '1', '1', '1', '0', 'xyb', 'user', 'index', '', '系统用户', '', '');
+INSERT INTO `xyb_admin_menu` VALUES ('5', '0', '1', '1', '0', 'xyb', 'suggest', 'default', '', '意见管理', 'menu-icon fa fa-list', '');
+INSERT INTO `xyb_admin_menu` VALUES ('6', '5', '1', '1', '0', 'xyb', 'suggest', 'index', '', '意见反馈', '', '');
+INSERT INTO `xyb_admin_menu` VALUES ('7', '0', '1', '1', '0', 'user', 'consume', 'default', '', '金额明细', 'menu-icon fa fa-list-alt', '');
+INSERT INTO `xyb_admin_menu` VALUES ('8', '7', '1', '1', '0', 'xyb', 'consume', 'info', '', '明细列表', '', '');
+INSERT INTO `xyb_admin_menu` VALUES ('9', '0', '1', '1', '0', 'xyb', 'recruit', 'default', '', '招聘管理', 'menu-icon fa fa-tag', '');
+INSERT INTO `xyb_admin_menu` VALUES ('10', '9', '1', '1', '0', 'xyb', 'recruit', 'release', '', '在招职位', '', '');
+INSERT INTO `xyb_admin_menu` VALUES ('11', '9', '1', '1', '0', 'xyb', 'recruit', 'closed', '', '关闭职位', '', '');
+INSERT INTO `xyb_admin_menu` VALUES ('12', '0', '1', '1', '0', 'xyb', 'shops', 'default', '', '商铺(房)管理', 'menu-icon fa fa-tag', '');
+INSERT INTO `xyb_admin_menu` VALUES ('13', '12', '1', '1', '0', 'xyb', 'shops', 'release', '', '发布中', '', '');
+INSERT INTO `xyb_admin_menu` VALUES ('14', '12', '1', '1', '0', 'xyb', 'shops', 'closed', '', '已关闭', '', '');
+INSERT INTO `xyb_admin_menu` VALUES ('15', '0', '1', '1', '0', 'xyb', 'car', 'default', '', '二手车', 'menu-icon fa fa-tag', '');
+INSERT INTO `xyb_admin_menu` VALUES ('16', '15', '1', '1', '0', 'xyb', 'car', 'release', '', '发布中', '', '');
+INSERT INTO `xyb_admin_menu` VALUES ('17', '15', '1', '1', '0', 'xyb', 'car', 'closed', '', '已关闭', '', '');
+INSERT INTO `xyb_admin_menu` VALUES ('18', '0', '1', '1', '0', 'xyb', 'profile', 'default', '', '资料管理', 'menu-icon fa fa-file-o', '');
+INSERT INTO `xyb_admin_menu` VALUES ('19', '18', '1', '1', '0', 'xyb', 'profile', 'enterprise_info', '', '公司资料审核', '', '');
+INSERT INTO `xyb_admin_menu` VALUES ('20', '18', '1', '1', '0', 'xyb', 'profile', 'person_info', '', '个人资料审核', '', '');
+INSERT INTO `xyb_admin_menu` VALUES ('21', '0', '1', '1', '0', 'xyb', 'menu', 'default', '', '菜单管理', 'menu-icon fa fa-desktop', '');
+INSERT INTO `xyb_admin_menu` VALUES ('22', '21', '1', '1', '0', 'xyb', 'menu', 'index', '', '菜单列表', '', '');
+INSERT INTO `xyb_admin_menu` VALUES ('23', '21', '1', '1', '0', 'xyb', 'menu', 'add', '', '添加菜单', '', '');
+INSERT INTO `xyb_admin_menu` VALUES ('24', '0', '1', '1', '0', 'xyb', 'index', 'index', '', '控制台', 'menu-icon fa fa-tachometer', '');
+INSERT INTO `xyb_admin_menu` VALUES ('25', '1', '1', '1', '0', 'xyb', 'user', 'add_user', '', '添加用户', '', '');
 
 -- ----------------------------
 -- Table structure for xyb_asset
@@ -277,187 +126,35 @@ CREATE TABLE `xyb_auth_rule` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`) USING BTREE,
   KEY `module` (`app`,`status`,`type`)
-) ENGINE=InnoDB AUTO_INCREMENT=177 DEFAULT CHARSET=utf8mb4 COMMENT='权限规则表';
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COMMENT='权限规则表';
 
 -- ----------------------------
 -- Records of xyb_auth_rule
 -- ----------------------------
-INSERT INTO `xyb_auth_rule` VALUES ('1', '1', 'admin', 'admin_url', 'admin/Hook/index', '', '钩子管理', '');
-INSERT INTO `xyb_auth_rule` VALUES ('2', '1', 'admin', 'admin_url', 'admin/Hook/plugins', '', '钩子插件管理', '');
-INSERT INTO `xyb_auth_rule` VALUES ('3', '1', 'admin', 'admin_url', 'admin/Hook/pluginListOrder', '', '钩子插件排序', '');
-INSERT INTO `xyb_auth_rule` VALUES ('4', '1', 'admin', 'admin_url', 'admin/Hook/sync', '', '同步钩子', '');
-INSERT INTO `xyb_auth_rule` VALUES ('5', '1', 'admin', 'admin_url', 'admin/Link/index', '', '友情链接', '');
-INSERT INTO `xyb_auth_rule` VALUES ('6', '1', 'admin', 'admin_url', 'admin/Link/add', '', '添加友情链接', '');
-INSERT INTO `xyb_auth_rule` VALUES ('7', '1', 'admin', 'admin_url', 'admin/Link/addPost', '', '添加友情链接提交保存', '');
-INSERT INTO `xyb_auth_rule` VALUES ('8', '1', 'admin', 'admin_url', 'admin/Link/edit', '', '编辑友情链接', '');
-INSERT INTO `xyb_auth_rule` VALUES ('9', '1', 'admin', 'admin_url', 'admin/Link/editPost', '', '编辑友情链接提交保存', '');
-INSERT INTO `xyb_auth_rule` VALUES ('10', '1', 'admin', 'admin_url', 'admin/Link/delete', '', '删除友情链接', '');
-INSERT INTO `xyb_auth_rule` VALUES ('11', '1', 'admin', 'admin_url', 'admin/Link/listOrder', '', '友情链接排序', '');
-INSERT INTO `xyb_auth_rule` VALUES ('12', '1', 'admin', 'admin_url', 'admin/Link/toggle', '', '友情链接显示隐藏', '');
-INSERT INTO `xyb_auth_rule` VALUES ('13', '1', 'admin', 'admin_url', 'admin/Mailer/index', '', '邮箱配置', '');
-INSERT INTO `xyb_auth_rule` VALUES ('14', '1', 'admin', 'admin_url', 'admin/Mailer/indexPost', '', '邮箱配置提交保存', '');
-INSERT INTO `xyb_auth_rule` VALUES ('15', '1', 'admin', 'admin_url', 'admin/Mailer/template', '', '邮件模板', '');
-INSERT INTO `xyb_auth_rule` VALUES ('16', '1', 'admin', 'admin_url', 'admin/Mailer/templatePost', '', '邮件模板提交', '');
-INSERT INTO `xyb_auth_rule` VALUES ('17', '1', 'admin', 'admin_url', 'admin/Mailer/test', '', '邮件发送测试', '');
-INSERT INTO `xyb_auth_rule` VALUES ('18', '1', 'admin', 'admin_url', 'admin/Menu/index', '', '后台菜单', '');
-INSERT INTO `xyb_auth_rule` VALUES ('19', '1', 'admin', 'admin_url', 'admin/Menu/lists', '', '所有菜单', '');
-INSERT INTO `xyb_auth_rule` VALUES ('20', '1', 'admin', 'admin_url', 'admin/Menu/add', '', '后台菜单添加', '');
-INSERT INTO `xyb_auth_rule` VALUES ('21', '1', 'admin', 'admin_url', 'admin/Menu/addPost', '', '后台菜单添加提交保存', '');
-INSERT INTO `xyb_auth_rule` VALUES ('22', '1', 'admin', 'admin_url', 'admin/Menu/edit', '', '后台菜单编辑', '');
-INSERT INTO `xyb_auth_rule` VALUES ('23', '1', 'admin', 'admin_url', 'admin/Menu/editPost', '', '后台菜单编辑提交保存', '');
-INSERT INTO `xyb_auth_rule` VALUES ('24', '1', 'admin', 'admin_url', 'admin/Menu/delete', '', '后台菜单删除', '');
-INSERT INTO `xyb_auth_rule` VALUES ('25', '1', 'admin', 'admin_url', 'admin/Menu/listOrder', '', '后台菜单排序', '');
-INSERT INTO `xyb_auth_rule` VALUES ('26', '1', 'admin', 'admin_url', 'admin/Menu/getActions', '', '导入新后台菜单', '');
-INSERT INTO `xyb_auth_rule` VALUES ('27', '1', 'admin', 'admin_url', 'admin/Nav/index', '', '导航管理', '');
-INSERT INTO `xyb_auth_rule` VALUES ('28', '1', 'admin', 'admin_url', 'admin/Nav/add', '', '添加导航', '');
-INSERT INTO `xyb_auth_rule` VALUES ('29', '1', 'admin', 'admin_url', 'admin/Nav/addPost', '', '添加导航提交保存', '');
-INSERT INTO `xyb_auth_rule` VALUES ('30', '1', 'admin', 'admin_url', 'admin/Nav/edit', '', '编辑导航', '');
-INSERT INTO `xyb_auth_rule` VALUES ('31', '1', 'admin', 'admin_url', 'admin/Nav/editPost', '', '编辑导航提交保存', '');
-INSERT INTO `xyb_auth_rule` VALUES ('32', '1', 'admin', 'admin_url', 'admin/Nav/delete', '', '删除导航', '');
-INSERT INTO `xyb_auth_rule` VALUES ('33', '1', 'admin', 'admin_url', 'admin/NavMenu/index', '', '导航菜单', '');
-INSERT INTO `xyb_auth_rule` VALUES ('34', '1', 'admin', 'admin_url', 'admin/NavMenu/add', '', '添加导航菜单', '');
-INSERT INTO `xyb_auth_rule` VALUES ('35', '1', 'admin', 'admin_url', 'admin/NavMenu/addPost', '', '添加导航菜单提交保存', '');
-INSERT INTO `xyb_auth_rule` VALUES ('36', '1', 'admin', 'admin_url', 'admin/NavMenu/edit', '', '编辑导航菜单', '');
-INSERT INTO `xyb_auth_rule` VALUES ('37', '1', 'admin', 'admin_url', 'admin/NavMenu/editPost', '', '编辑导航菜单提交保存', '');
-INSERT INTO `xyb_auth_rule` VALUES ('38', '1', 'admin', 'admin_url', 'admin/NavMenu/delete', '', '删除导航菜单', '');
-INSERT INTO `xyb_auth_rule` VALUES ('39', '1', 'admin', 'admin_url', 'admin/NavMenu/listOrder', '', '导航菜单排序', '');
-INSERT INTO `xyb_auth_rule` VALUES ('40', '1', 'admin', 'admin_url', 'admin/Plugin/default', '', '插件中心', '');
-INSERT INTO `xyb_auth_rule` VALUES ('41', '1', 'admin', 'admin_url', 'admin/Plugin/index', '', '插件列表', '');
-INSERT INTO `xyb_auth_rule` VALUES ('42', '1', 'admin', 'admin_url', 'admin/Plugin/toggle', '', '插件启用禁用', '');
-INSERT INTO `xyb_auth_rule` VALUES ('43', '1', 'admin', 'admin_url', 'admin/Plugin/setting', '', '插件设置', '');
-INSERT INTO `xyb_auth_rule` VALUES ('44', '1', 'admin', 'admin_url', 'admin/Plugin/settingPost', '', '插件设置提交', '');
-INSERT INTO `xyb_auth_rule` VALUES ('45', '1', 'admin', 'admin_url', 'admin/Plugin/install', '', '插件安装', '');
-INSERT INTO `xyb_auth_rule` VALUES ('46', '1', 'admin', 'admin_url', 'admin/Plugin/update', '', '插件更新', '');
-INSERT INTO `xyb_auth_rule` VALUES ('47', '1', 'admin', 'admin_url', 'admin/Plugin/uninstall', '', '卸载插件', '');
-INSERT INTO `xyb_auth_rule` VALUES ('48', '1', 'admin', 'admin_url', 'admin/Rbac/index', '', '角色管理', '');
-INSERT INTO `xyb_auth_rule` VALUES ('49', '1', 'admin', 'admin_url', 'admin/Rbac/roleAdd', '', '添加角色', '');
-INSERT INTO `xyb_auth_rule` VALUES ('50', '1', 'admin', 'admin_url', 'admin/Rbac/roleAddPost', '', '添加角色提交', '');
-INSERT INTO `xyb_auth_rule` VALUES ('51', '1', 'admin', 'admin_url', 'admin/Rbac/roleEdit', '', '编辑角色', '');
-INSERT INTO `xyb_auth_rule` VALUES ('52', '1', 'admin', 'admin_url', 'admin/Rbac/roleEditPost', '', '编辑角色提交', '');
-INSERT INTO `xyb_auth_rule` VALUES ('53', '1', 'admin', 'admin_url', 'admin/Rbac/roleDelete', '', '删除角色', '');
-INSERT INTO `xyb_auth_rule` VALUES ('54', '1', 'admin', 'admin_url', 'admin/Rbac/authorize', '', '设置角色权限', '');
-INSERT INTO `xyb_auth_rule` VALUES ('55', '1', 'admin', 'admin_url', 'admin/Rbac/authorizePost', '', '角色授权提交', '');
-INSERT INTO `xyb_auth_rule` VALUES ('56', '1', 'admin', 'admin_url', 'admin/RecycleBin/index', '', '回收站', '');
-INSERT INTO `xyb_auth_rule` VALUES ('57', '1', 'admin', 'admin_url', 'admin/RecycleBin/restore', '', '回收站还原', '');
-INSERT INTO `xyb_auth_rule` VALUES ('58', '1', 'admin', 'admin_url', 'admin/RecycleBin/delete', '', '回收站彻底删除', '');
-INSERT INTO `xyb_auth_rule` VALUES ('59', '1', 'admin', 'admin_url', 'admin/Route/index', '', 'URL美化', '');
-INSERT INTO `xyb_auth_rule` VALUES ('60', '1', 'admin', 'admin_url', 'admin/Route/add', '', '添加路由规则', '');
-INSERT INTO `xyb_auth_rule` VALUES ('61', '1', 'admin', 'admin_url', 'admin/Route/addPost', '', '添加路由规则提交', '');
-INSERT INTO `xyb_auth_rule` VALUES ('62', '1', 'admin', 'admin_url', 'admin/Route/edit', '', '路由规则编辑', '');
-INSERT INTO `xyb_auth_rule` VALUES ('63', '1', 'admin', 'admin_url', 'admin/Route/editPost', '', '路由规则编辑提交', '');
-INSERT INTO `xyb_auth_rule` VALUES ('64', '1', 'admin', 'admin_url', 'admin/Route/delete', '', '路由规则删除', '');
-INSERT INTO `xyb_auth_rule` VALUES ('65', '1', 'admin', 'admin_url', 'admin/Route/ban', '', '路由规则禁用', '');
-INSERT INTO `xyb_auth_rule` VALUES ('66', '1', 'admin', 'admin_url', 'admin/Route/open', '', '路由规则启用', '');
-INSERT INTO `xyb_auth_rule` VALUES ('67', '1', 'admin', 'admin_url', 'admin/Route/listOrder', '', '路由规则排序', '');
-INSERT INTO `xyb_auth_rule` VALUES ('68', '1', 'admin', 'admin_url', 'admin/Route/select', '', '选择URL', '');
-INSERT INTO `xyb_auth_rule` VALUES ('69', '1', 'admin', 'admin_url', 'admin/Setting/default', '', '设置', '');
-INSERT INTO `xyb_auth_rule` VALUES ('70', '1', 'admin', 'admin_url', 'admin/Setting/site', '', '网站信息', '');
-INSERT INTO `xyb_auth_rule` VALUES ('71', '1', 'admin', 'admin_url', 'admin/Setting/sitePost', '', '网站信息设置提交', '');
-INSERT INTO `xyb_auth_rule` VALUES ('72', '1', 'admin', 'admin_url', 'admin/Setting/password', '', '密码修改', '');
-INSERT INTO `xyb_auth_rule` VALUES ('73', '1', 'admin', 'admin_url', 'admin/Setting/passwordPost', '', '密码修改提交', '');
-INSERT INTO `xyb_auth_rule` VALUES ('74', '1', 'admin', 'admin_url', 'admin/Setting/upload', '', '上传设置', '');
-INSERT INTO `xyb_auth_rule` VALUES ('75', '1', 'admin', 'admin_url', 'admin/Setting/uploadPost', '', '上传设置提交', '');
-INSERT INTO `xyb_auth_rule` VALUES ('76', '1', 'admin', 'admin_url', 'admin/Setting/clearCache', '', '清除缓存', '');
-INSERT INTO `xyb_auth_rule` VALUES ('77', '1', 'admin', 'admin_url', 'admin/Slide/index', '', '幻灯片管理', '');
-INSERT INTO `xyb_auth_rule` VALUES ('78', '1', 'admin', 'admin_url', 'admin/Slide/add', '', '添加幻灯片', '');
-INSERT INTO `xyb_auth_rule` VALUES ('79', '1', 'admin', 'admin_url', 'admin/Slide/addPost', '', '添加幻灯片提交', '');
-INSERT INTO `xyb_auth_rule` VALUES ('80', '1', 'admin', 'admin_url', 'admin/Slide/edit', '', '编辑幻灯片', '');
-INSERT INTO `xyb_auth_rule` VALUES ('81', '1', 'admin', 'admin_url', 'admin/Slide/editPost', '', '编辑幻灯片提交', '');
-INSERT INTO `xyb_auth_rule` VALUES ('82', '1', 'admin', 'admin_url', 'admin/Slide/delete', '', '删除幻灯片', '');
-INSERT INTO `xyb_auth_rule` VALUES ('83', '1', 'admin', 'admin_url', 'admin/SlideItem/index', '', '幻灯片页面列表', '');
-INSERT INTO `xyb_auth_rule` VALUES ('84', '1', 'admin', 'admin_url', 'admin/SlideItem/add', '', '幻灯片页面添加', '');
-INSERT INTO `xyb_auth_rule` VALUES ('85', '1', 'admin', 'admin_url', 'admin/SlideItem/addPost', '', '幻灯片页面添加提交', '');
-INSERT INTO `xyb_auth_rule` VALUES ('86', '1', 'admin', 'admin_url', 'admin/SlideItem/edit', '', '幻灯片页面编辑', '');
-INSERT INTO `xyb_auth_rule` VALUES ('87', '1', 'admin', 'admin_url', 'admin/SlideItem/editPost', '', '幻灯片页面编辑提交', '');
-INSERT INTO `xyb_auth_rule` VALUES ('88', '1', 'admin', 'admin_url', 'admin/SlideItem/delete', '', '幻灯片页面删除', '');
-INSERT INTO `xyb_auth_rule` VALUES ('89', '1', 'admin', 'admin_url', 'admin/SlideItem/ban', '', '幻灯片页面隐藏', '');
-INSERT INTO `xyb_auth_rule` VALUES ('90', '1', 'admin', 'admin_url', 'admin/SlideItem/cancelBan', '', '幻灯片页面显示', '');
-INSERT INTO `xyb_auth_rule` VALUES ('91', '1', 'admin', 'admin_url', 'admin/SlideItem/listOrder', '', '幻灯片页面排序', '');
-INSERT INTO `xyb_auth_rule` VALUES ('92', '1', 'admin', 'admin_url', 'admin/Storage/index', '', '文件存储', '');
-INSERT INTO `xyb_auth_rule` VALUES ('93', '1', 'admin', 'admin_url', 'admin/Storage/settingPost', '', '文件存储设置提交', '');
-INSERT INTO `xyb_auth_rule` VALUES ('94', '1', 'admin', 'admin_url', 'admin/Theme/index', '', '模板管理', '');
-INSERT INTO `xyb_auth_rule` VALUES ('95', '1', 'admin', 'admin_url', 'admin/Theme/install', '', '安装模板', '');
-INSERT INTO `xyb_auth_rule` VALUES ('96', '1', 'admin', 'admin_url', 'admin/Theme/uninstall', '', '卸载模板', '');
-INSERT INTO `xyb_auth_rule` VALUES ('97', '1', 'admin', 'admin_url', 'admin/Theme/installTheme', '', '模板安装', '');
-INSERT INTO `xyb_auth_rule` VALUES ('98', '1', 'admin', 'admin_url', 'admin/Theme/update', '', '模板更新', '');
-INSERT INTO `xyb_auth_rule` VALUES ('99', '1', 'admin', 'admin_url', 'admin/Theme/active', '', '启用模板', '');
-INSERT INTO `xyb_auth_rule` VALUES ('100', '1', 'admin', 'admin_url', 'admin/Theme/files', '', '模板文件列表', '');
-INSERT INTO `xyb_auth_rule` VALUES ('101', '1', 'admin', 'admin_url', 'admin/Theme/fileSetting', '', '模板文件设置', '');
-INSERT INTO `xyb_auth_rule` VALUES ('102', '1', 'admin', 'admin_url', 'admin/Theme/fileArrayData', '', '模板文件数组数据列表', '');
-INSERT INTO `xyb_auth_rule` VALUES ('103', '1', 'admin', 'admin_url', 'admin/Theme/fileArrayDataEdit', '', '模板文件数组数据添加编辑', '');
-INSERT INTO `xyb_auth_rule` VALUES ('104', '1', 'admin', 'admin_url', 'admin/Theme/fileArrayDataEditPost', '', '模板文件数组数据添加编辑提交保存', '');
-INSERT INTO `xyb_auth_rule` VALUES ('105', '1', 'admin', 'admin_url', 'admin/Theme/fileArrayDataDelete', '', '模板文件数组数据删除', '');
-INSERT INTO `xyb_auth_rule` VALUES ('106', '1', 'admin', 'admin_url', 'admin/Theme/settingPost', '', '模板文件编辑提交保存', '');
-INSERT INTO `xyb_auth_rule` VALUES ('107', '1', 'admin', 'admin_url', 'admin/Theme/dataSource', '', '模板文件设置数据源', '');
-INSERT INTO `xyb_auth_rule` VALUES ('108', '1', 'admin', 'admin_url', 'admin/User/default', '', '管理组', '');
-INSERT INTO `xyb_auth_rule` VALUES ('109', '1', 'admin', 'admin_url', 'admin/User/index', '', '管理员', '');
-INSERT INTO `xyb_auth_rule` VALUES ('110', '1', 'admin', 'admin_url', 'admin/User/add', '', '管理员添加', '');
-INSERT INTO `xyb_auth_rule` VALUES ('111', '1', 'admin', 'admin_url', 'admin/User/addPost', '', '管理员添加提交', '');
-INSERT INTO `xyb_auth_rule` VALUES ('112', '1', 'admin', 'admin_url', 'admin/User/edit', '', '管理员编辑', '');
-INSERT INTO `xyb_auth_rule` VALUES ('113', '1', 'admin', 'admin_url', 'admin/User/editPost', '', '管理员编辑提交', '');
-INSERT INTO `xyb_auth_rule` VALUES ('114', '1', 'admin', 'admin_url', 'admin/User/userInfo', '', '个人信息', '');
-INSERT INTO `xyb_auth_rule` VALUES ('115', '1', 'admin', 'admin_url', 'admin/User/userInfoPost', '', '管理员个人信息修改提交', '');
-INSERT INTO `xyb_auth_rule` VALUES ('116', '1', 'admin', 'admin_url', 'admin/User/delete', '', '管理员删除', '');
-INSERT INTO `xyb_auth_rule` VALUES ('117', '1', 'admin', 'admin_url', 'admin/User/ban', '', '停用管理员', '');
-INSERT INTO `xyb_auth_rule` VALUES ('118', '1', 'admin', 'admin_url', 'admin/User/cancelBan', '', '启用管理员', '');
-INSERT INTO `xyb_auth_rule` VALUES ('119', '1', 'portal', 'admin_url', 'portal/AdminArticle/index', '', '文章管理', '');
-INSERT INTO `xyb_auth_rule` VALUES ('120', '1', 'portal', 'admin_url', 'portal/AdminArticle/add', '', '添加文章', '');
-INSERT INTO `xyb_auth_rule` VALUES ('121', '1', 'portal', 'admin_url', 'portal/AdminArticle/addPost', '', '添加文章提交', '');
-INSERT INTO `xyb_auth_rule` VALUES ('122', '1', 'portal', 'admin_url', 'portal/AdminArticle/edit', '', '编辑文章', '');
-INSERT INTO `xyb_auth_rule` VALUES ('123', '1', 'portal', 'admin_url', 'portal/AdminArticle/editPost', '', '编辑文章提交', '');
-INSERT INTO `xyb_auth_rule` VALUES ('124', '1', 'portal', 'admin_url', 'portal/AdminArticle/delete', '', '文章删除', '');
-INSERT INTO `xyb_auth_rule` VALUES ('125', '1', 'portal', 'admin_url', 'portal/AdminArticle/publish', '', '文章发布', '');
-INSERT INTO `xyb_auth_rule` VALUES ('126', '1', 'portal', 'admin_url', 'portal/AdminArticle/top', '', '文章置顶', '');
-INSERT INTO `xyb_auth_rule` VALUES ('127', '1', 'portal', 'admin_url', 'portal/AdminArticle/recommend', '', '文章推荐', '');
-INSERT INTO `xyb_auth_rule` VALUES ('128', '1', 'portal', 'admin_url', 'portal/AdminArticle/listOrder', '', '文章排序', '');
-INSERT INTO `xyb_auth_rule` VALUES ('129', '1', 'portal', 'admin_url', 'portal/AdminCategory/index', '', '分类管理', '');
-INSERT INTO `xyb_auth_rule` VALUES ('130', '1', 'portal', 'admin_url', 'portal/AdminCategory/add', '', '添加文章分类', '');
-INSERT INTO `xyb_auth_rule` VALUES ('131', '1', 'portal', 'admin_url', 'portal/AdminCategory/addPost', '', '添加文章分类提交', '');
-INSERT INTO `xyb_auth_rule` VALUES ('132', '1', 'portal', 'admin_url', 'portal/AdminCategory/edit', '', '编辑文章分类', '');
-INSERT INTO `xyb_auth_rule` VALUES ('133', '1', 'portal', 'admin_url', 'portal/AdminCategory/editPost', '', '编辑文章分类提交', '');
-INSERT INTO `xyb_auth_rule` VALUES ('134', '1', 'portal', 'admin_url', 'portal/AdminCategory/select', '', '文章分类选择对话框', '');
-INSERT INTO `xyb_auth_rule` VALUES ('135', '1', 'portal', 'admin_url', 'portal/AdminCategory/listOrder', '', '文章分类排序', '');
-INSERT INTO `xyb_auth_rule` VALUES ('136', '1', 'portal', 'admin_url', 'portal/AdminCategory/delete', '', '删除文章分类', '');
-INSERT INTO `xyb_auth_rule` VALUES ('137', '1', 'portal', 'admin_url', 'portal/AdminIndex/default', '', '门户管理', '');
-INSERT INTO `xyb_auth_rule` VALUES ('138', '1', 'portal', 'admin_url', 'portal/AdminPage/index', '', '页面管理', '');
-INSERT INTO `xyb_auth_rule` VALUES ('139', '1', 'portal', 'admin_url', 'portal/AdminPage/add', '', '添加页面', '');
-INSERT INTO `xyb_auth_rule` VALUES ('140', '1', 'portal', 'admin_url', 'portal/AdminPage/addPost', '', '添加页面提交', '');
-INSERT INTO `xyb_auth_rule` VALUES ('141', '1', 'portal', 'admin_url', 'portal/AdminPage/edit', '', '编辑页面', '');
-INSERT INTO `xyb_auth_rule` VALUES ('142', '1', 'portal', 'admin_url', 'portal/AdminPage/editPost', '', '编辑页面提交', '');
-INSERT INTO `xyb_auth_rule` VALUES ('143', '1', 'portal', 'admin_url', 'portal/AdminPage/delete', '', '删除页面', '');
-INSERT INTO `xyb_auth_rule` VALUES ('144', '1', 'portal', 'admin_url', 'portal/AdminTag/index', '', '文章标签', '');
-INSERT INTO `xyb_auth_rule` VALUES ('145', '1', 'portal', 'admin_url', 'portal/AdminTag/add', '', '添加文章标签', '');
-INSERT INTO `xyb_auth_rule` VALUES ('146', '1', 'portal', 'admin_url', 'portal/AdminTag/addPost', '', '添加文章标签提交', '');
-INSERT INTO `xyb_auth_rule` VALUES ('147', '1', 'portal', 'admin_url', 'portal/AdminTag/upStatus', '', '更新标签状态', '');
-INSERT INTO `xyb_auth_rule` VALUES ('148', '1', 'portal', 'admin_url', 'portal/AdminTag/delete', '', '删除文章标签', '');
-INSERT INTO `xyb_auth_rule` VALUES ('149', '1', 'user', 'admin_url', 'user/AdminAsset/index', '', '资源管理', '');
-INSERT INTO `xyb_auth_rule` VALUES ('150', '1', 'user', 'admin_url', 'user/AdminAsset/delete', '', '删除文件', '');
-INSERT INTO `xyb_auth_rule` VALUES ('151', '1', 'user', 'admin_url', 'user/AdminIndex/default', '', '用户管理', '');
-INSERT INTO `xyb_auth_rule` VALUES ('152', '1', 'user', 'admin_url', 'user/AdminIndex/default1', '', '用户组', '');
-INSERT INTO `xyb_auth_rule` VALUES ('153', '1', 'user', 'admin_url', 'user/AdminIndex/index', '', '本站用户', '');
-INSERT INTO `xyb_auth_rule` VALUES ('154', '1', 'user', 'admin_url', 'user/AdminIndex/ban', '', '本站用户拉黑', '');
-INSERT INTO `xyb_auth_rule` VALUES ('155', '1', 'user', 'admin_url', 'user/AdminIndex/cancelBan', '', '本站用户启用', '');
-INSERT INTO `xyb_auth_rule` VALUES ('156', '1', 'user', 'admin_url', 'user/AdminOauth/index', '', '第三方用户', '');
-INSERT INTO `xyb_auth_rule` VALUES ('157', '1', 'user', 'admin_url', 'user/AdminOauth/delete', '', '删除第三方用户绑定', '');
-INSERT INTO `xyb_auth_rule` VALUES ('158', '1', 'user', 'admin_url', 'user/AdminUserAction/index', '', '用户操作管理', '');
-INSERT INTO `xyb_auth_rule` VALUES ('159', '1', 'user', 'admin_url', 'user/AdminUserAction/edit', '', '编辑用户操作', '');
-INSERT INTO `xyb_auth_rule` VALUES ('160', '1', 'user', 'admin_url', 'user/AdminUserAction/editPost', '', '编辑用户操作提交', '');
-INSERT INTO `xyb_auth_rule` VALUES ('161', '1', 'user', 'admin_url', 'user/AdminUserAction/sync', '', '同步用户操作', '');
-INSERT INTO `xyb_auth_rule` VALUES ('162', '1', 'Admin', 'admin_url', 'Admin/Schedule/default', '', '我的日程', '');
-INSERT INTO `xyb_auth_rule` VALUES ('163', '1', 'Admin', 'admin_url', 'Admin/Schedule/index', '', '我的课表', '');
-INSERT INTO `xyb_auth_rule` VALUES ('164', '1', 'Admin', 'admin_url', 'Admin/Schedule/adjustment', '', '调课情况', '');
-INSERT INTO `xyb_auth_rule` VALUES ('165', '1', 'Admin', 'admin_url', 'Admin/Grade/default', '', '班级课表', '');
-INSERT INTO `xyb_auth_rule` VALUES ('166', '1', 'Admin', 'admin_url', 'Admin/Grade/origin_kb', '', '原始课表', '');
-INSERT INTO `xyb_auth_rule` VALUES ('167', '1', 'Admin', 'admin_url', 'Admin/Grade/real_kb', '', '实时班课表', '');
-INSERT INTO `xyb_auth_rule` VALUES ('168', '1', 'Admin', 'admin_url', 'Admin/Apply/default', '', '调代课申请', '');
-INSERT INTO `xyb_auth_rule` VALUES ('169', '1', 'Admin', 'admin_url', 'Admin/Apply/dk_apply', '', '代课申请', '');
-INSERT INTO `xyb_auth_rule` VALUES ('170', '1', 'Admin', 'admin_url', 'Admin/Apply/tk_apply', '', '调课申请', '');
-INSERT INTO `xyb_auth_rule` VALUES ('171', '1', 'Admin', 'admin_url', 'Admin/BasicSet/default', '', '基本设置', '');
-INSERT INTO `xyb_auth_rule` VALUES ('172', '1', 'Admin', 'admin_url', 'Admin/BasicSet/class_info', '', '班级信息', '');
-INSERT INTO `xyb_auth_rule` VALUES ('173', '1', 'Admin', 'admin_url', 'Admin/BasicSet/school_semester', '', '学年学期', '');
-INSERT INTO `xyb_auth_rule` VALUES ('174', '1', 'Admin', 'admin_url', 'Admin/BasicSet/time_table', '', '作息时间', '');
-INSERT INTO `xyb_auth_rule` VALUES ('175', '1', 'Admin', 'admin_url', 'Admin/BasicSet/course_info', '', '课程信息', '');
-INSERT INTO `xyb_auth_rule` VALUES ('176', '1', 'Admin', 'admin_url', 'Admin/BasicSet/teach_info', '', '任教信息', '');
+INSERT INTO `xyb_auth_rule` VALUES ('1', '1', 'xyb', 'admin_url', 'xyb/user/default', '', '用户管理', '');
+INSERT INTO `xyb_auth_rule` VALUES ('2', '1', 'xyb', 'admin_url', 'xyb/user/user_business', '', '商户管理', '');
+INSERT INTO `xyb_auth_rule` VALUES ('3', '1', 'xyb', 'admin_url', 'xyb/user/user_common', '', '普通用户', '');
+INSERT INTO `xyb_auth_rule` VALUES ('4', '1', 'xyb', 'admin_url', 'xyb/user/index', '', '系统用户', '');
+INSERT INTO `xyb_auth_rule` VALUES ('5', '1', 'xyb', 'admin_url', 'xyb/suggest/default', '', '意见管理', '');
+INSERT INTO `xyb_auth_rule` VALUES ('6', '1', 'xyb', 'admin_url', 'xyb/suggest/index', '', '意见反馈', '');
+INSERT INTO `xyb_auth_rule` VALUES ('7', '1', 'user', 'admin_url', 'user/consume/default', '', '金额明细', '');
+INSERT INTO `xyb_auth_rule` VALUES ('8', '1', 'xyb', 'admin_url', 'xyb/consume/info', '', '明细列表', '');
+INSERT INTO `xyb_auth_rule` VALUES ('9', '1', 'xyb', 'admin_url', 'xyb/recruit/default', '', '招聘管理', '');
+INSERT INTO `xyb_auth_rule` VALUES ('10', '1', 'xyb', 'admin_url', 'xyb/recruit/release', '', '在招职位', '');
+INSERT INTO `xyb_auth_rule` VALUES ('11', '1', 'xyb', 'admin_url', 'xyb/recruit/closed', '', '关闭职位', '');
+INSERT INTO `xyb_auth_rule` VALUES ('12', '1', 'xyb', 'admin_url', 'xyb/shops/default', '', '商铺(房)管理', '');
+INSERT INTO `xyb_auth_rule` VALUES ('13', '1', 'xyb', 'admin_url', 'xyb/shops/release', '', '发布中', '');
+INSERT INTO `xyb_auth_rule` VALUES ('14', '1', 'xyb', 'admin_url', 'xyb/shops/closed', '', '已关闭', '');
+INSERT INTO `xyb_auth_rule` VALUES ('15', '1', 'xyb', 'admin_url', 'xyb/car/default', '', '二手车', '');
+INSERT INTO `xyb_auth_rule` VALUES ('16', '1', 'xyb', 'admin_url', 'xyb/car/release', '', '发布中', '');
+INSERT INTO `xyb_auth_rule` VALUES ('17', '1', 'xyb', 'admin_url', 'xyb/car/closed', '', '已关闭', '');
+INSERT INTO `xyb_auth_rule` VALUES ('18', '1', 'xyb', 'admin_url', 'xyb/profile/default', '', '资料管理', '');
+INSERT INTO `xyb_auth_rule` VALUES ('19', '1', 'xyb', 'admin_url', 'xyb/profile/enterprise_info', '', '公司资料审核', '');
+INSERT INTO `xyb_auth_rule` VALUES ('20', '1', 'xyb', 'admin_url', 'xyb/profile/person_info', '', '个人资料审核', '');
+INSERT INTO `xyb_auth_rule` VALUES ('21', '1', 'xyb', 'admin_url', 'xyb/menu/default', '', '菜单管理', '');
+INSERT INTO `xyb_auth_rule` VALUES ('22', '1', 'xyb', 'admin_url', 'xyb/menu/index', '', '菜单列表', '');
+INSERT INTO `xyb_auth_rule` VALUES ('23', '1', 'xyb', 'admin_url', 'xyb/menu/add', '', '添加菜单', '');
+INSERT INTO `xyb_auth_rule` VALUES ('24', '1', 'xyb', 'admin_url', 'xyb/user/add_user', '', '添加用户', '');
 
 -- ----------------------------
 -- Table structure for xyb_class_set
@@ -865,12 +562,13 @@ CREATE TABLE `xyb_role_user` (
   PRIMARY KEY (`id`),
   KEY `role_id` (`role_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='用户角色对应表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='用户角色对应表';
 
 -- ----------------------------
 -- Records of xyb_role_user
 -- ----------------------------
 INSERT INTO `xyb_role_user` VALUES ('1', '2', '2');
+INSERT INTO `xyb_role_user` VALUES ('2', '2', '3');
 
 -- ----------------------------
 -- Table structure for xyb_route
@@ -1032,13 +730,14 @@ CREATE TABLE `xyb_user` (
   `mobile` varchar(20) NOT NULL DEFAULT '' COMMENT '用户手机号',
   PRIMARY KEY (`id`),
   KEY `user_login` (`user_login`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
 
 -- ----------------------------
 -- Records of xyb_user
 -- ----------------------------
-INSERT INTO `xyb_user` VALUES ('1', '0', '1562740786', '1562552887', '1', 'admin', '###b2621159a2a1393df2017c940f7c243e', '');
-INSERT INTO `xyb_user` VALUES ('2', '1', '0', '1562837322', '1', 'dkd', '37f26c2c86a350368498d01710ec589d', '18382426150');
+INSERT INTO `xyb_user` VALUES ('1', '0', '1563764091', '1562552887', '1', 'admin', '00e0678b1678a8c2a597a4935e1a180d', '');
+INSERT INTO `xyb_user` VALUES ('2', '1', '1562917266', '1562837322', '1', 'dkd', '00e0678b1678a8c2a597a4935e1a180d', '18382426150');
+INSERT INTO `xyb_user` VALUES ('3', '1', '1562917376', '1562917356', '1', '123', '00e0678b1678a8c2a597a4935e1a180d', '18259662301');
 
 -- ----------------------------
 -- Table structure for xyb_user_action
