@@ -19,13 +19,13 @@ class Register extends ApiBase
           if($type==0){
             return json(array('code'=>201,'info'=>'请选择商家还是普通用户'));
           }
-          if(!preg_match('/^1[34578]{9}$/',$mobile)){
+          if(!preg_match('/^1[34578]\d{9}$/',$mobile)){
              return json(array('code'=>202,'info'=>'手机号格式有误'));
           }
           if($input_code!=$correct_code){
               return json(array('code'=>203,'info'=>'验证码错误'));
           }
-          $info=Db::name('user')->where(array('mobile'=>$mobile))->find();
+          $info=Db::name('users')->where(array('mobile'=>$mobile))->find();
           if(!empty($info)){
               return json(array('code'=>204,'info'=>'该手机号已存在'));
           }else{
@@ -45,7 +45,7 @@ class Register extends ApiBase
             $passwd_confirm=$this->request->param('passwd_confirm');
             $tj_code=$this->request->param('tj_code') ? $this->request->param('tj_code') : 0;
             $type=$this->request->param('type');
-            if(!preg_match('/^1[34578]{9}$/',$mobile)){
+            if(!preg_match('/^1[34578]\d{9}$/',$mobile)){
                 return json(array('code'=>202,'info'=>'手机号格式有误'));
             }
             if($passwd!=$passwd_confirm){
@@ -73,8 +73,12 @@ class Register extends ApiBase
             $mobile=$this->request->param('mobile');
             $input_code=$this->request->param('input_code');
             $correct_code=$this->request->param('correct_code');
-            if(!preg_match('/^1([34578]{9})/',$mobile)){
+            if(!preg_match('/^1[34578]\d{9}$/',$mobile)){
                 return json(array('code'=>202,'info'=>'手机号格式有误'));
+            }
+            $info=Db::name('users')->where(array('mobile'=>$mobile))->find();
+            if(empty($info)){
+                return json(array('code'=>211,'info'=>'该手机尚未注册'));
             }
             if($input_code!=$correct_code){
                 return json(array('code'=>207,'info'=>'验证码错误'));
@@ -92,7 +96,7 @@ class Register extends ApiBase
            $mobile=$this->request->param('mobile');
            $passwd=$this->request->param('passwd');
            $passwd_confirm=$this->request->param('passwd_confirm');
-           if(!preg_match('/^1([34578]{9})/',$mobile)){
+           if(!preg_match('/^1[34578]\d{9}$/',$mobile)){
                return json(array('code'=>202,'info'=>'手机号格式有误'));
            }
            if($passwd!=$passwd_confirm){
@@ -100,22 +104,20 @@ class Register extends ApiBase
            }
            $key=config('api_KEY');
            $new_passwd=md5($key.$passwd);
-           $res=Db::name('users')->where(array('mobile'=>$mobile))->field('mobile,id')->find();
+           $res=Db::name('users')->where(array('mobile'=>$mobile))->field('mobile,id,passwd')->find();
            if(empty($res)){
                return json(array('code'=>209,'info'=>'该修改密码的手机号不存在'));
            }
-           $info=Db::name('user')->where(array('id'=>$res['id']))->update(array('passwd'=>$new_passwd));
+           if($new_passwd==$res['passwd']){
+               return json(array('code'=>212,'info'=>'新密码不能与原密码一样'));
+           }
+           $info=Db::name('users')->where(array('id'=>$res['id']))->update(array('passwd'=>$new_passwd));
            if($info){
                return json(array('code'=>200,'info'=>'密码修改成功'));
            }else{
                return json(array('code'=>210,'info'=>'密码修改失败'));
            }
        }
-    }
-
-
-    public function test(){
-        return json(array('state'=>200,'info'=>'postman好了'));
     }
 
 }
