@@ -10,10 +10,30 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2019-07-23 14:25:14
+Date: 2019-07-23 18:18:45
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for look_resume_record
+-- ----------------------------
+DROP TABLE IF EXISTS `look_resume_record`;
+CREATE TABLE `look_resume_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `look_user_id` int(11) NOT NULL DEFAULT '0' COMMENT '查看用户的id',
+  `coins` int(11) NOT NULL DEFAULT '0' COMMENT '金币',
+  `usj_id` int(11) NOT NULL DEFAULT '0' COMMENT '求职者user_seek_job发布简历的id',
+  `content` varchar(30) NOT NULL COMMENT '操作内容',
+  `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
+  PRIMARY KEY (`id`),
+  KEY `look_user_id` (`look_user_id`) USING BTREE,
+  KEY `usj_id` (`usj_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of look_resume_record
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for xyb_admin_menu
@@ -614,6 +634,32 @@ INSERT INTO `xyb_province` VALUES ('33', '810000', '香港特别行政区');
 INSERT INTO `xyb_province` VALUES ('34', '820000', '澳门特别行政区');
 
 -- ----------------------------
+-- Table structure for xyb_recruit_company
+-- ----------------------------
+DROP TABLE IF EXISTS `xyb_recruit_company`;
+CREATE TABLE `xyb_recruit_company` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `company_name` varchar(40) NOT NULL COMMENT '公司名称',
+  `seek_job` varchar(30) NOT NULL COMMENT '招聘岗位',
+  `work_time` varchar(30) NOT NULL,
+  `work_address` varchar(80) NOT NULL COMMENT '工作地址',
+  `demand_num` tinyint(4) NOT NULL DEFAULT '0' COMMENT '需求人数',
+  `salary_rand` varchar(30) NOT NULL COMMENT '薪资范围',
+  `salary_type` varchar(20) NOT NULL COMMENT '薪资结算时间',
+  `work_detail` text NOT NULL COMMENT '工作详情',
+  `work_pic` varchar(255) NOT NULL COMMENT '工作图片',
+  `contact_user` varchar(30) NOT NULL COMMENT '联系人',
+  `tel` int(11) NOT NULL DEFAULT '0' COMMENT '联系电话',
+  `status` char(1) NOT NULL DEFAULT '1' COMMENT '1发布中，0已关闭',
+  `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '发布时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of xyb_recruit_company
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for xyb_role
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_role`;
@@ -655,6 +701,42 @@ CREATE TABLE `xyb_role_user` (
 -- ----------------------------
 INSERT INTO `xyb_role_user` VALUES ('1', '2', '2');
 INSERT INTO `xyb_role_user` VALUES ('2', '2', '3');
+
+-- ----------------------------
+-- Table structure for xyb_seeker_pull_black
+-- ----------------------------
+DROP TABLE IF EXISTS `xyb_seeker_pull_black`;
+CREATE TABLE `xyb_seeker_pull_black` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rc_id` int(11) NOT NULL DEFAULT '0' COMMENT '求职者拉黑商户表id',
+  `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '拉黑时间',
+  `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '操作人id',
+  PRIMARY KEY (`id`),
+  KEY `rc_id` (`rc_id`) USING BTREE,
+  KEY `user_id` (`user_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of xyb_seeker_pull_black
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for xyb_sh_pull_black
+-- ----------------------------
+DROP TABLE IF EXISTS `xyb_sh_pull_black`;
+CREATE TABLE `xyb_sh_pull_black` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `usj_id` int(11) NOT NULL DEFAULT '0' COMMENT '商户拉黑求职者表中的id',
+  `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '拉黑时间',
+  `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '操作id',
+  PRIMARY KEY (`id`),
+  KEY `usj_id` (`usj_id`) USING BTREE,
+  KEY `user_id` (`user_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of xyb_sh_pull_black
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for xyb_user
@@ -726,3 +808,32 @@ CREATE TABLE `xyb_user_action` (
 -- Records of xyb_user_action
 -- ----------------------------
 INSERT INTO `xyb_user_action` VALUES ('1', '1', '1', '1', '2', '1', '用户登录', 'login', 'user', '');
+
+-- ----------------------------
+-- Table structure for xyb_user_seek_job
+-- ----------------------------
+DROP TABLE IF EXISTS `xyb_user_seek_job`;
+CREATE TABLE `xyb_user_seek_job` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL COMMENT '求职者id',
+  `user_name` varchar(50) NOT NULL COMMENT '用户名',
+  `age` int(11) NOT NULL DEFAULT '0' COMMENT '年龄',
+  `job_name` varchar(30) NOT NULL COMMENT '求职岗位',
+  `tel` int(11) NOT NULL DEFAULT '0' COMMENT '联系电话',
+  `email` varchar(30) NOT NULL DEFAULT '0' COMMENT '邮箱',
+  `work_position` varchar(50) NOT NULL COMMENT '期望工作地点',
+  `work_salary` varchar(30) NOT NULL COMMENT '期望薪资',
+  `entry_time` varchar(30) NOT NULL COMMENT '入职时间',
+  `self_pj` text NOT NULL COMMENT '自我评价',
+  `work_content` text NOT NULL COMMENT '工作内容',
+  `jz_time` varchar(30) NOT NULL DEFAULT '0' COMMENT '就职时间',
+  `jz_company` varchar(30) NOT NULL DEFAULT '0' COMMENT '就职公司',
+  `jz_gw` varchar(30) NOT NULL DEFAULT '' COMMENT '就职岗位',
+  `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '发布时间',
+  `status` char(1) NOT NULL DEFAULT '1' COMMENT '1发布,0隐藏',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of xyb_user_seek_job
+-- ----------------------------
