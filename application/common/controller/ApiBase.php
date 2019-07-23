@@ -1,5 +1,5 @@
 <?php
-namespace app\common\Controller;
+namespace app\common\controller;
 use think\Controller;
 use think\Db;
 class ApiBase extends Controller

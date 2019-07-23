@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2019-07-22 11:03:36
+Date: 2019-07-23 14:25:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -66,31 +66,6 @@ INSERT INTO `xyb_admin_menu` VALUES ('22', '21', '1', '1', '0', 'xyb', 'menu', '
 INSERT INTO `xyb_admin_menu` VALUES ('23', '21', '1', '1', '0', 'xyb', 'menu', 'add', '', '添加菜单', '', '');
 INSERT INTO `xyb_admin_menu` VALUES ('24', '0', '1', '1', '0', 'xyb', 'index', 'index', '', '控制台', 'menu-icon fa fa-tachometer', '');
 INSERT INTO `xyb_admin_menu` VALUES ('25', '1', '1', '1', '0', 'xyb', 'user', 'add_user', '', '添加用户', '', '');
-
--- ----------------------------
--- Table structure for xyb_asset
--- ----------------------------
-DROP TABLE IF EXISTS `xyb_asset`;
-CREATE TABLE `xyb_asset` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '用户id',
-  `file_size` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '文件大小,单位B',
-  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '上传时间',
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态;1:可用,0:不可用',
-  `download_times` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '下载次数',
-  `file_key` varchar(64) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '文件惟一码',
-  `filename` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '文件名',
-  `file_path` varchar(100) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '文件路径,相对于upload目录,可以为url',
-  `file_md5` varchar(32) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '文件md5值',
-  `file_sha1` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `suffix` varchar(10) NOT NULL DEFAULT '' COMMENT '文件后缀名,不包括点',
-  `more` text COMMENT '其它详细信息,JSON格式',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='资源表';
-
--- ----------------------------
--- Records of xyb_asset
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for xyb_auth_access
@@ -157,375 +132,486 @@ INSERT INTO `xyb_auth_rule` VALUES ('23', '1', 'xyb', 'admin_url', 'xyb/menu/add
 INSERT INTO `xyb_auth_rule` VALUES ('24', '1', 'xyb', 'admin_url', 'xyb/user/add_user', '', '添加用户', '');
 
 -- ----------------------------
--- Table structure for xyb_class_set
+-- Table structure for xyb_city
 -- ----------------------------
-DROP TABLE IF EXISTS `xyb_class_set`;
-CREATE TABLE `xyb_class_set` (
+DROP TABLE IF EXISTS `xyb_city`;
+CREATE TABLE `xyb_city` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `class_name` varchar(50) NOT NULL COMMENT '班级名字',
-  `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
-  `class_director` varchar(30) NOT NULL COMMENT '班主任',
-  `class_teacher` varchar(255) NOT NULL COMMENT '任课教师',
+  `code` varchar(10) NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `province_code` varchar(10) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `class_name` (`class_name`) USING BTREE
+  KEY `code` (`code`)
+) ENGINE=InnoDB AUTO_INCREMENT=346 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of xyb_city
+-- ----------------------------
+INSERT INTO `xyb_city` VALUES ('1', '110100', '北京市', '110000');
+INSERT INTO `xyb_city` VALUES ('2', '1102xx', '北京下属县', '1100xx');
+INSERT INTO `xyb_city` VALUES ('3', '120100', '天津市', '120000');
+INSERT INTO `xyb_city` VALUES ('4', '1202xx', '天津下属县', '1200xx');
+INSERT INTO `xyb_city` VALUES ('5', '130100', '石家庄市', '130000');
+INSERT INTO `xyb_city` VALUES ('6', '130200', '唐山市', '130000');
+INSERT INTO `xyb_city` VALUES ('7', '130300', '秦皇岛市', '130000');
+INSERT INTO `xyb_city` VALUES ('8', '130400', '邯郸市', '130000');
+INSERT INTO `xyb_city` VALUES ('9', '130500', '邢台市', '130000');
+INSERT INTO `xyb_city` VALUES ('10', '130600', '保定市', '130000');
+INSERT INTO `xyb_city` VALUES ('11', '130700', '张家口市', '130000');
+INSERT INTO `xyb_city` VALUES ('12', '130800', '承德市', '130000');
+INSERT INTO `xyb_city` VALUES ('13', '130900', '沧州市', '130000');
+INSERT INTO `xyb_city` VALUES ('14', '131000', '廊坊市', '130000');
+INSERT INTO `xyb_city` VALUES ('15', '131100', '衡水市', '130000');
+INSERT INTO `xyb_city` VALUES ('16', '140100', '太原市', '140000');
+INSERT INTO `xyb_city` VALUES ('17', '140200', '大同市', '140000');
+INSERT INTO `xyb_city` VALUES ('18', '140300', '阳泉市', '140000');
+INSERT INTO `xyb_city` VALUES ('19', '140400', '长治市', '140000');
+INSERT INTO `xyb_city` VALUES ('20', '140500', '晋城市', '140000');
+INSERT INTO `xyb_city` VALUES ('21', '140600', '朔州市', '140000');
+INSERT INTO `xyb_city` VALUES ('22', '140700', '晋中市', '140000');
+INSERT INTO `xyb_city` VALUES ('23', '140800', '运城市', '140000');
+INSERT INTO `xyb_city` VALUES ('24', '140900', '忻州市', '140000');
+INSERT INTO `xyb_city` VALUES ('25', '141000', '临汾市', '140000');
+INSERT INTO `xyb_city` VALUES ('26', '141100', '吕梁市', '140000');
+INSERT INTO `xyb_city` VALUES ('27', '150100', '呼和浩特市', '150000');
+INSERT INTO `xyb_city` VALUES ('28', '150200', '包头市', '150000');
+INSERT INTO `xyb_city` VALUES ('29', '150300', '乌海市', '150000');
+INSERT INTO `xyb_city` VALUES ('30', '150400', '赤峰市', '150000');
+INSERT INTO `xyb_city` VALUES ('31', '150500', '通辽市', '150000');
+INSERT INTO `xyb_city` VALUES ('32', '150600', '鄂尔多斯市', '150000');
+INSERT INTO `xyb_city` VALUES ('33', '150700', '呼伦贝尔市', '150000');
+INSERT INTO `xyb_city` VALUES ('34', '150800', '巴彦淖尔市', '150000');
+INSERT INTO `xyb_city` VALUES ('35', '150900', '乌兰察布市', '150000');
+INSERT INTO `xyb_city` VALUES ('36', '152200', '兴安盟', '150000');
+INSERT INTO `xyb_city` VALUES ('37', '152500', '锡林郭勒盟', '150000');
+INSERT INTO `xyb_city` VALUES ('38', '152900', '阿拉善盟', '150000');
+INSERT INTO `xyb_city` VALUES ('39', '210100', '沈阳市', '210000');
+INSERT INTO `xyb_city` VALUES ('40', '210200', '大连市', '210000');
+INSERT INTO `xyb_city` VALUES ('41', '210300', '鞍山市', '210000');
+INSERT INTO `xyb_city` VALUES ('42', '210400', '抚顺市', '210000');
+INSERT INTO `xyb_city` VALUES ('43', '210500', '本溪市', '210000');
+INSERT INTO `xyb_city` VALUES ('44', '210600', '丹东市', '210000');
+INSERT INTO `xyb_city` VALUES ('45', '210700', '锦州市', '210000');
+INSERT INTO `xyb_city` VALUES ('46', '210800', '营口市', '210000');
+INSERT INTO `xyb_city` VALUES ('47', '210900', '阜新市', '210000');
+INSERT INTO `xyb_city` VALUES ('48', '211000', '辽阳市', '210000');
+INSERT INTO `xyb_city` VALUES ('49', '211100', '盘锦市', '210000');
+INSERT INTO `xyb_city` VALUES ('50', '211200', '铁岭市', '210000');
+INSERT INTO `xyb_city` VALUES ('51', '211300', '朝阳市', '210000');
+INSERT INTO `xyb_city` VALUES ('52', '211400', '葫芦岛市', '210000');
+INSERT INTO `xyb_city` VALUES ('53', '220100', '长春市', '220000');
+INSERT INTO `xyb_city` VALUES ('54', '220200', '吉林市', '220000');
+INSERT INTO `xyb_city` VALUES ('55', '220300', '四平市', '220000');
+INSERT INTO `xyb_city` VALUES ('56', '220400', '辽源市', '220000');
+INSERT INTO `xyb_city` VALUES ('57', '220500', '通化市', '220000');
+INSERT INTO `xyb_city` VALUES ('58', '220600', '白山市', '220000');
+INSERT INTO `xyb_city` VALUES ('59', '220700', '松原市', '220000');
+INSERT INTO `xyb_city` VALUES ('60', '220800', '白城市', '220000');
+INSERT INTO `xyb_city` VALUES ('61', '222400', '延边朝鲜族自治州', '220000');
+INSERT INTO `xyb_city` VALUES ('62', '230100', '哈尔滨市', '230000');
+INSERT INTO `xyb_city` VALUES ('63', '230200', '齐齐哈尔市', '230000');
+INSERT INTO `xyb_city` VALUES ('64', '230300', '鸡西市', '230000');
+INSERT INTO `xyb_city` VALUES ('65', '230400', '鹤岗市', '230000');
+INSERT INTO `xyb_city` VALUES ('66', '230500', '双鸭山市', '230000');
+INSERT INTO `xyb_city` VALUES ('67', '230600', '大庆市', '230000');
+INSERT INTO `xyb_city` VALUES ('68', '230700', '伊春市', '230000');
+INSERT INTO `xyb_city` VALUES ('69', '230800', '佳木斯市', '230000');
+INSERT INTO `xyb_city` VALUES ('70', '230900', '七台河市', '230000');
+INSERT INTO `xyb_city` VALUES ('71', '231000', '牡丹江市', '230000');
+INSERT INTO `xyb_city` VALUES ('72', '231100', '黑河市', '230000');
+INSERT INTO `xyb_city` VALUES ('73', '231200', '绥化市', '230000');
+INSERT INTO `xyb_city` VALUES ('74', '232700', '大兴安岭地区', '230000');
+INSERT INTO `xyb_city` VALUES ('75', '310100', '上海市', '310000');
+INSERT INTO `xyb_city` VALUES ('76', '3102xx', '上海下属县', '3100xx');
+INSERT INTO `xyb_city` VALUES ('77', '320100', '南京市', '320000');
+INSERT INTO `xyb_city` VALUES ('78', '320200', '无锡市', '320000');
+INSERT INTO `xyb_city` VALUES ('79', '320300', '徐州市', '320000');
+INSERT INTO `xyb_city` VALUES ('80', '320400', '常州市', '320000');
+INSERT INTO `xyb_city` VALUES ('81', '320500', '苏州市', '320000');
+INSERT INTO `xyb_city` VALUES ('82', '320600', '南通市', '320000');
+INSERT INTO `xyb_city` VALUES ('83', '320700', '连云港市', '320000');
+INSERT INTO `xyb_city` VALUES ('84', '320800', '淮安市', '320000');
+INSERT INTO `xyb_city` VALUES ('85', '320900', '盐城市', '320000');
+INSERT INTO `xyb_city` VALUES ('86', '321000', '扬州市', '320000');
+INSERT INTO `xyb_city` VALUES ('87', '321100', '镇江市', '320000');
+INSERT INTO `xyb_city` VALUES ('88', '321200', '泰州市', '320000');
+INSERT INTO `xyb_city` VALUES ('89', '321300', '宿迁市', '320000');
+INSERT INTO `xyb_city` VALUES ('90', '330100', '杭州市', '330000');
+INSERT INTO `xyb_city` VALUES ('91', '330200', '宁波市', '330000');
+INSERT INTO `xyb_city` VALUES ('92', '330300', '温州市', '330000');
+INSERT INTO `xyb_city` VALUES ('93', '330400', '嘉兴市', '330000');
+INSERT INTO `xyb_city` VALUES ('94', '330500', '湖州市', '330000');
+INSERT INTO `xyb_city` VALUES ('95', '330600', '绍兴市', '330000');
+INSERT INTO `xyb_city` VALUES ('96', '330700', '金华市', '330000');
+INSERT INTO `xyb_city` VALUES ('97', '330800', '衢州市', '330000');
+INSERT INTO `xyb_city` VALUES ('98', '330900', '舟山市', '330000');
+INSERT INTO `xyb_city` VALUES ('99', '331000', '台州市', '330000');
+INSERT INTO `xyb_city` VALUES ('100', '331100', '丽水市', '330000');
+INSERT INTO `xyb_city` VALUES ('101', '340100', '合肥市', '340000');
+INSERT INTO `xyb_city` VALUES ('102', '340200', '芜湖市', '340000');
+INSERT INTO `xyb_city` VALUES ('103', '340300', '蚌埠市', '340000');
+INSERT INTO `xyb_city` VALUES ('104', '340400', '淮南市', '340000');
+INSERT INTO `xyb_city` VALUES ('105', '340500', '马鞍山市', '340000');
+INSERT INTO `xyb_city` VALUES ('106', '340600', '淮北市', '340000');
+INSERT INTO `xyb_city` VALUES ('107', '340700', '铜陵市', '340000');
+INSERT INTO `xyb_city` VALUES ('108', '340800', '安庆市', '340000');
+INSERT INTO `xyb_city` VALUES ('109', '341000', '黄山市', '340000');
+INSERT INTO `xyb_city` VALUES ('110', '341100', '滁州市', '340000');
+INSERT INTO `xyb_city` VALUES ('111', '341200', '阜阳市', '340000');
+INSERT INTO `xyb_city` VALUES ('112', '341300', '宿州市', '340000');
+INSERT INTO `xyb_city` VALUES ('113', '341400', '巢湖市', '340000');
+INSERT INTO `xyb_city` VALUES ('114', '341500', '六安市', '340000');
+INSERT INTO `xyb_city` VALUES ('115', '341600', '亳州市', '340000');
+INSERT INTO `xyb_city` VALUES ('116', '341700', '池州市', '340000');
+INSERT INTO `xyb_city` VALUES ('117', '341800', '宣城市', '340000');
+INSERT INTO `xyb_city` VALUES ('118', '350100', '福州市', '350000');
+INSERT INTO `xyb_city` VALUES ('119', '350200', '厦门市', '350000');
+INSERT INTO `xyb_city` VALUES ('120', '350300', '莆田市', '350000');
+INSERT INTO `xyb_city` VALUES ('121', '350400', '三明市', '350000');
+INSERT INTO `xyb_city` VALUES ('122', '350500', '泉州市', '350000');
+INSERT INTO `xyb_city` VALUES ('123', '350600', '漳州市', '350000');
+INSERT INTO `xyb_city` VALUES ('124', '350700', '南平市', '350000');
+INSERT INTO `xyb_city` VALUES ('125', '350800', '龙岩市', '350000');
+INSERT INTO `xyb_city` VALUES ('126', '350900', '宁德市', '350000');
+INSERT INTO `xyb_city` VALUES ('127', '360100', '南昌市', '360000');
+INSERT INTO `xyb_city` VALUES ('128', '360200', '景德镇市', '360000');
+INSERT INTO `xyb_city` VALUES ('129', '360300', '萍乡市', '360000');
+INSERT INTO `xyb_city` VALUES ('130', '360400', '九江市', '360000');
+INSERT INTO `xyb_city` VALUES ('131', '360500', '新余市', '360000');
+INSERT INTO `xyb_city` VALUES ('132', '360600', '鹰潭市', '360000');
+INSERT INTO `xyb_city` VALUES ('133', '360700', '赣州市', '360000');
+INSERT INTO `xyb_city` VALUES ('134', '360800', '吉安市', '360000');
+INSERT INTO `xyb_city` VALUES ('135', '360900', '宜春市', '360000');
+INSERT INTO `xyb_city` VALUES ('136', '361000', '抚州市', '360000');
+INSERT INTO `xyb_city` VALUES ('137', '361100', '上饶市', '360000');
+INSERT INTO `xyb_city` VALUES ('138', '370100', '济南市', '370000');
+INSERT INTO `xyb_city` VALUES ('139', '370200', '青岛市', '370000');
+INSERT INTO `xyb_city` VALUES ('140', '370300', '淄博市', '370000');
+INSERT INTO `xyb_city` VALUES ('141', '370400', '枣庄市', '370000');
+INSERT INTO `xyb_city` VALUES ('142', '370500', '东营市', '370000');
+INSERT INTO `xyb_city` VALUES ('143', '370600', '烟台市', '370000');
+INSERT INTO `xyb_city` VALUES ('144', '370700', '潍坊市', '370000');
+INSERT INTO `xyb_city` VALUES ('145', '370800', '济宁市', '370000');
+INSERT INTO `xyb_city` VALUES ('146', '370900', '泰安市', '370000');
+INSERT INTO `xyb_city` VALUES ('147', '371000', '威海市', '370000');
+INSERT INTO `xyb_city` VALUES ('148', '371100', '日照市', '370000');
+INSERT INTO `xyb_city` VALUES ('149', '371200', '莱芜市', '370000');
+INSERT INTO `xyb_city` VALUES ('150', '371300', '临沂市', '370000');
+INSERT INTO `xyb_city` VALUES ('151', '371400', '德州市', '370000');
+INSERT INTO `xyb_city` VALUES ('152', '371500', '聊城市', '370000');
+INSERT INTO `xyb_city` VALUES ('153', '371600', '滨州市', '370000');
+INSERT INTO `xyb_city` VALUES ('154', '371700', '荷泽市', '370000');
+INSERT INTO `xyb_city` VALUES ('155', '410100', '郑州市', '410000');
+INSERT INTO `xyb_city` VALUES ('156', '410200', '开封市', '410000');
+INSERT INTO `xyb_city` VALUES ('157', '410300', '洛阳市', '410000');
+INSERT INTO `xyb_city` VALUES ('158', '410400', '平顶山市', '410000');
+INSERT INTO `xyb_city` VALUES ('159', '410500', '安阳市', '410000');
+INSERT INTO `xyb_city` VALUES ('160', '410600', '鹤壁市', '410000');
+INSERT INTO `xyb_city` VALUES ('161', '410700', '新乡市', '410000');
+INSERT INTO `xyb_city` VALUES ('162', '410800', '焦作市', '410000');
+INSERT INTO `xyb_city` VALUES ('163', '410900', '濮阳市', '410000');
+INSERT INTO `xyb_city` VALUES ('164', '411000', '许昌市', '410000');
+INSERT INTO `xyb_city` VALUES ('165', '411100', '漯河市', '410000');
+INSERT INTO `xyb_city` VALUES ('166', '411200', '三门峡市', '410000');
+INSERT INTO `xyb_city` VALUES ('167', '411300', '南阳市', '410000');
+INSERT INTO `xyb_city` VALUES ('168', '411400', '商丘市', '410000');
+INSERT INTO `xyb_city` VALUES ('169', '411500', '信阳市', '410000');
+INSERT INTO `xyb_city` VALUES ('170', '411600', '周口市', '410000');
+INSERT INTO `xyb_city` VALUES ('171', '411700', '驻马店市', '410000');
+INSERT INTO `xyb_city` VALUES ('172', '420100', '武汉市', '420000');
+INSERT INTO `xyb_city` VALUES ('173', '420200', '黄石市', '420000');
+INSERT INTO `xyb_city` VALUES ('174', '420300', '十堰市', '420000');
+INSERT INTO `xyb_city` VALUES ('175', '420500', '宜昌市', '420000');
+INSERT INTO `xyb_city` VALUES ('176', '420600', '襄樊市', '420000');
+INSERT INTO `xyb_city` VALUES ('177', '420700', '鄂州市', '420000');
+INSERT INTO `xyb_city` VALUES ('178', '420800', '荆门市', '420000');
+INSERT INTO `xyb_city` VALUES ('179', '420900', '孝感市', '420000');
+INSERT INTO `xyb_city` VALUES ('180', '421000', '荆州市', '420000');
+INSERT INTO `xyb_city` VALUES ('181', '421100', '黄冈市', '420000');
+INSERT INTO `xyb_city` VALUES ('182', '421200', '咸宁市', '420000');
+INSERT INTO `xyb_city` VALUES ('183', '421300', '随州市', '420000');
+INSERT INTO `xyb_city` VALUES ('184', '422800', '恩施土家族苗族自治州', '420000');
+INSERT INTO `xyb_city` VALUES ('185', '429000', '省直辖行政单位', '420000');
+INSERT INTO `xyb_city` VALUES ('186', '430100', '长沙市', '430000');
+INSERT INTO `xyb_city` VALUES ('187', '430200', '株洲市', '430000');
+INSERT INTO `xyb_city` VALUES ('188', '430300', '湘潭市', '430000');
+INSERT INTO `xyb_city` VALUES ('189', '430400', '衡阳市', '430000');
+INSERT INTO `xyb_city` VALUES ('190', '430500', '邵阳市', '430000');
+INSERT INTO `xyb_city` VALUES ('191', '430600', '岳阳市', '430000');
+INSERT INTO `xyb_city` VALUES ('192', '430700', '常德市', '430000');
+INSERT INTO `xyb_city` VALUES ('193', '430800', '张家界市', '430000');
+INSERT INTO `xyb_city` VALUES ('194', '430900', '益阳市', '430000');
+INSERT INTO `xyb_city` VALUES ('195', '431000', '郴州市', '430000');
+INSERT INTO `xyb_city` VALUES ('196', '431100', '永州市', '430000');
+INSERT INTO `xyb_city` VALUES ('197', '431200', '怀化市', '430000');
+INSERT INTO `xyb_city` VALUES ('198', '431300', '娄底市', '430000');
+INSERT INTO `xyb_city` VALUES ('199', '433100', '湘西土家族苗族自治州', '430000');
+INSERT INTO `xyb_city` VALUES ('200', '440100', '广州市', '440000');
+INSERT INTO `xyb_city` VALUES ('201', '440200', '韶关市', '440000');
+INSERT INTO `xyb_city` VALUES ('202', '440300', '深圳市', '440000');
+INSERT INTO `xyb_city` VALUES ('203', '440400', '珠海市', '440000');
+INSERT INTO `xyb_city` VALUES ('204', '440500', '汕头市', '440000');
+INSERT INTO `xyb_city` VALUES ('205', '440600', '佛山市', '440000');
+INSERT INTO `xyb_city` VALUES ('206', '440700', '江门市', '440000');
+INSERT INTO `xyb_city` VALUES ('207', '440800', '湛江市', '440000');
+INSERT INTO `xyb_city` VALUES ('208', '440900', '茂名市', '440000');
+INSERT INTO `xyb_city` VALUES ('209', '441200', '肇庆市', '440000');
+INSERT INTO `xyb_city` VALUES ('210', '441300', '惠州市', '440000');
+INSERT INTO `xyb_city` VALUES ('211', '441400', '梅州市', '440000');
+INSERT INTO `xyb_city` VALUES ('212', '441500', '汕尾市', '440000');
+INSERT INTO `xyb_city` VALUES ('213', '441600', '河源市', '440000');
+INSERT INTO `xyb_city` VALUES ('214', '441700', '阳江市', '440000');
+INSERT INTO `xyb_city` VALUES ('215', '441800', '清远市', '440000');
+INSERT INTO `xyb_city` VALUES ('216', '441900', '东莞市', '440000');
+INSERT INTO `xyb_city` VALUES ('217', '442000', '中山市', '440000');
+INSERT INTO `xyb_city` VALUES ('218', '445100', '潮州市', '440000');
+INSERT INTO `xyb_city` VALUES ('219', '445200', '揭阳市', '440000');
+INSERT INTO `xyb_city` VALUES ('220', '445300', '云浮市', '440000');
+INSERT INTO `xyb_city` VALUES ('221', '450100', '南宁市', '450000');
+INSERT INTO `xyb_city` VALUES ('222', '450200', '柳州市', '450000');
+INSERT INTO `xyb_city` VALUES ('223', '450300', '桂林市', '450000');
+INSERT INTO `xyb_city` VALUES ('224', '450400', '梧州市', '450000');
+INSERT INTO `xyb_city` VALUES ('225', '450500', '北海市', '450000');
+INSERT INTO `xyb_city` VALUES ('226', '450600', '防城港市', '450000');
+INSERT INTO `xyb_city` VALUES ('227', '450700', '钦州市', '450000');
+INSERT INTO `xyb_city` VALUES ('228', '450800', '贵港市', '450000');
+INSERT INTO `xyb_city` VALUES ('229', '450900', '玉林市', '450000');
+INSERT INTO `xyb_city` VALUES ('230', '451000', '百色市', '450000');
+INSERT INTO `xyb_city` VALUES ('231', '451100', '贺州市', '450000');
+INSERT INTO `xyb_city` VALUES ('232', '451200', '河池市', '450000');
+INSERT INTO `xyb_city` VALUES ('233', '451300', '来宾市', '450000');
+INSERT INTO `xyb_city` VALUES ('234', '451400', '崇左市', '450000');
+INSERT INTO `xyb_city` VALUES ('235', '460100', '海口市', '460000');
+INSERT INTO `xyb_city` VALUES ('236', '460200', '三亚市', '460000');
+INSERT INTO `xyb_city` VALUES ('237', '469000', '省直辖县级行政单位', '460000');
+INSERT INTO `xyb_city` VALUES ('238', '500100', '重庆市', '500000');
+INSERT INTO `xyb_city` VALUES ('239', '5002xx', '重庆下属县', '5000xx');
+INSERT INTO `xyb_city` VALUES ('240', '5003xx', '重庆下属市', '5000xx');
+INSERT INTO `xyb_city` VALUES ('241', '510100', '成都市', '510000');
+INSERT INTO `xyb_city` VALUES ('242', '510300', '自贡市', '510000');
+INSERT INTO `xyb_city` VALUES ('243', '510400', '攀枝花市', '510000');
+INSERT INTO `xyb_city` VALUES ('244', '510500', '泸州市', '510000');
+INSERT INTO `xyb_city` VALUES ('245', '510600', '德阳市', '510000');
+INSERT INTO `xyb_city` VALUES ('246', '510700', '绵阳市', '510000');
+INSERT INTO `xyb_city` VALUES ('247', '510800', '广元市', '510000');
+INSERT INTO `xyb_city` VALUES ('248', '510900', '遂宁市', '510000');
+INSERT INTO `xyb_city` VALUES ('249', '511000', '内江市', '510000');
+INSERT INTO `xyb_city` VALUES ('250', '511100', '乐山市', '510000');
+INSERT INTO `xyb_city` VALUES ('251', '511300', '南充市', '510000');
+INSERT INTO `xyb_city` VALUES ('252', '511400', '眉山市', '510000');
+INSERT INTO `xyb_city` VALUES ('253', '511500', '宜宾市', '510000');
+INSERT INTO `xyb_city` VALUES ('254', '511600', '广安市', '510000');
+INSERT INTO `xyb_city` VALUES ('255', '511700', '达州市', '510000');
+INSERT INTO `xyb_city` VALUES ('256', '511800', '雅安市', '510000');
+INSERT INTO `xyb_city` VALUES ('257', '511900', '巴中市', '510000');
+INSERT INTO `xyb_city` VALUES ('258', '512000', '资阳市', '510000');
+INSERT INTO `xyb_city` VALUES ('259', '513200', '阿坝藏族羌族自治州', '510000');
+INSERT INTO `xyb_city` VALUES ('260', '513300', '甘孜藏族自治州', '510000');
+INSERT INTO `xyb_city` VALUES ('261', '513400', '凉山彝族自治州', '510000');
+INSERT INTO `xyb_city` VALUES ('262', '520100', '贵阳市', '520000');
+INSERT INTO `xyb_city` VALUES ('263', '520200', '六盘水市', '520000');
+INSERT INTO `xyb_city` VALUES ('264', '520300', '遵义市', '520000');
+INSERT INTO `xyb_city` VALUES ('265', '520400', '安顺市', '520000');
+INSERT INTO `xyb_city` VALUES ('266', '522200', '铜仁地区', '520000');
+INSERT INTO `xyb_city` VALUES ('267', '522300', '黔西南布依族苗族自治州', '520000');
+INSERT INTO `xyb_city` VALUES ('268', '522400', '毕节地区', '520000');
+INSERT INTO `xyb_city` VALUES ('269', '522600', '黔东南苗族侗族自治州', '520000');
+INSERT INTO `xyb_city` VALUES ('270', '522700', '黔南布依族苗族自治州', '520000');
+INSERT INTO `xyb_city` VALUES ('271', '530100', '昆明市', '530000');
+INSERT INTO `xyb_city` VALUES ('272', '530300', '曲靖市', '530000');
+INSERT INTO `xyb_city` VALUES ('273', '530400', '玉溪市', '530000');
+INSERT INTO `xyb_city` VALUES ('274', '530500', '保山市', '530000');
+INSERT INTO `xyb_city` VALUES ('275', '530600', '昭通市', '530000');
+INSERT INTO `xyb_city` VALUES ('276', '530700', '丽江市', '530000');
+INSERT INTO `xyb_city` VALUES ('277', '530800', '思茅市', '530000');
+INSERT INTO `xyb_city` VALUES ('278', '530900', '临沧市', '530000');
+INSERT INTO `xyb_city` VALUES ('279', '532300', '楚雄彝族自治州', '530000');
+INSERT INTO `xyb_city` VALUES ('280', '532500', '红河哈尼族彝族自治州', '530000');
+INSERT INTO `xyb_city` VALUES ('281', '532600', '文山壮族苗族自治州', '530000');
+INSERT INTO `xyb_city` VALUES ('282', '532800', '西双版纳傣族自治州', '530000');
+INSERT INTO `xyb_city` VALUES ('283', '532900', '大理白族自治州', '530000');
+INSERT INTO `xyb_city` VALUES ('284', '533100', '德宏傣族景颇族自治州', '530000');
+INSERT INTO `xyb_city` VALUES ('285', '533300', '怒江傈僳族自治州', '530000');
+INSERT INTO `xyb_city` VALUES ('286', '533400', '迪庆藏族自治州', '530000');
+INSERT INTO `xyb_city` VALUES ('287', '540100', '拉萨市', '540000');
+INSERT INTO `xyb_city` VALUES ('288', '542100', '昌都地区', '540000');
+INSERT INTO `xyb_city` VALUES ('289', '542200', '山南地区', '540000');
+INSERT INTO `xyb_city` VALUES ('290', '542300', '日喀则地区', '540000');
+INSERT INTO `xyb_city` VALUES ('291', '542400', '那曲地区', '540000');
+INSERT INTO `xyb_city` VALUES ('292', '542500', '阿里地区', '540000');
+INSERT INTO `xyb_city` VALUES ('293', '542600', '林芝地区', '540000');
+INSERT INTO `xyb_city` VALUES ('294', '610100', '西安市', '610000');
+INSERT INTO `xyb_city` VALUES ('295', '610200', '铜川市', '610000');
+INSERT INTO `xyb_city` VALUES ('296', '610300', '宝鸡市', '610000');
+INSERT INTO `xyb_city` VALUES ('297', '610400', '咸阳市', '610000');
+INSERT INTO `xyb_city` VALUES ('298', '610500', '渭南市', '610000');
+INSERT INTO `xyb_city` VALUES ('299', '610600', '延安市', '610000');
+INSERT INTO `xyb_city` VALUES ('300', '610700', '汉中市', '610000');
+INSERT INTO `xyb_city` VALUES ('301', '610800', '榆林市', '610000');
+INSERT INTO `xyb_city` VALUES ('302', '610900', '安康市', '610000');
+INSERT INTO `xyb_city` VALUES ('303', '611000', '商洛市', '610000');
+INSERT INTO `xyb_city` VALUES ('304', '620100', '兰州市', '620000');
+INSERT INTO `xyb_city` VALUES ('305', '620200', '嘉峪关市', '620000');
+INSERT INTO `xyb_city` VALUES ('306', '620300', '金昌市', '620000');
+INSERT INTO `xyb_city` VALUES ('307', '620400', '白银市', '620000');
+INSERT INTO `xyb_city` VALUES ('308', '620500', '天水市', '620000');
+INSERT INTO `xyb_city` VALUES ('309', '620600', '武威市', '620000');
+INSERT INTO `xyb_city` VALUES ('310', '620700', '张掖市', '620000');
+INSERT INTO `xyb_city` VALUES ('311', '620800', '平凉市', '620000');
+INSERT INTO `xyb_city` VALUES ('312', '620900', '酒泉市', '620000');
+INSERT INTO `xyb_city` VALUES ('313', '621000', '庆阳市', '620000');
+INSERT INTO `xyb_city` VALUES ('314', '621100', '定西市', '620000');
+INSERT INTO `xyb_city` VALUES ('315', '621200', '陇南市', '620000');
+INSERT INTO `xyb_city` VALUES ('316', '622900', '临夏回族自治州', '620000');
+INSERT INTO `xyb_city` VALUES ('317', '623000', '甘南藏族自治州', '620000');
+INSERT INTO `xyb_city` VALUES ('318', '630100', '西宁市', '630000');
+INSERT INTO `xyb_city` VALUES ('319', '632100', '海东地区', '630000');
+INSERT INTO `xyb_city` VALUES ('320', '632200', '海北藏族自治州', '630000');
+INSERT INTO `xyb_city` VALUES ('321', '632300', '黄南藏族自治州', '630000');
+INSERT INTO `xyb_city` VALUES ('322', '632500', '海南藏族自治州', '630000');
+INSERT INTO `xyb_city` VALUES ('323', '632600', '果洛藏族自治州', '630000');
+INSERT INTO `xyb_city` VALUES ('324', '632700', '玉树藏族自治州', '630000');
+INSERT INTO `xyb_city` VALUES ('325', '632800', '海西蒙古族藏族自治州', '630000');
+INSERT INTO `xyb_city` VALUES ('326', '640100', '银川市', '640000');
+INSERT INTO `xyb_city` VALUES ('327', '640200', '石嘴山市', '640000');
+INSERT INTO `xyb_city` VALUES ('328', '640300', '吴忠市', '640000');
+INSERT INTO `xyb_city` VALUES ('329', '640400', '固原市', '640000');
+INSERT INTO `xyb_city` VALUES ('330', '640500', '中卫市', '640000');
+INSERT INTO `xyb_city` VALUES ('331', '650100', '乌鲁木齐市', '650000');
+INSERT INTO `xyb_city` VALUES ('332', '650200', '克拉玛依市', '650000');
+INSERT INTO `xyb_city` VALUES ('333', '652100', '吐鲁番地区', '650000');
+INSERT INTO `xyb_city` VALUES ('334', '652200', '哈密地区', '650000');
+INSERT INTO `xyb_city` VALUES ('335', '652300', '昌吉回族自治州', '650000');
+INSERT INTO `xyb_city` VALUES ('336', '652700', '博尔塔拉蒙古自治州', '650000');
+INSERT INTO `xyb_city` VALUES ('337', '652800', '巴音郭楞蒙古自治州', '650000');
+INSERT INTO `xyb_city` VALUES ('338', '652900', '阿克苏地区', '650000');
+INSERT INTO `xyb_city` VALUES ('339', '653000', '克孜勒苏柯尔克孜自治州', '650000');
+INSERT INTO `xyb_city` VALUES ('340', '653100', '喀什地区', '650000');
+INSERT INTO `xyb_city` VALUES ('341', '653200', '和田地区', '650000');
+INSERT INTO `xyb_city` VALUES ('342', '654000', '伊犁哈萨克自治州', '650000');
+INSERT INTO `xyb_city` VALUES ('343', '654200', '塔城地区', '650000');
+INSERT INTO `xyb_city` VALUES ('344', '654300', '阿勒泰地区', '650000');
+INSERT INTO `xyb_city` VALUES ('345', '659000', '省直辖行政单位', '650000');
+
+-- ----------------------------
+-- Table structure for xyb_company
+-- ----------------------------
+DROP TABLE IF EXISTS `xyb_company`;
+CREATE TABLE `xyb_company` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `company_name` varchar(30) NOT NULL COMMENT '公司名称',
+  `province` int(11) NOT NULL DEFAULT '0' COMMENT '省份代码',
+  `city` int(11) NOT NULL DEFAULT '0' COMMENT '城市代码',
+  `address` varchar(80) NOT NULL COMMENT '详细地址',
+  `photos` text NOT NULL COMMENT '店铺照',
+  `contact_person` varchar(30) NOT NULL DEFAULT '' COMMENT '联系人',
+  `contact_tel` int(11) NOT NULL DEFAULT '0' COMMENT '联系电话',
+  `zz_img` varchar(70) DEFAULT NULL COMMENT '营业执照',
+  `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '用户id',
+  `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '提交时间',
+  `status` char(1) NOT NULL DEFAULT '0' COMMENT '0未审核，已审核',
+  `to_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1-我要招聘 2-店铺(房)交易 3-二手车',
+  `open_time` varchar(60) DEFAULT '0' COMMENT '营业时间',
+  PRIMARY KEY (`id`),
+  KEY `provice` (`province`) USING BTREE,
+  KEY `city` (`city`) USING BTREE,
+  KEY `user_id` (`user_id`) USING BTREE,
+  KEY `to_type` (`to_type`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of xyb_class_set
+-- Records of xyb_company
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for xyb_comment
+-- Table structure for xyb_order
 -- ----------------------------
-DROP TABLE IF EXISTS `xyb_comment`;
-CREATE TABLE `xyb_comment` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `parent_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '被回复的评论id',
-  `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '发表评论的用户id',
-  `to_user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '被评论的用户id',
-  `object_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '评论内容 id',
-  `like_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '点赞数',
-  `dislike_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '不喜欢数',
-  `floor` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '楼层数',
-  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '评论时间',
-  `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态,1:已审核,0:未审核',
-  `type` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '评论类型；1实名评论',
-  `table_name` varchar(64) NOT NULL DEFAULT '' COMMENT '评论内容所在表，不带表前缀',
-  `full_name` varchar(50) NOT NULL DEFAULT '' COMMENT '评论者昵称',
-  `email` varchar(255) NOT NULL DEFAULT '' COMMENT '评论者邮箱',
-  `path` varchar(255) NOT NULL DEFAULT '' COMMENT '层级关系',
-  `url` text COMMENT '原文地址',
-  `content` text CHARACTER SET utf8mb4 COMMENT '评论内容',
-  `more` text CHARACTER SET utf8mb4 COMMENT '扩展属性',
-  PRIMARY KEY (`id`),
-  KEY `table_id_status` (`table_name`,`object_id`,`status`),
-  KEY `object_id` (`object_id`) USING BTREE,
-  KEY `status` (`status`) USING BTREE,
-  KEY `parent_id` (`parent_id`) USING BTREE,
-  KEY `create_time` (`create_time`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='评论表';
-
--- ----------------------------
--- Records of xyb_comment
--- ----------------------------
-
--- ----------------------------
--- Table structure for xyb_hook
--- ----------------------------
-DROP TABLE IF EXISTS `xyb_hook`;
-CREATE TABLE `xyb_hook` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '钩子类型(1:系统钩子;2:应用钩子;3:模板钩子;4:后台模板钩子)',
-  `once` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否只允许一个插件运行(0:多个;1:一个)',
-  `name` varchar(50) NOT NULL DEFAULT '' COMMENT '钩子名称',
-  `hook` varchar(50) NOT NULL DEFAULT '' COMMENT '钩子',
-  `app` varchar(15) NOT NULL DEFAULT '' COMMENT '应用名(只有应用钩子才用)',
-  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COMMENT='系统钩子表';
-
--- ----------------------------
--- Records of xyb_hook
--- ----------------------------
-INSERT INTO `xyb_hook` VALUES ('1', '1', '0', '应用初始化', 'app_init', 'cmf', '应用初始化');
-INSERT INTO `xyb_hook` VALUES ('2', '1', '0', '应用开始', 'app_begin', 'cmf', '应用开始');
-INSERT INTO `xyb_hook` VALUES ('3', '1', '0', '模块初始化', 'module_init', 'cmf', '模块初始化');
-INSERT INTO `xyb_hook` VALUES ('4', '1', '0', '控制器开始', 'action_begin', 'cmf', '控制器开始');
-INSERT INTO `xyb_hook` VALUES ('5', '1', '0', '视图输出过滤', 'view_filter', 'cmf', '视图输出过滤');
-INSERT INTO `xyb_hook` VALUES ('6', '1', '0', '应用结束', 'app_end', 'cmf', '应用结束');
-INSERT INTO `xyb_hook` VALUES ('7', '1', '0', '日志write方法', 'log_write', 'cmf', '日志write方法');
-INSERT INTO `xyb_hook` VALUES ('8', '1', '0', '输出结束', 'response_end', 'cmf', '输出结束');
-INSERT INTO `xyb_hook` VALUES ('9', '1', '0', '后台控制器初始化', 'admin_init', 'cmf', '后台控制器初始化');
-INSERT INTO `xyb_hook` VALUES ('10', '1', '0', '前台控制器初始化', 'home_init', 'cmf', '前台控制器初始化');
-INSERT INTO `xyb_hook` VALUES ('11', '1', '1', '发送手机验证码', 'send_mobile_verification_code', 'cmf', '发送手机验证码');
-INSERT INTO `xyb_hook` VALUES ('12', '3', '0', '模板 body标签开始', 'body_start', '', '模板 body标签开始');
-INSERT INTO `xyb_hook` VALUES ('13', '3', '0', '模板 head标签结束前', 'before_head_end', '', '模板 head标签结束前');
-INSERT INTO `xyb_hook` VALUES ('14', '3', '0', '模板底部开始', 'footer_start', '', '模板底部开始');
-INSERT INTO `xyb_hook` VALUES ('15', '3', '0', '模板底部开始之前', 'before_footer', '', '模板底部开始之前');
-INSERT INTO `xyb_hook` VALUES ('16', '3', '0', '模板底部结束之前', 'before_footer_end', '', '模板底部结束之前');
-INSERT INTO `xyb_hook` VALUES ('17', '3', '0', '模板 body 标签结束之前', 'before_body_end', '', '模板 body 标签结束之前');
-INSERT INTO `xyb_hook` VALUES ('18', '3', '0', '模板左边栏开始', 'left_sidebar_start', '', '模板左边栏开始');
-INSERT INTO `xyb_hook` VALUES ('19', '3', '0', '模板左边栏结束之前', 'before_left_sidebar_end', '', '模板左边栏结束之前');
-INSERT INTO `xyb_hook` VALUES ('20', '3', '0', '模板右边栏开始', 'right_sidebar_start', '', '模板右边栏开始');
-INSERT INTO `xyb_hook` VALUES ('21', '3', '0', '模板右边栏结束之前', 'before_right_sidebar_end', '', '模板右边栏结束之前');
-INSERT INTO `xyb_hook` VALUES ('22', '3', '1', '评论区', 'comment', '', '评论区');
-INSERT INTO `xyb_hook` VALUES ('23', '3', '1', '留言区', 'guestbook', '', '留言区');
-INSERT INTO `xyb_hook` VALUES ('24', '2', '0', '后台首页仪表盘', 'admin_dashboard', 'admin', '后台首页仪表盘');
-INSERT INTO `xyb_hook` VALUES ('25', '4', '0', '后台模板 head标签结束前', 'admin_before_head_end', '', '后台模板 head标签结束前');
-INSERT INTO `xyb_hook` VALUES ('26', '4', '0', '后台模板 body 标签结束之前', 'admin_before_body_end', '', '后台模板 body 标签结束之前');
-INSERT INTO `xyb_hook` VALUES ('27', '2', '0', '后台登录页面', 'admin_login', 'admin', '后台登录页面');
-INSERT INTO `xyb_hook` VALUES ('28', '1', '1', '前台模板切换', 'switch_theme', 'cmf', '前台模板切换');
-INSERT INTO `xyb_hook` VALUES ('29', '3', '0', '主要内容之后', 'after_content', '', '主要内容之后');
-INSERT INTO `xyb_hook` VALUES ('30', '2', '0', '文章显示之前', 'portal_before_assign_article', 'portal', '文章显示之前');
-INSERT INTO `xyb_hook` VALUES ('31', '2', '0', '后台文章保存之后', 'portal_admin_after_save_article', 'portal', '后台文章保存之后');
-INSERT INTO `xyb_hook` VALUES ('32', '2', '1', '获取上传界面', 'fetch_upload_view', 'user', '获取上传界面');
-INSERT INTO `xyb_hook` VALUES ('33', '3', '0', '主要内容之前', 'before_content', 'cmf', '主要内容之前');
-INSERT INTO `xyb_hook` VALUES ('34', '1', '0', '日志写入完成', 'log_write_done', 'cmf', '日志写入完成');
-INSERT INTO `xyb_hook` VALUES ('35', '1', '1', '后台模板切换', 'switch_admin_theme', 'cmf', '后台模板切换');
-
--- ----------------------------
--- Table structure for xyb_hook_plugin
--- ----------------------------
-DROP TABLE IF EXISTS `xyb_hook_plugin`;
-CREATE TABLE `xyb_hook_plugin` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
-  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态(0:禁用,1:启用)',
-  `hook` varchar(50) NOT NULL DEFAULT '' COMMENT '钩子名',
-  `plugin` varchar(50) NOT NULL DEFAULT '' COMMENT '插件',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统钩子插件表';
-
--- ----------------------------
--- Records of xyb_hook_plugin
--- ----------------------------
-
--- ----------------------------
--- Table structure for xyb_link
--- ----------------------------
-DROP TABLE IF EXISTS `xyb_link`;
-CREATE TABLE `xyb_link` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态;1:显示;0:不显示',
-  `rating` int(11) NOT NULL DEFAULT '0' COMMENT '友情链接评级',
-  `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
-  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '友情链接描述',
-  `url` varchar(255) NOT NULL DEFAULT '' COMMENT '友情链接地址',
-  `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '友情链接名称',
-  `image` varchar(100) NOT NULL DEFAULT '' COMMENT '友情链接图标',
-  `target` varchar(10) NOT NULL DEFAULT '' COMMENT '友情链接打开方式',
-  `rel` varchar(50) NOT NULL DEFAULT '' COMMENT '链接与网站的关系',
-  PRIMARY KEY (`id`),
-  KEY `status` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='友情链接表';
-
--- ----------------------------
--- Records of xyb_link
--- ----------------------------
-INSERT INTO `xyb_link` VALUES ('1', '1', '1', '8', 'thinkcmf官网', 'http://www.thinkcmf.com', 'ThinkCMF', '', '_blank', '');
-
--- ----------------------------
--- Table structure for xyb_nav
--- ----------------------------
-DROP TABLE IF EXISTS `xyb_nav`;
-CREATE TABLE `xyb_nav` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `is_main` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否为主导航;1:是;0:不是',
-  `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '导航位置名称',
-  `remark` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '备注',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='前台导航位置表';
-
--- ----------------------------
--- Records of xyb_nav
--- ----------------------------
-INSERT INTO `xyb_nav` VALUES ('1', '1', '主导航', '主导航');
-INSERT INTO `xyb_nav` VALUES ('2', '0', '底部导航', '');
-
--- ----------------------------
--- Table structure for xyb_nav_menu
--- ----------------------------
-DROP TABLE IF EXISTS `xyb_nav_menu`;
-CREATE TABLE `xyb_nav_menu` (
+DROP TABLE IF EXISTS `xyb_order`;
+CREATE TABLE `xyb_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nav_id` int(11) NOT NULL COMMENT '导航 id',
-  `parent_id` int(11) NOT NULL COMMENT '父 id',
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态;1:显示;0:隐藏',
-  `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
-  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '菜单名称',
-  `target` varchar(10) NOT NULL DEFAULT '' COMMENT '打开方式',
-  `href` varchar(100) NOT NULL DEFAULT '' COMMENT '链接',
-  `icon` varchar(20) NOT NULL DEFAULT '' COMMENT '图标',
-  `path` varchar(255) NOT NULL DEFAULT '' COMMENT '层级关系',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='前台导航菜单表';
-
--- ----------------------------
--- Records of xyb_nav_menu
--- ----------------------------
-INSERT INTO `xyb_nav_menu` VALUES ('1', '1', '0', '1', '0', '首页', '', 'home', '', '0-1');
-
--- ----------------------------
--- Table structure for xyb_option
--- ----------------------------
-DROP TABLE IF EXISTS `xyb_option`;
-CREATE TABLE `xyb_option` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `autoload` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否自动加载;1:自动加载;0:不自动加载',
-  `option_name` varchar(64) NOT NULL DEFAULT '' COMMENT '配置名',
-  `option_value` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT '配置值',
+  `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '用户id',
+  `order_number` int(11) NOT NULL DEFAULT '0' COMMENT '订单编号',
+  `money` int(11) NOT NULL DEFAULT '0' COMMENT '订单金额',
+  `status` char(1) NOT NULL DEFAULT '0' COMMENT '0待支付,1已支付',
+  `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
+  `done_time` int(11) NOT NULL DEFAULT '0' COMMENT '完成时间',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `option_name` (`option_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='全站配置表';
+  KEY `user_id` (`user_id`) USING BTREE,
+  KEY `status` (`status`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of xyb_option
--- ----------------------------
-INSERT INTO `xyb_option` VALUES ('1', '1', 'site_info', '{\"site_name\":\"\\u6821\\u56ed\\u5b9d\\u540e\\u53f0\\u7ba1\\u7406\\u7cfb\\u7edf\",\"site_seo_title\":\"\\u6821\\u56ed\\u5b9d\\u540e\\u53f0\\u7ba1\\u7406\\u7cfb\\u7edf\",\"site_seo_keywords\":\"\\u6821\\u56ed\\u5b9d\\u540e\\u53f0\\u7ba1\\u7406\\u7cfb\\u7edf\",\"site_seo_description\":\"\\u6821\\u56ed\\u5b9d\\u540e\\u53f0\\u7ba1\\u7406\\u7cfb\\u7edf\"}');
-INSERT INTO `xyb_option` VALUES ('2', '1', 'admin_dashboard_widgets', '[{\"name\":\"CmfHub\",\"is_system\":1},{\"name\":\"MainContributors\",\"is_system\":1},{\"name\":\"Contributors\",\"is_system\":1},{\"name\":\"Custom1\",\"is_system\":1},{\"name\":\"Custom2\",\"is_system\":1},{\"name\":\"Custom3\",\"is_system\":1},{\"name\":\"Custom4\",\"is_system\":1},{\"name\":\"Custom5\",\"is_system\":1}]');
-
--- ----------------------------
--- Table structure for xyb_plugin
--- ----------------------------
-DROP TABLE IF EXISTS `xyb_plugin`;
-CREATE TABLE `xyb_plugin` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
-  `type` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '插件类型;1:网站;8:微信',
-  `has_admin` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否有后台管理,0:没有;1:有',
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态;1:开启;0:禁用',
-  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '插件安装时间',
-  `name` varchar(50) NOT NULL DEFAULT '' COMMENT '插件标识名,英文字母(惟一)',
-  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '插件名称',
-  `demo_url` varchar(50) NOT NULL DEFAULT '' COMMENT '演示地址，带协议',
-  `hooks` varchar(255) NOT NULL DEFAULT '' COMMENT '实现的钩子;以“,”分隔',
-  `author` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '插件作者',
-  `author_url` varchar(50) NOT NULL DEFAULT '' COMMENT '作者网站链接',
-  `version` varchar(20) NOT NULL DEFAULT '' COMMENT '插件版本号',
-  `description` varchar(255) NOT NULL COMMENT '插件描述',
-  `config` text COMMENT '插件配置',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='插件表';
-
--- ----------------------------
--- Records of xyb_plugin
+-- Records of xyb_order
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for xyb_portal_category
+-- Table structure for xyb_person
 -- ----------------------------
-DROP TABLE IF EXISTS `xyb_portal_category`;
-CREATE TABLE `xyb_portal_category` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '分类id',
-  `parent_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '分类父id',
-  `post_count` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '分类文章数',
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态,1:发布,0:不发布',
-  `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
-  `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
-  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '分类名称',
-  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '分类描述',
-  `path` varchar(255) NOT NULL DEFAULT '' COMMENT '分类层级关系路径',
-  `seo_title` varchar(100) NOT NULL DEFAULT '',
-  `seo_keywords` varchar(255) NOT NULL DEFAULT '',
-  `seo_description` varchar(255) NOT NULL DEFAULT '',
-  `list_tpl` varchar(50) NOT NULL DEFAULT '' COMMENT '分类列表模板',
-  `one_tpl` varchar(50) NOT NULL DEFAULT '' COMMENT '分类文章页模板',
-  `more` text COMMENT '扩展属性',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='portal应用 文章分类表';
-
--- ----------------------------
--- Records of xyb_portal_category
--- ----------------------------
-
--- ----------------------------
--- Table structure for xyb_portal_category_post
--- ----------------------------
-DROP TABLE IF EXISTS `xyb_portal_category_post`;
-CREATE TABLE `xyb_portal_category_post` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `post_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '文章id',
-  `category_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '分类id',
-  `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态,1:发布;0:不发布',
+DROP TABLE IF EXISTS `xyb_person`;
+CREATE TABLE `xyb_person` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `contact_person` varchar(30) NOT NULL COMMENT '联系人',
+  `contact_tel` int(11) NOT NULL DEFAULT '0' COMMENT '联系电弧',
+  `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
+  `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '用户id',
+  `status` char(1) NOT NULL DEFAULT '0' COMMENT '0未审核,1已审核',
   PRIMARY KEY (`id`),
-  KEY `term_taxonomy_id` (`category_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='portal应用 分类文章对应表';
+  KEY `user_id` (`user_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of xyb_portal_category_post
+-- Records of xyb_person
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for xyb_portal_post
+-- Table structure for xyb_province
 -- ----------------------------
-DROP TABLE IF EXISTS `xyb_portal_post`;
-CREATE TABLE `xyb_portal_post` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `parent_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '父级id',
-  `post_type` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '类型,1:文章;2:页面',
-  `post_format` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '内容格式;1:html;2:md',
-  `user_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '发表者用户id',
-  `post_status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态;1:已发布;0:未发布;',
-  `comment_status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '评论状态;1:允许;0:不允许',
-  `is_top` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否置顶;1:置顶;0:不置顶',
-  `recommended` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否推荐;1:推荐;0:不推荐',
-  `post_hits` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '查看数',
-  `post_like` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '点赞数',
-  `comment_count` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '评论数',
-  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
-  `published_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '发布时间',
-  `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
-  `post_title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'post标题',
-  `post_keywords` varchar(150) NOT NULL DEFAULT '' COMMENT 'seo keywords',
-  `post_excerpt` varchar(500) NOT NULL DEFAULT '' COMMENT 'post摘要',
-  `post_source` varchar(150) NOT NULL DEFAULT '' COMMENT '转载文章的来源',
-  `post_content` text COMMENT '文章内容',
-  `post_content_filtered` text COMMENT '处理过的文章内容',
-  `more` text COMMENT '扩展属性,如缩略图;格式为json',
+DROP TABLE IF EXISTS `xyb_province`;
+CREATE TABLE `xyb_province` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(10) NOT NULL DEFAULT '',
+  `name` varchar(30) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
-  KEY `type_status_date` (`post_type`,`post_status`,`create_time`,`id`),
-  KEY `parent_id` (`parent_id`),
-  KEY `user_id` (`user_id`),
-  KEY `create_time` (`create_time`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='portal应用 文章表';
+  KEY `code` (`code`)
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of xyb_portal_post
+-- Records of xyb_province
 -- ----------------------------
-
--- ----------------------------
--- Table structure for xyb_portal_tag
--- ----------------------------
-DROP TABLE IF EXISTS `xyb_portal_tag`;
-CREATE TABLE `xyb_portal_tag` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '分类id',
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态,1:发布,0:不发布',
-  `recommended` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否推荐;1:推荐;0:不推荐',
-  `post_count` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '标签文章数',
-  `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '标签名称',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='portal应用 文章标签表';
-
--- ----------------------------
--- Records of xyb_portal_tag
--- ----------------------------
-
--- ----------------------------
--- Table structure for xyb_portal_tag_post
--- ----------------------------
-DROP TABLE IF EXISTS `xyb_portal_tag_post`;
-CREATE TABLE `xyb_portal_tag_post` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `tag_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '标签 id',
-  `post_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '文章 id',
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态,1:发布;0:不发布',
-  PRIMARY KEY (`id`),
-  KEY `post_id` (`post_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='portal应用 标签文章对应表';
-
--- ----------------------------
--- Records of xyb_portal_tag_post
--- ----------------------------
-
--- ----------------------------
--- Table structure for xyb_recycle_bin
--- ----------------------------
-DROP TABLE IF EXISTS `xyb_recycle_bin`;
-CREATE TABLE `xyb_recycle_bin` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `object_id` int(11) DEFAULT '0' COMMENT '删除内容 id',
-  `create_time` int(10) unsigned DEFAULT '0' COMMENT '创建时间',
-  `table_name` varchar(60) DEFAULT '' COMMENT '删除内容所在表名',
-  `name` varchar(255) DEFAULT '' COMMENT '删除内容名称',
-  `user_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '用户id',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=' 回收站';
-
--- ----------------------------
--- Records of xyb_recycle_bin
--- ----------------------------
+INSERT INTO `xyb_province` VALUES ('1', '110000', '北京市');
+INSERT INTO `xyb_province` VALUES ('2', '120000', '天津市');
+INSERT INTO `xyb_province` VALUES ('3', '130000', '河北省');
+INSERT INTO `xyb_province` VALUES ('4', '140000', '山西省');
+INSERT INTO `xyb_province` VALUES ('5', '150000', '内蒙古自治区');
+INSERT INTO `xyb_province` VALUES ('6', '210000', '辽宁省');
+INSERT INTO `xyb_province` VALUES ('7', '220000', '吉林省');
+INSERT INTO `xyb_province` VALUES ('8', '230000', '黑龙江省');
+INSERT INTO `xyb_province` VALUES ('9', '310000', '上海市');
+INSERT INTO `xyb_province` VALUES ('10', '320000', '江苏省');
+INSERT INTO `xyb_province` VALUES ('11', '330000', '浙江省');
+INSERT INTO `xyb_province` VALUES ('12', '340000', '安徽省');
+INSERT INTO `xyb_province` VALUES ('13', '350000', '福建省');
+INSERT INTO `xyb_province` VALUES ('14', '360000', '江西省');
+INSERT INTO `xyb_province` VALUES ('15', '370000', '山东省');
+INSERT INTO `xyb_province` VALUES ('16', '410000', '河南省');
+INSERT INTO `xyb_province` VALUES ('17', '420000', '湖北省');
+INSERT INTO `xyb_province` VALUES ('18', '430000', '湖南省');
+INSERT INTO `xyb_province` VALUES ('19', '440000', '广东省');
+INSERT INTO `xyb_province` VALUES ('20', '450000', '广西壮族自治区');
+INSERT INTO `xyb_province` VALUES ('21', '460000', '海南省');
+INSERT INTO `xyb_province` VALUES ('22', '500000', '重庆市');
+INSERT INTO `xyb_province` VALUES ('23', '510000', '四川省');
+INSERT INTO `xyb_province` VALUES ('24', '520000', '贵州省');
+INSERT INTO `xyb_province` VALUES ('25', '530000', '云南省');
+INSERT INTO `xyb_province` VALUES ('26', '540000', '西藏自治区');
+INSERT INTO `xyb_province` VALUES ('27', '610000', '陕西省');
+INSERT INTO `xyb_province` VALUES ('28', '620000', '甘肃省');
+INSERT INTO `xyb_province` VALUES ('29', '630000', '青海省');
+INSERT INTO `xyb_province` VALUES ('30', '640000', '宁夏回族自治区');
+INSERT INTO `xyb_province` VALUES ('31', '650000', '新疆维吾尔自治区');
+INSERT INTO `xyb_province` VALUES ('32', '710000', '台湾省');
+INSERT INTO `xyb_province` VALUES ('33', '810000', '香港特别行政区');
+INSERT INTO `xyb_province` VALUES ('34', '820000', '澳门特别行政区');
 
 -- ----------------------------
 -- Table structure for xyb_role
@@ -571,151 +657,6 @@ INSERT INTO `xyb_role_user` VALUES ('1', '2', '2');
 INSERT INTO `xyb_role_user` VALUES ('2', '2', '3');
 
 -- ----------------------------
--- Table structure for xyb_route
--- ----------------------------
-DROP TABLE IF EXISTS `xyb_route`;
-CREATE TABLE `xyb_route` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '路由id',
-  `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
-  `status` tinyint(2) NOT NULL DEFAULT '1' COMMENT '状态;1:启用,0:不启用',
-  `type` tinyint(4) NOT NULL DEFAULT '1' COMMENT 'URL规则类型;1:用户自定义;2:别名添加',
-  `full_url` varchar(255) NOT NULL DEFAULT '' COMMENT '完整url',
-  `url` varchar(255) NOT NULL DEFAULT '' COMMENT '实际显示的url',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='url路由表';
-
--- ----------------------------
--- Records of xyb_route
--- ----------------------------
-
--- ----------------------------
--- Table structure for xyb_slide
--- ----------------------------
-DROP TABLE IF EXISTS `xyb_slide`;
-CREATE TABLE `xyb_slide` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态,1:显示,0不显示',
-  `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
-  `name` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '幻灯片分类',
-  `remark` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '分类备注',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='幻灯片表';
-
--- ----------------------------
--- Records of xyb_slide
--- ----------------------------
-
--- ----------------------------
--- Table structure for xyb_slide_item
--- ----------------------------
-DROP TABLE IF EXISTS `xyb_slide_item`;
-CREATE TABLE `xyb_slide_item` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `slide_id` int(11) NOT NULL DEFAULT '0' COMMENT '幻灯片id',
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态,1:显示;0:隐藏',
-  `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
-  `title` varchar(50) NOT NULL DEFAULT '' COMMENT '幻灯片名称',
-  `image` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '幻灯片图片',
-  `url` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '幻灯片链接',
-  `target` varchar(10) NOT NULL DEFAULT '' COMMENT '友情链接打开方式',
-  `description` varchar(255) CHARACTER SET utf8 NOT NULL COMMENT '幻灯片描述',
-  `content` text CHARACTER SET utf8 COMMENT '幻灯片内容',
-  `more` text COMMENT '链接打开方式',
-  PRIMARY KEY (`id`),
-  KEY `slide_id` (`slide_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='幻灯片子项表';
-
--- ----------------------------
--- Records of xyb_slide_item
--- ----------------------------
-
--- ----------------------------
--- Table structure for xyb_theme
--- ----------------------------
-DROP TABLE IF EXISTS `xyb_theme`;
-CREATE TABLE `xyb_theme` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '安装时间',
-  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '最后升级时间',
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '模板状态,1:正在使用;0:未使用',
-  `is_compiled` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否为已编译模板',
-  `theme` varchar(20) NOT NULL DEFAULT '' COMMENT '主题目录名，用于主题的维一标识',
-  `name` varchar(20) NOT NULL DEFAULT '' COMMENT '主题名称',
-  `version` varchar(20) NOT NULL DEFAULT '' COMMENT '主题版本号',
-  `demo_url` varchar(50) NOT NULL DEFAULT '' COMMENT '演示地址，带协议',
-  `thumbnail` varchar(100) NOT NULL DEFAULT '' COMMENT '缩略图',
-  `author` varchar(20) NOT NULL DEFAULT '' COMMENT '主题作者',
-  `author_url` varchar(50) NOT NULL DEFAULT '' COMMENT '作者网站链接',
-  `lang` varchar(10) NOT NULL DEFAULT '' COMMENT '支持语言',
-  `keywords` varchar(50) NOT NULL DEFAULT '' COMMENT '主题关键字',
-  `description` varchar(100) NOT NULL DEFAULT '' COMMENT '主题描述',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of xyb_theme
--- ----------------------------
-INSERT INTO `xyb_theme` VALUES ('1', '0', '0', '0', '0', 'simpleboot3', 'simpleboot3', '1.0.2', 'http://demo.thinkcmf.com', '', 'ThinkCMF', 'http://www.thinkcmf.com', 'zh-cn', 'ThinkCMF模板', 'ThinkCMF默认模板');
-
--- ----------------------------
--- Table structure for xyb_theme_file
--- ----------------------------
-DROP TABLE IF EXISTS `xyb_theme_file`;
-CREATE TABLE `xyb_theme_file` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `is_public` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否公共的模板文件',
-  `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
-  `theme` varchar(20) NOT NULL DEFAULT '' COMMENT '模板名称',
-  `name` varchar(20) NOT NULL DEFAULT '' COMMENT '模板文件名',
-  `action` varchar(50) NOT NULL DEFAULT '' COMMENT '操作',
-  `file` varchar(50) NOT NULL DEFAULT '' COMMENT '模板文件，相对于模板根目录，如Portal/index.html',
-  `description` varchar(100) NOT NULL DEFAULT '' COMMENT '模板文件描述',
-  `more` text COMMENT '模板更多配置,用户自己后台设置的',
-  `config_more` text COMMENT '模板更多配置,来源模板的配置文件',
-  `draft_more` text COMMENT '模板更多配置,用户临时保存的配置',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of xyb_theme_file
--- ----------------------------
-INSERT INTO `xyb_theme_file` VALUES ('1', '0', '10', 'simpleboot3', '文章页', 'portal/Article/index', 'portal/article', '文章页模板文件', '{\"vars\":{\"hot_articles_category_id\":{\"title\":\"Hot Articles\\u5206\\u7c7bID\",\"value\":\"1\",\"type\":\"text\",\"tip\":\"\",\"rule\":[]}}}', '{\"vars\":{\"hot_articles_category_id\":{\"title\":\"Hot Articles\\u5206\\u7c7bID\",\"value\":\"1\",\"type\":\"text\",\"tip\":\"\",\"rule\":[]}}}', null);
-INSERT INTO `xyb_theme_file` VALUES ('2', '0', '10', 'simpleboot3', '联系我们页', 'portal/Page/index', 'portal/contact', '联系我们页模板文件', '{\"vars\":{\"baidu_map_info_window_text\":{\"title\":\"\\u767e\\u5ea6\\u5730\\u56fe\\u6807\\u6ce8\\u6587\\u5b57\",\"name\":\"baidu_map_info_window_text\",\"value\":\"ThinkCMF<br\\/><span class=\'\'>\\u5730\\u5740\\uff1a\\u4e0a\\u6d77\\u5e02\\u5f90\\u6c47\\u533a\\u659c\\u571f\\u8def2601\\u53f7<\\/span>\",\"type\":\"text\",\"tip\":\"\\u767e\\u5ea6\\u5730\\u56fe\\u6807\\u6ce8\\u6587\\u5b57,\\u652f\\u6301\\u7b80\\u5355html\\u4ee3\\u7801\",\"rule\":[]},\"company_location\":{\"title\":\"\\u516c\\u53f8\\u5750\\u6807\",\"value\":\"\",\"type\":\"location\",\"tip\":\"\",\"rule\":{\"require\":true}},\"address_cn\":{\"title\":\"\\u516c\\u53f8\\u5730\\u5740\",\"value\":\"\\u4e0a\\u6d77\\u5e02\\u5f90\\u6c47\\u533a\\u659c\\u571f\\u8def0001\\u53f7\",\"type\":\"text\",\"tip\":\"\",\"rule\":{\"require\":true}},\"address_en\":{\"title\":\"\\u516c\\u53f8\\u5730\\u5740\\uff08\\u82f1\\u6587\\uff09\",\"value\":\"NO.0001 Xie Tu Road, Shanghai China\",\"type\":\"text\",\"tip\":\"\",\"rule\":{\"require\":true}},\"email\":{\"title\":\"\\u516c\\u53f8\\u90ae\\u7bb1\",\"value\":\"catman@thinkcmf.com\",\"type\":\"text\",\"tip\":\"\",\"rule\":{\"require\":true}},\"phone_cn\":{\"title\":\"\\u516c\\u53f8\\u7535\\u8bdd\",\"value\":\"021 1000 0001\",\"type\":\"text\",\"tip\":\"\",\"rule\":{\"require\":true}},\"phone_en\":{\"title\":\"\\u516c\\u53f8\\u7535\\u8bdd\\uff08\\u82f1\\u6587\\uff09\",\"value\":\"+8621 1000 0001\",\"type\":\"text\",\"tip\":\"\",\"rule\":{\"require\":true}},\"qq\":{\"title\":\"\\u8054\\u7cfbQQ\",\"value\":\"478519726\",\"type\":\"text\",\"tip\":\"\\u591a\\u4e2a QQ\\u4ee5\\u82f1\\u6587\\u9017\\u53f7\\u9694\\u5f00\",\"rule\":{\"require\":true}}}}', '{\"vars\":{\"baidu_map_info_window_text\":{\"title\":\"\\u767e\\u5ea6\\u5730\\u56fe\\u6807\\u6ce8\\u6587\\u5b57\",\"name\":\"baidu_map_info_window_text\",\"value\":\"ThinkCMF<br\\/><span class=\'\'>\\u5730\\u5740\\uff1a\\u4e0a\\u6d77\\u5e02\\u5f90\\u6c47\\u533a\\u659c\\u571f\\u8def2601\\u53f7<\\/span>\",\"type\":\"text\",\"tip\":\"\\u767e\\u5ea6\\u5730\\u56fe\\u6807\\u6ce8\\u6587\\u5b57,\\u652f\\u6301\\u7b80\\u5355html\\u4ee3\\u7801\",\"rule\":[]},\"company_location\":{\"title\":\"\\u516c\\u53f8\\u5750\\u6807\",\"value\":\"\",\"type\":\"location\",\"tip\":\"\",\"rule\":{\"require\":true}},\"address_cn\":{\"title\":\"\\u516c\\u53f8\\u5730\\u5740\",\"value\":\"\\u4e0a\\u6d77\\u5e02\\u5f90\\u6c47\\u533a\\u659c\\u571f\\u8def0001\\u53f7\",\"type\":\"text\",\"tip\":\"\",\"rule\":{\"require\":true}},\"address_en\":{\"title\":\"\\u516c\\u53f8\\u5730\\u5740\\uff08\\u82f1\\u6587\\uff09\",\"value\":\"NO.0001 Xie Tu Road, Shanghai China\",\"type\":\"text\",\"tip\":\"\",\"rule\":{\"require\":true}},\"email\":{\"title\":\"\\u516c\\u53f8\\u90ae\\u7bb1\",\"value\":\"catman@thinkcmf.com\",\"type\":\"text\",\"tip\":\"\",\"rule\":{\"require\":true}},\"phone_cn\":{\"title\":\"\\u516c\\u53f8\\u7535\\u8bdd\",\"value\":\"021 1000 0001\",\"type\":\"text\",\"tip\":\"\",\"rule\":{\"require\":true}},\"phone_en\":{\"title\":\"\\u516c\\u53f8\\u7535\\u8bdd\\uff08\\u82f1\\u6587\\uff09\",\"value\":\"+8621 1000 0001\",\"type\":\"text\",\"tip\":\"\",\"rule\":{\"require\":true}},\"qq\":{\"title\":\"\\u8054\\u7cfbQQ\",\"value\":\"478519726\",\"type\":\"text\",\"tip\":\"\\u591a\\u4e2a QQ\\u4ee5\\u82f1\\u6587\\u9017\\u53f7\\u9694\\u5f00\",\"rule\":{\"require\":true}}}}', null);
-INSERT INTO `xyb_theme_file` VALUES ('3', '0', '5', 'simpleboot3', '首页', 'portal/Index/index', 'portal/index', '首页模板文件', '{\"vars\":{\"top_slide\":{\"title\":\"\\u9876\\u90e8\\u5e7b\\u706f\\u7247\",\"value\":\"\",\"type\":\"text\",\"dataSource\":{\"api\":\"admin\\/Slide\\/index\",\"multi\":false},\"placeholder\":\"\\u8bf7\\u9009\\u62e9\\u9876\\u90e8\\u5e7b\\u706f\\u7247\",\"tip\":\"\\u9876\\u90e8\\u5e7b\\u706f\\u7247\",\"rule\":{\"require\":true}}},\"widgets\":{\"features\":{\"title\":\"\\u5feb\\u901f\\u4e86\\u89e3ThinkCMF\",\"display\":\"1\",\"vars\":{\"sub_title\":{\"title\":\"\\u526f\\u6807\\u9898\",\"value\":\"Quickly understand the ThinkCMF\",\"type\":\"text\",\"placeholder\":\"\\u8bf7\\u8f93\\u5165\\u526f\\u6807\\u9898\",\"tip\":\"\",\"rule\":{\"require\":true}},\"features\":{\"title\":\"\\u7279\\u6027\\u4ecb\\u7ecd\",\"value\":[{\"title\":\"MVC\\u5206\\u5c42\\u6a21\\u5f0f\",\"icon\":\"bars\",\"content\":\"\\u4f7f\\u7528MVC\\u5e94\\u7528\\u7a0b\\u5e8f\\u88ab\\u5206\\u6210\\u4e09\\u4e2a\\u6838\\u5fc3\\u90e8\\u4ef6\\uff1a\\u6a21\\u578b\\uff08M\\uff09\\u3001\\u89c6\\u56fe\\uff08V\\uff09\\u3001\\u63a7\\u5236\\u5668\\uff08C\\uff09\\uff0c\\u4ed6\\u4e0d\\u662f\\u4e00\\u4e2a\\u65b0\\u7684\\u6982\\u5ff5\\uff0c\\u53ea\\u662fThinkCMF\\u5c06\\u5176\\u53d1\\u6325\\u5230\\u4e86\\u6781\\u81f4\\u3002\"},{\"title\":\"\\u7528\\u6237\\u7ba1\\u7406\",\"icon\":\"group\",\"content\":\"ThinkCMF\\u5185\\u7f6e\\u4e86\\u7075\\u6d3b\\u7684\\u7528\\u6237\\u7ba1\\u7406\\u65b9\\u5f0f\\uff0c\\u5e76\\u53ef\\u76f4\\u63a5\\u4e0e\\u7b2c\\u4e09\\u65b9\\u7ad9\\u70b9\\u8fdb\\u884c\\u4e92\\u8054\\u4e92\\u901a\\uff0c\\u5982\\u679c\\u4f60\\u613f\\u610f\\u751a\\u81f3\\u53ef\\u4ee5\\u5bf9\\u5355\\u4e2a\\u7528\\u6237\\u6216\\u7fa4\\u4f53\\u7528\\u6237\\u7684\\u884c\\u4e3a\\u8fdb\\u884c\\u8bb0\\u5f55\\u53ca\\u5206\\u4eab\\uff0c\\u4e3a\\u60a8\\u7684\\u8fd0\\u8425\\u51b3\\u7b56\\u63d0\\u4f9b\\u6709\\u6548\\u53c2\\u8003\\u6570\\u636e\\u3002\"},{\"title\":\"\\u4e91\\u7aef\\u90e8\\u7f72\",\"icon\":\"cloud\",\"content\":\"\\u901a\\u8fc7\\u9a71\\u52a8\\u7684\\u65b9\\u5f0f\\u53ef\\u4ee5\\u8f7b\\u677e\\u652f\\u6301\\u4e91\\u5e73\\u53f0\\u7684\\u90e8\\u7f72\\uff0c\\u8ba9\\u4f60\\u7684\\u7f51\\u7ad9\\u65e0\\u7f1d\\u8fc1\\u79fb\\uff0c\\u5185\\u7f6e\\u5df2\\u7ecf\\u652f\\u6301SAE\\u3001BAE\\uff0c\\u6b63\\u5f0f\\u7248\\u5c06\\u5bf9\\u4e91\\u7aef\\u90e8\\u7f72\\u8fdb\\u884c\\u8fdb\\u4e00\\u6b65\\u4f18\\u5316\\u3002\"},{\"title\":\"\\u5b89\\u5168\\u7b56\\u7565\",\"icon\":\"heart\",\"content\":\"\\u63d0\\u4f9b\\u7684\\u7a33\\u5065\\u7684\\u5b89\\u5168\\u7b56\\u7565\\uff0c\\u5305\\u62ec\\u5907\\u4efd\\u6062\\u590d\\uff0c\\u5bb9\\u9519\\uff0c\\u9632\\u6cbb\\u6076\\u610f\\u653b\\u51fb\\u767b\\u9646\\uff0c\\u7f51\\u9875\\u9632\\u7be1\\u6539\\u7b49\\u591a\\u9879\\u5b89\\u5168\\u7ba1\\u7406\\u529f\\u80fd\\uff0c\\u4fdd\\u8bc1\\u7cfb\\u7edf\\u5b89\\u5168\\uff0c\\u53ef\\u9760\\uff0c\\u7a33\\u5b9a\\u7684\\u8fd0\\u884c\\u3002\"},{\"title\":\"\\u5e94\\u7528\\u6a21\\u5757\\u5316\",\"icon\":\"cubes\",\"content\":\"\\u63d0\\u51fa\\u5168\\u65b0\\u7684\\u5e94\\u7528\\u6a21\\u5f0f\\u8fdb\\u884c\\u6269\\u5c55\\uff0c\\u4e0d\\u7ba1\\u662f\\u4f60\\u5f00\\u53d1\\u4e00\\u4e2a\\u5c0f\\u529f\\u80fd\\u8fd8\\u662f\\u4e00\\u4e2a\\u5168\\u65b0\\u7684\\u7ad9\\u70b9\\uff0c\\u5728ThinkCMF\\u4e2d\\u4f60\\u53ea\\u662f\\u589e\\u52a0\\u4e86\\u4e00\\u4e2aAPP\\uff0c\\u6bcf\\u4e2a\\u72ec\\u7acb\\u8fd0\\u884c\\u4e92\\u4e0d\\u5f71\\u54cd\\uff0c\\u4fbf\\u4e8e\\u7075\\u6d3b\\u6269\\u5c55\\u548c\\u4e8c\\u6b21\\u5f00\\u53d1\\u3002\"},{\"title\":\"\\u514d\\u8d39\\u5f00\\u6e90\",\"icon\":\"certificate\",\"content\":\"\\u4ee3\\u7801\\u9075\\u5faaApache2\\u5f00\\u6e90\\u534f\\u8bae\\uff0c\\u514d\\u8d39\\u4f7f\\u7528\\uff0c\\u5bf9\\u5546\\u4e1a\\u7528\\u6237\\u4e5f\\u65e0\\u4efb\\u4f55\\u9650\\u5236\\u3002\"}],\"type\":\"array\",\"item\":{\"title\":{\"title\":\"\\u6807\\u9898\",\"value\":\"\",\"type\":\"text\",\"rule\":{\"require\":true}},\"icon\":{\"title\":\"\\u56fe\\u6807\",\"value\":\"\",\"type\":\"text\"},\"content\":{\"title\":\"\\u63cf\\u8ff0\",\"value\":\"\",\"type\":\"textarea\"}},\"tip\":\"\"}}},\"last_news\":{\"title\":\"\\u6700\\u65b0\\u8d44\\u8baf\",\"display\":\"1\",\"vars\":{\"last_news_category_id\":{\"title\":\"\\u6587\\u7ae0\\u5206\\u7c7bID\",\"value\":\"\",\"type\":\"text\",\"dataSource\":{\"api\":\"portal\\/Category\\/index\",\"multi\":true},\"placeholder\":\"\\u8bf7\\u9009\\u62e9\\u5206\\u7c7b\",\"tip\":\"\",\"rule\":{\"require\":true}}}}}}', '{\"vars\":{\"top_slide\":{\"title\":\"\\u9876\\u90e8\\u5e7b\\u706f\\u7247\",\"value\":\"\",\"type\":\"text\",\"dataSource\":{\"api\":\"admin\\/Slide\\/index\",\"multi\":false},\"placeholder\":\"\\u8bf7\\u9009\\u62e9\\u9876\\u90e8\\u5e7b\\u706f\\u7247\",\"tip\":\"\\u9876\\u90e8\\u5e7b\\u706f\\u7247\",\"rule\":{\"require\":true}}},\"widgets\":{\"features\":{\"title\":\"\\u5feb\\u901f\\u4e86\\u89e3ThinkCMF\",\"display\":\"1\",\"vars\":{\"sub_title\":{\"title\":\"\\u526f\\u6807\\u9898\",\"value\":\"Quickly understand the ThinkCMF\",\"type\":\"text\",\"placeholder\":\"\\u8bf7\\u8f93\\u5165\\u526f\\u6807\\u9898\",\"tip\":\"\",\"rule\":{\"require\":true}},\"features\":{\"title\":\"\\u7279\\u6027\\u4ecb\\u7ecd\",\"value\":[{\"title\":\"MVC\\u5206\\u5c42\\u6a21\\u5f0f\",\"icon\":\"bars\",\"content\":\"\\u4f7f\\u7528MVC\\u5e94\\u7528\\u7a0b\\u5e8f\\u88ab\\u5206\\u6210\\u4e09\\u4e2a\\u6838\\u5fc3\\u90e8\\u4ef6\\uff1a\\u6a21\\u578b\\uff08M\\uff09\\u3001\\u89c6\\u56fe\\uff08V\\uff09\\u3001\\u63a7\\u5236\\u5668\\uff08C\\uff09\\uff0c\\u4ed6\\u4e0d\\u662f\\u4e00\\u4e2a\\u65b0\\u7684\\u6982\\u5ff5\\uff0c\\u53ea\\u662fThinkCMF\\u5c06\\u5176\\u53d1\\u6325\\u5230\\u4e86\\u6781\\u81f4\\u3002\"},{\"title\":\"\\u7528\\u6237\\u7ba1\\u7406\",\"icon\":\"group\",\"content\":\"ThinkCMF\\u5185\\u7f6e\\u4e86\\u7075\\u6d3b\\u7684\\u7528\\u6237\\u7ba1\\u7406\\u65b9\\u5f0f\\uff0c\\u5e76\\u53ef\\u76f4\\u63a5\\u4e0e\\u7b2c\\u4e09\\u65b9\\u7ad9\\u70b9\\u8fdb\\u884c\\u4e92\\u8054\\u4e92\\u901a\\uff0c\\u5982\\u679c\\u4f60\\u613f\\u610f\\u751a\\u81f3\\u53ef\\u4ee5\\u5bf9\\u5355\\u4e2a\\u7528\\u6237\\u6216\\u7fa4\\u4f53\\u7528\\u6237\\u7684\\u884c\\u4e3a\\u8fdb\\u884c\\u8bb0\\u5f55\\u53ca\\u5206\\u4eab\\uff0c\\u4e3a\\u60a8\\u7684\\u8fd0\\u8425\\u51b3\\u7b56\\u63d0\\u4f9b\\u6709\\u6548\\u53c2\\u8003\\u6570\\u636e\\u3002\"},{\"title\":\"\\u4e91\\u7aef\\u90e8\\u7f72\",\"icon\":\"cloud\",\"content\":\"\\u901a\\u8fc7\\u9a71\\u52a8\\u7684\\u65b9\\u5f0f\\u53ef\\u4ee5\\u8f7b\\u677e\\u652f\\u6301\\u4e91\\u5e73\\u53f0\\u7684\\u90e8\\u7f72\\uff0c\\u8ba9\\u4f60\\u7684\\u7f51\\u7ad9\\u65e0\\u7f1d\\u8fc1\\u79fb\\uff0c\\u5185\\u7f6e\\u5df2\\u7ecf\\u652f\\u6301SAE\\u3001BAE\\uff0c\\u6b63\\u5f0f\\u7248\\u5c06\\u5bf9\\u4e91\\u7aef\\u90e8\\u7f72\\u8fdb\\u884c\\u8fdb\\u4e00\\u6b65\\u4f18\\u5316\\u3002\"},{\"title\":\"\\u5b89\\u5168\\u7b56\\u7565\",\"icon\":\"heart\",\"content\":\"\\u63d0\\u4f9b\\u7684\\u7a33\\u5065\\u7684\\u5b89\\u5168\\u7b56\\u7565\\uff0c\\u5305\\u62ec\\u5907\\u4efd\\u6062\\u590d\\uff0c\\u5bb9\\u9519\\uff0c\\u9632\\u6cbb\\u6076\\u610f\\u653b\\u51fb\\u767b\\u9646\\uff0c\\u7f51\\u9875\\u9632\\u7be1\\u6539\\u7b49\\u591a\\u9879\\u5b89\\u5168\\u7ba1\\u7406\\u529f\\u80fd\\uff0c\\u4fdd\\u8bc1\\u7cfb\\u7edf\\u5b89\\u5168\\uff0c\\u53ef\\u9760\\uff0c\\u7a33\\u5b9a\\u7684\\u8fd0\\u884c\\u3002\"},{\"title\":\"\\u5e94\\u7528\\u6a21\\u5757\\u5316\",\"icon\":\"cubes\",\"content\":\"\\u63d0\\u51fa\\u5168\\u65b0\\u7684\\u5e94\\u7528\\u6a21\\u5f0f\\u8fdb\\u884c\\u6269\\u5c55\\uff0c\\u4e0d\\u7ba1\\u662f\\u4f60\\u5f00\\u53d1\\u4e00\\u4e2a\\u5c0f\\u529f\\u80fd\\u8fd8\\u662f\\u4e00\\u4e2a\\u5168\\u65b0\\u7684\\u7ad9\\u70b9\\uff0c\\u5728ThinkCMF\\u4e2d\\u4f60\\u53ea\\u662f\\u589e\\u52a0\\u4e86\\u4e00\\u4e2aAPP\\uff0c\\u6bcf\\u4e2a\\u72ec\\u7acb\\u8fd0\\u884c\\u4e92\\u4e0d\\u5f71\\u54cd\\uff0c\\u4fbf\\u4e8e\\u7075\\u6d3b\\u6269\\u5c55\\u548c\\u4e8c\\u6b21\\u5f00\\u53d1\\u3002\"},{\"title\":\"\\u514d\\u8d39\\u5f00\\u6e90\",\"icon\":\"certificate\",\"content\":\"\\u4ee3\\u7801\\u9075\\u5faaApache2\\u5f00\\u6e90\\u534f\\u8bae\\uff0c\\u514d\\u8d39\\u4f7f\\u7528\\uff0c\\u5bf9\\u5546\\u4e1a\\u7528\\u6237\\u4e5f\\u65e0\\u4efb\\u4f55\\u9650\\u5236\\u3002\"}],\"type\":\"array\",\"item\":{\"title\":{\"title\":\"\\u6807\\u9898\",\"value\":\"\",\"type\":\"text\",\"rule\":{\"require\":true}},\"icon\":{\"title\":\"\\u56fe\\u6807\",\"value\":\"\",\"type\":\"text\"},\"content\":{\"title\":\"\\u63cf\\u8ff0\",\"value\":\"\",\"type\":\"textarea\"}},\"tip\":\"\"}}},\"last_news\":{\"title\":\"\\u6700\\u65b0\\u8d44\\u8baf\",\"display\":\"1\",\"vars\":{\"last_news_category_id\":{\"title\":\"\\u6587\\u7ae0\\u5206\\u7c7bID\",\"value\":\"\",\"type\":\"text\",\"dataSource\":{\"api\":\"portal\\/Category\\/index\",\"multi\":true},\"placeholder\":\"\\u8bf7\\u9009\\u62e9\\u5206\\u7c7b\",\"tip\":\"\",\"rule\":{\"require\":true}}}}}}', null);
-INSERT INTO `xyb_theme_file` VALUES ('4', '0', '10', 'simpleboot3', '文章列表页', 'portal/List/index', 'portal/list', '文章列表模板文件', '{\"vars\":[],\"widgets\":{\"hottest_articles\":{\"title\":\"\\u70ed\\u95e8\\u6587\\u7ae0\",\"display\":\"1\",\"vars\":{\"hottest_articles_category_id\":{\"title\":\"\\u6587\\u7ae0\\u5206\\u7c7bID\",\"value\":\"\",\"type\":\"text\",\"dataSource\":{\"api\":\"portal\\/category\\/index\",\"multi\":true},\"placeholder\":\"\\u8bf7\\u9009\\u62e9\\u5206\\u7c7b\",\"tip\":\"\",\"rule\":{\"require\":true}}}},\"last_articles\":{\"title\":\"\\u6700\\u65b0\\u53d1\\u5e03\",\"display\":\"1\",\"vars\":{\"last_articles_category_id\":{\"title\":\"\\u6587\\u7ae0\\u5206\\u7c7bID\",\"value\":\"\",\"type\":\"text\",\"dataSource\":{\"api\":\"portal\\/category\\/index\",\"multi\":true},\"placeholder\":\"\\u8bf7\\u9009\\u62e9\\u5206\\u7c7b\",\"tip\":\"\",\"rule\":{\"require\":true}}}}}}', '{\"vars\":[],\"widgets\":{\"hottest_articles\":{\"title\":\"\\u70ed\\u95e8\\u6587\\u7ae0\",\"display\":\"1\",\"vars\":{\"hottest_articles_category_id\":{\"title\":\"\\u6587\\u7ae0\\u5206\\u7c7bID\",\"value\":\"\",\"type\":\"text\",\"dataSource\":{\"api\":\"portal\\/category\\/index\",\"multi\":true},\"placeholder\":\"\\u8bf7\\u9009\\u62e9\\u5206\\u7c7b\",\"tip\":\"\",\"rule\":{\"require\":true}}}},\"last_articles\":{\"title\":\"\\u6700\\u65b0\\u53d1\\u5e03\",\"display\":\"1\",\"vars\":{\"last_articles_category_id\":{\"title\":\"\\u6587\\u7ae0\\u5206\\u7c7bID\",\"value\":\"\",\"type\":\"text\",\"dataSource\":{\"api\":\"portal\\/category\\/index\",\"multi\":true},\"placeholder\":\"\\u8bf7\\u9009\\u62e9\\u5206\\u7c7b\",\"tip\":\"\",\"rule\":{\"require\":true}}}}}}', null);
-INSERT INTO `xyb_theme_file` VALUES ('5', '0', '10', 'simpleboot3', '单页面', 'portal/Page/index', 'portal/page', '单页面模板文件', '{\"widgets\":{\"hottest_articles\":{\"title\":\"\\u70ed\\u95e8\\u6587\\u7ae0\",\"display\":\"1\",\"vars\":{\"hottest_articles_category_id\":{\"title\":\"\\u6587\\u7ae0\\u5206\\u7c7bID\",\"value\":\"\",\"type\":\"text\",\"dataSource\":{\"api\":\"portal\\/category\\/index\",\"multi\":true},\"placeholder\":\"\\u8bf7\\u9009\\u62e9\\u5206\\u7c7b\",\"tip\":\"\",\"rule\":{\"require\":true}}}},\"last_articles\":{\"title\":\"\\u6700\\u65b0\\u53d1\\u5e03\",\"display\":\"1\",\"vars\":{\"last_articles_category_id\":{\"title\":\"\\u6587\\u7ae0\\u5206\\u7c7bID\",\"value\":\"\",\"type\":\"text\",\"dataSource\":{\"api\":\"portal\\/category\\/index\",\"multi\":true},\"placeholder\":\"\\u8bf7\\u9009\\u62e9\\u5206\\u7c7b\",\"tip\":\"\",\"rule\":{\"require\":true}}}}}}', '{\"widgets\":{\"hottest_articles\":{\"title\":\"\\u70ed\\u95e8\\u6587\\u7ae0\",\"display\":\"1\",\"vars\":{\"hottest_articles_category_id\":{\"title\":\"\\u6587\\u7ae0\\u5206\\u7c7bID\",\"value\":\"\",\"type\":\"text\",\"dataSource\":{\"api\":\"portal\\/category\\/index\",\"multi\":true},\"placeholder\":\"\\u8bf7\\u9009\\u62e9\\u5206\\u7c7b\",\"tip\":\"\",\"rule\":{\"require\":true}}}},\"last_articles\":{\"title\":\"\\u6700\\u65b0\\u53d1\\u5e03\",\"display\":\"1\",\"vars\":{\"last_articles_category_id\":{\"title\":\"\\u6587\\u7ae0\\u5206\\u7c7bID\",\"value\":\"\",\"type\":\"text\",\"dataSource\":{\"api\":\"portal\\/category\\/index\",\"multi\":true},\"placeholder\":\"\\u8bf7\\u9009\\u62e9\\u5206\\u7c7b\",\"tip\":\"\",\"rule\":{\"require\":true}}}}}}', null);
-INSERT INTO `xyb_theme_file` VALUES ('6', '0', '10', 'simpleboot3', '搜索页面', 'portal/search/index', 'portal/search', '搜索模板文件', '{\"vars\":{\"varName1\":{\"title\":\"\\u70ed\\u95e8\\u641c\\u7d22\",\"value\":\"1\",\"type\":\"text\",\"tip\":\"\\u8fd9\\u662f\\u4e00\\u4e2atext\",\"rule\":{\"require\":true}}}}', '{\"vars\":{\"varName1\":{\"title\":\"\\u70ed\\u95e8\\u641c\\u7d22\",\"value\":\"1\",\"type\":\"text\",\"tip\":\"\\u8fd9\\u662f\\u4e00\\u4e2atext\",\"rule\":{\"require\":true}}}}', null);
-INSERT INTO `xyb_theme_file` VALUES ('7', '1', '0', 'simpleboot3', '模板全局配置', 'public/Config', 'public/config', '模板全局配置文件', '{\"vars\":{\"enable_mobile\":{\"title\":\"\\u624b\\u673a\\u6ce8\\u518c\",\"value\":1,\"type\":\"select\",\"options\":{\"1\":\"\\u5f00\\u542f\",\"0\":\"\\u5173\\u95ed\"},\"tip\":\"\"}}}', '{\"vars\":{\"enable_mobile\":{\"title\":\"\\u624b\\u673a\\u6ce8\\u518c\",\"value\":1,\"type\":\"select\",\"options\":{\"1\":\"\\u5f00\\u542f\",\"0\":\"\\u5173\\u95ed\"},\"tip\":\"\"}}}', null);
-INSERT INTO `xyb_theme_file` VALUES ('8', '1', '1', 'simpleboot3', '导航条', 'public/Nav', 'public/nav', '导航条模板文件', '{\"vars\":{\"company_name\":{\"title\":\"\\u516c\\u53f8\\u540d\\u79f0\",\"name\":\"company_name\",\"value\":\"ThinkCMF\",\"type\":\"text\",\"tip\":\"\",\"rule\":[]}}}', '{\"vars\":{\"company_name\":{\"title\":\"\\u516c\\u53f8\\u540d\\u79f0\",\"name\":\"company_name\",\"value\":\"ThinkCMF\",\"type\":\"text\",\"tip\":\"\",\"rule\":[]}}}', null);
-
--- ----------------------------
--- Table structure for xyb_third_party_user
--- ----------------------------
-DROP TABLE IF EXISTS `xyb_third_party_user`;
-CREATE TABLE `xyb_third_party_user` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '本站用户id',
-  `last_login_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '最后登录时间',
-  `expire_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'access_token过期时间',
-  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '绑定时间',
-  `login_times` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '登录次数',
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态;1:正常;0:禁用',
-  `nickname` varchar(50) NOT NULL DEFAULT '' COMMENT '用户昵称',
-  `third_party` varchar(20) NOT NULL DEFAULT '' COMMENT '第三方惟一码',
-  `app_id` varchar(64) NOT NULL DEFAULT '' COMMENT '第三方应用 id',
-  `last_login_ip` varchar(15) NOT NULL DEFAULT '' COMMENT '最后登录ip',
-  `access_token` varchar(512) NOT NULL DEFAULT '' COMMENT '第三方授权码',
-  `openid` varchar(40) NOT NULL DEFAULT '' COMMENT '第三方用户id',
-  `union_id` varchar(64) NOT NULL DEFAULT '' COMMENT '第三方用户多个产品中的惟一 id,(如:微信平台)',
-  `more` text COMMENT '扩展信息',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='第三方用户表';
-
--- ----------------------------
--- Records of xyb_third_party_user
--- ----------------------------
-
--- ----------------------------
 -- Table structure for xyb_user
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_user`;
@@ -735,9 +676,33 @@ CREATE TABLE `xyb_user` (
 -- ----------------------------
 -- Records of xyb_user
 -- ----------------------------
-INSERT INTO `xyb_user` VALUES ('1', '0', '1563764091', '1562552887', '1', 'admin', '00e0678b1678a8c2a597a4935e1a180d', '');
+INSERT INTO `xyb_user` VALUES ('1', '0', '1563861775', '1562552887', '1', 'admin', '00e0678b1678a8c2a597a4935e1a180d', '');
 INSERT INTO `xyb_user` VALUES ('2', '1', '1562917266', '1562837322', '1', 'dkd', '00e0678b1678a8c2a597a4935e1a180d', '18382426150');
 INSERT INTO `xyb_user` VALUES ('3', '1', '1562917376', '1562917356', '1', '123', '00e0678b1678a8c2a597a4935e1a180d', '18259662301');
+
+-- ----------------------------
+-- Table structure for xyb_users
+-- ----------------------------
+DROP TABLE IF EXISTS `xyb_users`;
+CREATE TABLE `xyb_users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `mobile` varchar(30) NOT NULL COMMENT '手机号',
+  `tj_code` int(11) NOT NULL DEFAULT '0' COMMENT '推荐人的推荐码',
+  `type` char(1) NOT NULL DEFAULT '0' COMMENT '1商家，2普通用户',
+  `passwd` varchar(50) NOT NULL DEFAULT '0' COMMENT '密码',
+  `is_company` tinyint(2) NOT NULL DEFAULT '0' COMMENT '1公司,2个人',
+  `is_deal` char(1) NOT NULL DEFAULT '0' COMMENT '0信息未完善，1信息已完善',
+  `coins` int(11) NOT NULL DEFAULT '0' COMMENT '金币',
+  `user_nickname` varchar(30) NOT NULL COMMENT '用户昵称',
+  `avater` varchar(255) NOT NULL COMMENT '头像',
+  PRIMARY KEY (`id`),
+  KEY `mobile` (`mobile`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of xyb_users
+-- ----------------------------
+INSERT INTO `xyb_users` VALUES ('1', '1838555555555', '1', '1', '0', '2', '0', '0', '', '');
 
 -- ----------------------------
 -- Table structure for xyb_user_action
@@ -761,137 +726,3 @@ CREATE TABLE `xyb_user_action` (
 -- Records of xyb_user_action
 -- ----------------------------
 INSERT INTO `xyb_user_action` VALUES ('1', '1', '1', '1', '2', '1', '用户登录', 'login', 'user', '');
-
--- ----------------------------
--- Table structure for xyb_user_action_log
--- ----------------------------
-DROP TABLE IF EXISTS `xyb_user_action_log`;
-CREATE TABLE `xyb_user_action_log` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '用户id',
-  `count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '访问次数',
-  `last_visit_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '最后访问时间',
-  `object` varchar(100) NOT NULL DEFAULT '' COMMENT '访问对象的id,格式:不带前缀的表名+id;如posts1表示xx_posts表里id为1的记录',
-  `action` varchar(50) NOT NULL DEFAULT '' COMMENT '操作名称;格式:应用名+控制器+操作名,也可自己定义格式只要不发生冲突且惟一;',
-  `ip` varchar(15) NOT NULL DEFAULT '' COMMENT '用户ip',
-  PRIMARY KEY (`id`),
-  KEY `user_object_action` (`user_id`,`object`,`action`),
-  KEY `user_object_action_ip` (`user_id`,`object`,`action`,`ip`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='访问记录表';
-
--- ----------------------------
--- Records of xyb_user_action_log
--- ----------------------------
-
--- ----------------------------
--- Table structure for xyb_user_balance_log
--- ----------------------------
-DROP TABLE IF EXISTS `xyb_user_balance_log`;
-CREATE TABLE `xyb_user_balance_log` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '用户 id',
-  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `change` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '更改余额',
-  `balance` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '更改后余额',
-  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
-  `remark` varchar(255) NOT NULL DEFAULT '' COMMENT '备注',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户余额变更日志表';
-
--- ----------------------------
--- Records of xyb_user_balance_log
--- ----------------------------
-
--- ----------------------------
--- Table structure for xyb_user_favorite
--- ----------------------------
-DROP TABLE IF EXISTS `xyb_user_favorite`;
-CREATE TABLE `xyb_user_favorite` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '用户 id',
-  `title` varchar(100) NOT NULL DEFAULT '' COMMENT '收藏内容的标题',
-  `url` varchar(255) CHARACTER SET utf8 DEFAULT '' COMMENT '收藏内容的原文地址，不带域名',
-  `description` varchar(500) CHARACTER SET utf8 DEFAULT '' COMMENT '收藏内容的描述',
-  `table_name` varchar(64) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '收藏实体以前所在表,不带前缀',
-  `object_id` int(10) unsigned DEFAULT '0' COMMENT '收藏内容原来的主键id',
-  `create_time` int(10) unsigned DEFAULT '0' COMMENT '收藏时间',
-  PRIMARY KEY (`id`),
-  KEY `uid` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户收藏表';
-
--- ----------------------------
--- Records of xyb_user_favorite
--- ----------------------------
-
--- ----------------------------
--- Table structure for xyb_user_login_attempt
--- ----------------------------
-DROP TABLE IF EXISTS `xyb_user_login_attempt`;
-CREATE TABLE `xyb_user_login_attempt` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `login_attempts` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '尝试次数',
-  `attempt_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '尝试登录时间',
-  `locked_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '锁定时间',
-  `ip` varchar(15) NOT NULL DEFAULT '' COMMENT '用户 ip',
-  `account` varchar(100) NOT NULL DEFAULT '' COMMENT '用户账号,手机号,邮箱或用户名',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='用户登录尝试表';
-
--- ----------------------------
--- Records of xyb_user_login_attempt
--- ----------------------------
-
--- ----------------------------
--- Table structure for xyb_user_score_log
--- ----------------------------
-DROP TABLE IF EXISTS `xyb_user_score_log`;
-CREATE TABLE `xyb_user_score_log` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '用户 id',
-  `create_time` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `action` varchar(50) NOT NULL DEFAULT '' COMMENT '用户操作名称',
-  `score` int(11) NOT NULL DEFAULT '0' COMMENT '更改积分，可以为负',
-  `coin` int(11) NOT NULL DEFAULT '0' COMMENT '更改金币，可以为负',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户操作积分等奖励日志表';
-
--- ----------------------------
--- Records of xyb_user_score_log
--- ----------------------------
-
--- ----------------------------
--- Table structure for xyb_user_token
--- ----------------------------
-DROP TABLE IF EXISTS `xyb_user_token`;
-CREATE TABLE `xyb_user_token` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '用户id',
-  `expire_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT ' 过期时间',
-  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `token` varchar(64) NOT NULL DEFAULT '' COMMENT 'token',
-  `device_type` varchar(10) NOT NULL DEFAULT '' COMMENT '设备类型;mobile,android,iphone,ipad,web,pc,mac,wxapp',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='用户客户端登录 token 表';
-
--- ----------------------------
--- Records of xyb_user_token
--- ----------------------------
-INSERT INTO `xyb_user_token` VALUES ('1', '1', '1578104943', '1562552943', '653ca744e2d9930b0112eac5fd6690ac653ca744e2d9930b0112eac5fd6690ac', 'web');
-
--- ----------------------------
--- Table structure for xyb_verification_code
--- ----------------------------
-DROP TABLE IF EXISTS `xyb_verification_code`;
-CREATE TABLE `xyb_verification_code` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '表id',
-  `count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '当天已经发送成功的次数',
-  `send_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '最后发送成功时间',
-  `expire_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '验证码过期时间',
-  `code` varchar(8) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '最后发送成功的验证码',
-  `account` varchar(100) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '手机号或者邮箱',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='手机邮箱数字验证码表';
-
--- ----------------------------
--- Records of xyb_verification_code
--- ----------------------------
