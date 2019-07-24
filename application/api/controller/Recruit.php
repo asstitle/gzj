@@ -68,4 +68,70 @@ class Recruit extends ApiBase
              }
          }
      }
+
+     //商户把求职者拉入黑名单
+     public function pull_user_seek_black(){
+         if($this->request->isPost()){
+             $user_id=$this->request->param('user_id');//商家id
+             $seek_user_id=$this->request->param('seek_user_id');//求职者id
+             $usj_id=$this->request->param('usj_id');
+             $coins=$this->request->param('coins');
+             $info=Db::name('users')->where(array('id'=>$user_id))->field('coins')->find();
+             if($coins>$info['coins']){
+                 return json(array('code'=>403,'info'=>'金币余额不足'));
+             }
+             $data['user_id']=$user_id;
+             $data['seek_user_id']=$seek_user_id;
+             $data['usj_id']=$usj_id;
+             $data['add_time']=time();
+             $res=Db::name('sh_pull_black')->insert($data);
+             if($res){
+                return json(array('code'=>404,'info'=>'拉黑成功'));
+             }else{
+               return json(array('code'=>405,'info'=>'拉黑失败'));
+             }
+         }
+     }
+
+     //商户向某个求职者发送消息
+     public function sh_to_message_user(){
+        if($this->request->isPost()){
+            $user_id=$this->request->param('user_id');//商户ID
+            $seek_user_id=$this->request->param('seek_user_id');//求职者id
+            $content=$this->request->param('content');
+            $data['user_id']=$user_id;
+            $data['seek_user_id']=$seek_user_id;
+            $data['content']=$content;
+            $result=Db::name('sh_post_message')->insert($data);
+            if($result){
+                return json(array('code'=>406,'info'=>'发送成功'));
+            }else{
+                return json(array('code'=>407,'info'=>'发送失败'));
+            }
+        }
+     }
+     //商户发布招聘需求
+     public function employ_require(){
+         if($this->request->isPost()){
+              $data['company_name']=$this->request->param('company_name');
+              $data['seek_job']=$this->request->param('seek_job');//招聘岗位',
+              $data['work_time'] =$this->request->param('work_time');//工作时间
+              $data['work_address']=$this->request->param('work_address');//工作地址',
+              $data['demand_num']=$this->request->param('demand_num');//需求人数',
+              $data['salary_rand']=$this->request->param('salary_rand');//薪资范围',
+              $data['salary_type']=$this->request->param('salary_type'); //'薪资结算时间',
+              $data['work_detail']=$this->request->param('work_detail');//'工作详情',
+              $data['work_pic']=$this->request->param('work_pic');// '工作图片',
+              $data['contact_user'] =$this->request->param('contact_user');//'联系人',
+              $data['tel']=$this->request->param('tel'); //'联系电话',
+              $data['status']=1;// '1发布中，0已关闭',
+              $data['add_time']=time();// '发布时间',
+              $res=Db::name('recruit_company')->insert($data);
+              if($res){
+                return json(array('code'=>408,'info'=>'发布成功'));
+              }else{
+                return json(array('code'=>409,'info'=>'发布失败'));
+              }
+         }
+     }
 }

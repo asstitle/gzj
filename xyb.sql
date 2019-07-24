@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2019-07-23 21:44:52
+Date: 2019-07-24 22:31:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -738,6 +738,87 @@ CREATE TABLE `xyb_seeker_pull_black` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `xyb_select_salary`
+-- ----------------------------
+DROP TABLE IF EXISTS `xyb_select_salary`;
+CREATE TABLE `xyb_select_salary` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL DEFAULT '' COMMENT '名称',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of xyb_select_salary
+-- ----------------------------
+INSERT INTO `xyb_select_salary` VALUES ('1', '1K以下');
+INSERT INTO `xyb_select_salary` VALUES ('2', '1K-2K');
+INSERT INTO `xyb_select_salary` VALUES ('3', '2K-4K');
+INSERT INTO `xyb_select_salary` VALUES ('4', '4K-6K');
+INSERT INTO `xyb_select_salary` VALUES ('5', '6K-8K');
+INSERT INTO `xyb_select_salary` VALUES ('6', '8K-10K');
+INSERT INTO `xyb_select_salary` VALUES ('7', '10K-15K');
+INSERT INTO `xyb_select_salary` VALUES ('8', '15K-25K');
+INSERT INTO `xyb_select_salary` VALUES ('9', '25K-35K');
+INSERT INTO `xyb_select_salary` VALUES ('10', '35K-50K');
+INSERT INTO `xyb_select_salary` VALUES ('11', '50K-70K');
+INSERT INTO `xyb_select_salary` VALUES ('12', '70K-100K');
+INSERT INTO `xyb_select_salary` VALUES ('13', '100K以上');
+INSERT INTO `xyb_select_salary` VALUES ('14', '不限');
+
+-- ----------------------------
+-- Table structure for `xyb_select_salary_time`
+-- ----------------------------
+DROP TABLE IF EXISTS `xyb_select_salary_time`;
+CREATE TABLE `xyb_select_salary_time` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL DEFAULT '' COMMENT '名称',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of xyb_select_salary_time
+-- ----------------------------
+INSERT INTO `xyb_select_salary_time` VALUES ('1', '月结');
+INSERT INTO `xyb_select_salary_time` VALUES ('2', '日结');
+INSERT INTO `xyb_select_salary_time` VALUES ('3', '周结');
+INSERT INTO `xyb_select_salary_time` VALUES ('4', '小时结');
+
+-- ----------------------------
+-- Table structure for `xyb_select_work_time`
+-- ----------------------------
+DROP TABLE IF EXISTS `xyb_select_work_time`;
+CREATE TABLE `xyb_select_work_time` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL DEFAULT '' COMMENT '工作时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of xyb_select_work_time
+-- ----------------------------
+INSERT INTO `xyb_select_work_time` VALUES ('1', '周一至周五');
+INSERT INTO `xyb_select_work_time` VALUES ('2', '周一至周六');
+
+-- ----------------------------
+-- Table structure for `xyb_sh_post_message`
+-- ----------------------------
+DROP TABLE IF EXISTS `xyb_sh_post_message`;
+CREATE TABLE `xyb_sh_post_message` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '商户id',
+  `seek_user_id` int(11) NOT NULL DEFAULT '0' COMMENT '求职者id',
+  `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '发送时间',
+  `status` char(1) NOT NULL DEFAULT '0' COMMENT '0未读，1已读',
+  `content` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of xyb_sh_post_message
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `xyb_sh_pull_black`
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_sh_pull_black`;
@@ -746,6 +827,7 @@ CREATE TABLE `xyb_sh_pull_black` (
   `usj_id` int(11) NOT NULL DEFAULT '0' COMMENT '商户拉黑求职者表中的id',
   `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '拉黑时间',
   `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '操作id',
+  `user_seek_id` int(11) NOT NULL DEFAULT '0' COMMENT '求职者ID',
   PRIMARY KEY (`id`),
   KEY `usj_id` (`usj_id`) USING BTREE,
   KEY `user_id` (`user_id`) USING BTREE
@@ -794,7 +876,7 @@ CREATE TABLE `xyb_users` (
   `coins` int(11) NOT NULL DEFAULT '0' COMMENT '金币',
   `user_nickname` varchar(30) NOT NULL COMMENT '用户昵称',
   `avater` varchar(255) NOT NULL COMMENT '头像',
-  `status` char(1) NOT NULL DEFAULT '1' COMMENT '1状态开，0状态关闭',
+  `su_member` char(1) NOT NULL DEFAULT '0' COMMENT '1超级会员，0普通',
   PRIMARY KEY (`id`),
   KEY `mobile` (`mobile`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
@@ -802,7 +884,7 @@ CREATE TABLE `xyb_users` (
 -- ----------------------------
 -- Records of xyb_users
 -- ----------------------------
-INSERT INTO `xyb_users` VALUES ('1', '1838555555555', '1', '1', '0', '2', '0', '0', '', '', '1');
+INSERT INTO `xyb_users` VALUES ('1', '1838555555555', '1', '1', '0', '2', '0', '0', '', '', '0');
 
 -- ----------------------------
 -- Table structure for `xyb_user_action`
@@ -849,6 +931,9 @@ CREATE TABLE `xyb_user_seek_job` (
   `jz_gw` varchar(30) NOT NULL DEFAULT '' COMMENT '就职岗位',
   `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '发布时间',
   `status` char(1) NOT NULL DEFAULT '1' COMMENT '1发布,0隐藏',
+  `province` int(11) NOT NULL DEFAULT '0' COMMENT '省份ID',
+  `city` int(11) NOT NULL DEFAULT '0' COMMENT '城市ID',
+  `gw_id` int(11) NOT NULL DEFAULT '0' COMMENT '岗位id',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
