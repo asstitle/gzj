@@ -3,7 +3,7 @@ namespace app\api\controller;
 use app\common\controller\ApiBase;
 use think\Db;
 class Wxpay extends ApiBase{
-
+    //充值金币
     public function pay()
     {
 
@@ -187,6 +187,8 @@ class Wxpay extends ApiBase{
             $order_sn = $data['out_trade_no'];
             $order_info = Db::name('order')->where(['order_number' => "$order_sn"])->find();
             $res=Db::name('order')->where(array('id'=>$order_info['id']))->update(array('status'=>1,'done_time'=>time()));
+            //用户表金额增加
+            //写入消费明细表
             if($res){
                return json(array('code'=>200,'info'=>'支付成功'));
             }else{
@@ -199,6 +201,15 @@ class Wxpay extends ApiBase{
         // 禁止引用外部xml实体
         libxml_disable_entity_loader(true);
         return json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
+    }
+    //商户充值
+    public function recharge_super_member(){
+       if($this->request->isPost()){
+           $user_id=$this->request->param('user_id');
+           $coins=$this->request->param('coins');
+           $code = $this->request->param('code');
+           //写入商户充值超级会员记录表,更新用户金币
+       }
     }
 
 }

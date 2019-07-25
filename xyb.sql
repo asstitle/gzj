@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2019-07-24 22:31:26
+Date: 2019-07-25 22:51:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -656,20 +656,22 @@ INSERT INTO `xyb_province` VALUES ('34', '820000', '澳门特别行政区');
 DROP TABLE IF EXISTS `xyb_recruit_company`;
 CREATE TABLE `xyb_recruit_company` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `company_name` varchar(40) NOT NULL COMMENT '公司名称',
-  `seek_job` varchar(30) NOT NULL COMMENT '招聘岗位',
-  `work_time` varchar(30) NOT NULL,
-  `work_address` varchar(80) NOT NULL COMMENT '工作地址',
+  `company_name` varchar(40) NOT NULL DEFAULT '' COMMENT '公司名称',
+  `seek_job` varchar(30) NOT NULL DEFAULT '' COMMENT '招聘岗位',
+  `work_time` varchar(30) NOT NULL DEFAULT '',
+  `work_address` varchar(80) NOT NULL DEFAULT '' COMMENT '工作地址',
   `demand_num` tinyint(4) NOT NULL DEFAULT '0' COMMENT '需求人数',
-  `salary_rand` varchar(30) NOT NULL COMMENT '薪资范围',
-  `salary_type` varchar(20) NOT NULL COMMENT '薪资结算时间',
+  `salary_rand` varchar(30) NOT NULL DEFAULT '' COMMENT '薪资范围',
+  `salary_type` varchar(20) NOT NULL DEFAULT '' COMMENT '薪资结算时间',
   `work_detail` text NOT NULL COMMENT '工作详情',
-  `work_pic` varchar(255) NOT NULL COMMENT '工作图片',
-  `contact_user` varchar(30) NOT NULL COMMENT '联系人',
+  `work_pic` varchar(255) NOT NULL DEFAULT '' COMMENT '工作图片',
+  `contact_user` varchar(30) NOT NULL DEFAULT '' COMMENT '联系人',
   `tel` int(11) NOT NULL DEFAULT '0' COMMENT '联系电话',
   `status` char(1) NOT NULL DEFAULT '1' COMMENT '1发布中，0已关闭',
   `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '发布时间',
-  PRIMARY KEY (`id`)
+  `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '发布人',
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -835,6 +837,27 @@ CREATE TABLE `xyb_sh_pull_black` (
 
 -- ----------------------------
 -- Records of xyb_sh_pull_black
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `xyb_super_member_record`
+-- ----------------------------
+DROP TABLE IF EXISTS `xyb_super_member_record`;
+CREATE TABLE `xyb_super_member_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1招聘，2商铺,3二手车',
+  `coins` int(11) NOT NULL DEFAULT '0' COMMENT '充值金额',
+  `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
+  `member_day` tinyint(4) NOT NULL DEFAULT '0' COMMENT '会员天数',
+  `surplus_member_day` tinyint(4) NOT NULL DEFAULT '0' COMMENT '剩余会员天数',
+  `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '会员ID',
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`) USING BTREE,
+  KEY `type` (`type`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of xyb_super_member_record
 -- ----------------------------
 
 -- ----------------------------
