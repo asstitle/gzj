@@ -13,12 +13,8 @@ class Register extends ApiBase
       if($this->request->isPost()){
           $mobile=$this->request->param('mobile');
           $tj_code=$this->request->param('tj_code') ? $this->request->param('tj_code') : 0;
-          $type=$this->request->param('type') ? $this->request->param('type') : 0;
           $input_code=$this->request->param('input_code');
           $correct_code=$this->request->param('correct_code');
-          if($type==0){
-            return json(array('code'=>201,'info'=>'请选择商家还是普通用户'));
-          }
           if(!preg_match('/^1[34578]\d{9}$/',$mobile)){
              return json(array('code'=>202,'info'=>'手机号格式有误'));
           }
@@ -44,7 +40,6 @@ class Register extends ApiBase
             $passwd=$this->request->param('passwd');
             $passwd_confirm=$this->request->param('passwd_confirm');
             $tj_code=$this->request->param('tj_code') ? $this->request->param('tj_code') : 0;
-            $type=$this->request->param('type');
             if(!preg_match('/^1[34578]\d{9}$/',$mobile)){
                 return json(array('code'=>202,'info'=>'手机号格式有误'));
             }
@@ -55,7 +50,6 @@ class Register extends ApiBase
             $data['mobile']=$mobile;
             $data['passwd']=md5($key.$passwd);
             $data['tj_code']=$tj_code;
-            $data['type']=$type;
             $user_id=Db::name('users')->insertGetId($data);
             if($user_id){
                 return json(array('code'=>200,'info'=>'注册成功','user_id'=>$user_id));
