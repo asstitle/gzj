@@ -1,22 +1,22 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost_3306
-Source Server Version : 50714
+Source Server         : test
+Source Server Version : 50553
 Source Host           : localhost:3306
 Source Database       : xyb
 
 Target Server Type    : MYSQL
-Target Server Version : 50714
+Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2019-07-26 18:58:53
+Date: 2019-07-28 21:58:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for xyb_admin_menu
+-- Table structure for `xyb_admin_menu`
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_admin_menu`;
 CREATE TABLE `xyb_admin_menu` (
@@ -68,7 +68,7 @@ INSERT INTO `xyb_admin_menu` VALUES ('24', '0', '1', '1', '0', 'xyb', 'index', '
 INSERT INTO `xyb_admin_menu` VALUES ('25', '1', '1', '1', '0', 'xyb', 'user', 'add_user', '', '添加用户', '', '');
 
 -- ----------------------------
--- Table structure for xyb_auth_access
+-- Table structure for `xyb_auth_access`
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_auth_access`;
 CREATE TABLE `xyb_auth_access` (
@@ -86,7 +86,7 @@ CREATE TABLE `xyb_auth_access` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for xyb_auth_rule
+-- Table structure for `xyb_auth_rule`
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_auth_rule`;
 CREATE TABLE `xyb_auth_rule` (
@@ -132,7 +132,7 @@ INSERT INTO `xyb_auth_rule` VALUES ('23', '1', 'xyb', 'admin_url', 'xyb/menu/add
 INSERT INTO `xyb_auth_rule` VALUES ('24', '1', 'xyb', 'admin_url', 'xyb/user/add_user', '', '添加用户', '');
 
 -- ----------------------------
--- Table structure for xyb_city
+-- Table structure for `xyb_city`
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_city`;
 CREATE TABLE `xyb_city` (
@@ -494,7 +494,27 @@ INSERT INTO `xyb_city` VALUES ('344', '654300', '阿勒泰地区', '650000');
 INSERT INTO `xyb_city` VALUES ('345', '659000', '省直辖行政单位', '650000');
 
 -- ----------------------------
--- Table structure for xyb_company
+-- Table structure for `xyb_coin_money_select`
+-- ----------------------------
+DROP TABLE IF EXISTS `xyb_coin_money_select`;
+CREATE TABLE `xyb_coin_money_select` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `coins_num` int(11) NOT NULL DEFAULT '0' COMMENT '金币数量',
+  `money` int(11) NOT NULL DEFAULT '0' COMMENT '金额',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of xyb_coin_money_select
+-- ----------------------------
+INSERT INTO `xyb_coin_money_select` VALUES ('1', '5', '10');
+INSERT INTO `xyb_coin_money_select` VALUES ('2', '20', '30');
+INSERT INTO `xyb_coin_money_select` VALUES ('3', '50', '100');
+INSERT INTO `xyb_coin_money_select` VALUES ('4', '100', '200');
+INSERT INTO `xyb_coin_money_select` VALUES ('5', '500', '500');
+
+-- ----------------------------
+-- Table structure for `xyb_company`
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_company`;
 CREATE TABLE `xyb_company` (
@@ -510,13 +530,13 @@ CREATE TABLE `xyb_company` (
   `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '用户id',
   `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '提交时间',
   `status` char(1) NOT NULL DEFAULT '0' COMMENT '0未审核，已审核',
-  `to_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1-我要招聘 2-店铺(房)交易 3-二手车',
-  `open_time` varchar(60) DEFAULT '0' COMMENT '营业时间',
+  `select_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1-我要招聘 2-店铺(房)交易 3-二手车',
+  `open_time` varchar(30) NOT NULL DEFAULT '0' COMMENT '营业时间描述',
   PRIMARY KEY (`id`),
   KEY `provice` (`province`) USING BTREE,
   KEY `city` (`city`) USING BTREE,
   KEY `user_id` (`user_id`) USING BTREE,
-  KEY `to_type` (`to_type`) USING BTREE
+  KEY `to_type` (`select_type`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -524,7 +544,22 @@ CREATE TABLE `xyb_company` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for xyb_look_recruit_record
+-- Table structure for `xyb_company_publish_record`
+-- ----------------------------
+DROP TABLE IF EXISTS `xyb_company_publish_record`;
+CREATE TABLE `xyb_company_publish_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `company_name` varchar(30) NOT NULL DEFAULT '' COMMENT '公司名称',
+  `work_address` varchar(30) NOT NULL DEFAULT '' COMMENT '工作地址',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of xyb_company_publish_record
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `xyb_look_recruit_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_look_recruit_record`;
 CREATE TABLE `xyb_look_recruit_record` (
@@ -542,7 +577,7 @@ CREATE TABLE `xyb_look_recruit_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for xyb_look_resume_record
+-- Table structure for `xyb_look_resume_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_look_resume_record`;
 CREATE TABLE `xyb_look_resume_record` (
@@ -561,17 +596,39 @@ CREATE TABLE `xyb_look_resume_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for xyb_order
+-- Table structure for `xyb_member_day`
+-- ----------------------------
+DROP TABLE IF EXISTS `xyb_member_day`;
+CREATE TABLE `xyb_member_day` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL DEFAULT '' COMMENT '名称',
+  `day` int(11) NOT NULL DEFAULT '0' COMMENT '天数',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of xyb_member_day
+-- ----------------------------
+INSERT INTO `xyb_member_day` VALUES ('1', '月度会员', '30');
+INSERT INTO `xyb_member_day` VALUES ('2', '季度会员', '90');
+INSERT INTO `xyb_member_day` VALUES ('3', '半年会员', '180');
+INSERT INTO `xyb_member_day` VALUES ('4', '一年会员', '360');
+
+-- ----------------------------
+-- Table structure for `xyb_order`
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_order`;
 CREATE TABLE `xyb_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '用户id',
-  `order_number` int(11) NOT NULL DEFAULT '0' COMMENT '订单编号',
+  `order_number` varchar(60) NOT NULL DEFAULT '0' COMMENT '订单编号',
   `money` int(11) NOT NULL DEFAULT '0' COMMENT '订单金额',
   `status` char(1) NOT NULL DEFAULT '0' COMMENT '0待支付,1已支付',
   `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
   `done_time` int(11) NOT NULL DEFAULT '0' COMMENT '完成时间',
+  `select_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1招聘者 2商铺租赁 3二手车',
+  `member_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '充值用户类型',
+  `is_merchant` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1商户 2用户',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`) USING BTREE,
   KEY `status` (`status`) USING BTREE
@@ -582,7 +639,7 @@ CREATE TABLE `xyb_order` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for xyb_person
+-- Table structure for `xyb_person`
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_person`;
 CREATE TABLE `xyb_person` (
@@ -601,7 +658,7 @@ CREATE TABLE `xyb_person` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for xyb_province
+-- Table structure for `xyb_province`
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_province`;
 CREATE TABLE `xyb_province` (
@@ -651,7 +708,7 @@ INSERT INTO `xyb_province` VALUES ('33', '810000', '香港特别行政区');
 INSERT INTO `xyb_province` VALUES ('34', '820000', '澳门特别行政区');
 
 -- ----------------------------
--- Table structure for xyb_recruit_company
+-- Table structure for `xyb_recruit_company`
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_recruit_company`;
 CREATE TABLE `xyb_recruit_company` (
@@ -679,7 +736,21 @@ CREATE TABLE `xyb_recruit_company` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for xyb_role
+-- Table structure for `xyb_recruit_pic`
+-- ----------------------------
+DROP TABLE IF EXISTS `xyb_recruit_pic`;
+CREATE TABLE `xyb_recruit_pic` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `num` tinyint(4) NOT NULL DEFAULT '0' COMMENT '数量',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of xyb_recruit_pic
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `xyb_role`
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_role`;
 CREATE TABLE `xyb_role` (
@@ -703,7 +774,7 @@ INSERT INTO `xyb_role` VALUES ('1', '0', '1', '1562828141', '1562828141', '0', '
 INSERT INTO `xyb_role` VALUES ('2', '0', '1', '1562837129', '1562837129', '0', '任课教师', '任教某堂课');
 
 -- ----------------------------
--- Table structure for xyb_role_user
+-- Table structure for `xyb_role_user`
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_role_user`;
 CREATE TABLE `xyb_role_user` (
@@ -722,7 +793,7 @@ INSERT INTO `xyb_role_user` VALUES ('1', '2', '2');
 INSERT INTO `xyb_role_user` VALUES ('2', '2', '3');
 
 -- ----------------------------
--- Table structure for xyb_seeker_pull_black
+-- Table structure for `xyb_seeker_pull_black`
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_seeker_pull_black`;
 CREATE TABLE `xyb_seeker_pull_black` (
@@ -740,7 +811,7 @@ CREATE TABLE `xyb_seeker_pull_black` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for xyb_select_salary
+-- Table structure for `xyb_select_salary`
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_select_salary`;
 CREATE TABLE `xyb_select_salary` (
@@ -768,7 +839,7 @@ INSERT INTO `xyb_select_salary` VALUES ('13', '100K以上');
 INSERT INTO `xyb_select_salary` VALUES ('14', '不限');
 
 -- ----------------------------
--- Table structure for xyb_select_salary_time
+-- Table structure for `xyb_select_salary_time`
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_select_salary_time`;
 CREATE TABLE `xyb_select_salary_time` (
@@ -786,7 +857,7 @@ INSERT INTO `xyb_select_salary_time` VALUES ('3', '周结');
 INSERT INTO `xyb_select_salary_time` VALUES ('4', '小时结');
 
 -- ----------------------------
--- Table structure for xyb_select_work_time
+-- Table structure for `xyb_select_work_time`
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_select_work_time`;
 CREATE TABLE `xyb_select_work_time` (
@@ -802,7 +873,22 @@ INSERT INTO `xyb_select_work_time` VALUES ('1', '周一至周五');
 INSERT INTO `xyb_select_work_time` VALUES ('2', '周一至周六');
 
 -- ----------------------------
--- Table structure for xyb_sh_post_message
+-- Table structure for `xyb_shop_pic`
+-- ----------------------------
+DROP TABLE IF EXISTS `xyb_shop_pic`;
+CREATE TABLE `xyb_shop_pic` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `num` tinyint(4) NOT NULL DEFAULT '0' COMMENT '数量',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of xyb_shop_pic
+-- ----------------------------
+INSERT INTO `xyb_shop_pic` VALUES ('1', '3');
+
+-- ----------------------------
+-- Table structure for `xyb_sh_post_message`
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_sh_post_message`;
 CREATE TABLE `xyb_sh_post_message` (
@@ -821,7 +907,7 @@ CREATE TABLE `xyb_sh_post_message` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for xyb_sh_pull_black
+-- Table structure for `xyb_sh_pull_black`
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_sh_pull_black`;
 CREATE TABLE `xyb_sh_pull_black` (
@@ -840,7 +926,7 @@ CREATE TABLE `xyb_sh_pull_black` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for xyb_super_member_record
+-- Table structure for `xyb_super_member_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_super_member_record`;
 CREATE TABLE `xyb_super_member_record` (
@@ -861,7 +947,7 @@ CREATE TABLE `xyb_super_member_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for xyb_user
+-- Table structure for `xyb_user`
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_user`;
 CREATE TABLE `xyb_user` (
@@ -885,7 +971,7 @@ INSERT INTO `xyb_user` VALUES ('2', '1', '1562917266', '1562837322', '1', 'dkd',
 INSERT INTO `xyb_user` VALUES ('3', '1', '1562917376', '1562917356', '1', '123', '00e0678b1678a8c2a597a4935e1a180d', '18259662301');
 
 -- ----------------------------
--- Table structure for xyb_users
+-- Table structure for `xyb_users`
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_users`;
 CREATE TABLE `xyb_users` (
@@ -905,6 +991,7 @@ CREATE TABLE `xyb_users` (
   `user_super_member` char(1) NOT NULL DEFAULT '0' COMMENT '1普通用户超级会员，0普通用户',
   `user_super_day` int(11) NOT NULL DEFAULT '0' COMMENT '普通用户超级会员天数',
   `now_select_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1-招聘者，2-商铺租赁，3-二手车',
+  `sex` char(1) NOT NULL DEFAULT '0' COMMENT '1男 2女',
   PRIMARY KEY (`id`),
   KEY `mobile` (`mobile`) USING BTREE,
   KEY `openid` (`openid`) USING BTREE,
@@ -914,33 +1001,31 @@ CREATE TABLE `xyb_users` (
 -- ----------------------------
 -- Records of xyb_users
 -- ----------------------------
-INSERT INTO `xyb_users` VALUES ('1', '1838555555555', '1', '1', '0', '2', '0', '', '', '0', '', '0', '0', '0', '0', '0');
+INSERT INTO `xyb_users` VALUES ('1', '1838555555555', '1', '1', '0', '2', '0', '', '', '0', '', '0', '0', '0', '0', '0', '0');
 
 -- ----------------------------
--- Table structure for xyb_user_action
+-- Table structure for `xyb_user_consume_fee_detail`
 -- ----------------------------
-DROP TABLE IF EXISTS `xyb_user_action`;
-CREATE TABLE `xyb_user_action` (
+DROP TABLE IF EXISTS `xyb_user_consume_fee_detail`;
+CREATE TABLE `xyb_user_consume_fee_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `score` int(11) NOT NULL DEFAULT '0' COMMENT '更改积分，可以为负',
-  `coin` int(11) NOT NULL DEFAULT '0' COMMENT '更改金币，可以为负',
-  `reward_number` int(11) NOT NULL DEFAULT '0' COMMENT '奖励次数',
-  `cycle_type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '周期类型;0:不限;1:按天;2:按小时;3:永久',
-  `cycle_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '周期时间值',
-  `name` varchar(50) NOT NULL DEFAULT '' COMMENT '用户操作名称',
-  `action` varchar(50) NOT NULL DEFAULT '' COMMENT '用户操作名称',
-  `app` varchar(50) NOT NULL DEFAULT '' COMMENT '操作所在应用名或插件名等',
-  `url` text COMMENT '执行操作的url',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='用户操作表';
+  `user_id` int(11) NOT NULL,
+  `content` varchar(30) NOT NULL DEFAULT '' COMMENT '内容',
+  `select_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1招聘者 2商户租赁 3二手车',
+  `is_merchant` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1商户 2用户',
+  `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
+  `member_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '会员类型',
+  `coins` varchar(10) NOT NULL DEFAULT '' COMMENT '金额',
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of xyb_user_action
+-- Records of xyb_user_consume_fee_detail
 -- ----------------------------
-INSERT INTO `xyb_user_action` VALUES ('1', '1', '1', '1', '2', '1', '用户登录', 'login', 'user', '');
 
 -- ----------------------------
--- Table structure for xyb_user_seek_job
+-- Table structure for `xyb_user_seek_job`
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_user_seek_job`;
 CREATE TABLE `xyb_user_seek_job` (
@@ -972,7 +1057,7 @@ CREATE TABLE `xyb_user_seek_job` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for xyb_user_type_info
+-- Table structure for `xyb_user_type_info`
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_user_type_info`;
 CREATE TABLE `xyb_user_type_info` (
@@ -980,10 +1065,25 @@ CREATE TABLE `xyb_user_type_info` (
   `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '用户id',
   `is_deal` char(1) NOT NULL DEFAULT '0' COMMENT '0信息未完善,1已完善',
   `select_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1招聘者身份，2商铺身份，3二手车身份',
+  `type` char(1) NOT NULL DEFAULT '0' COMMENT '1商家 2普通用户',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of xyb_user_type_info
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `xyb_zz_pic`
+-- ----------------------------
+DROP TABLE IF EXISTS `xyb_zz_pic`;
+CREATE TABLE `xyb_zz_pic` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `num` tinyint(4) NOT NULL DEFAULT '0' COMMENT '数量',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of xyb_zz_pic
 -- ----------------------------

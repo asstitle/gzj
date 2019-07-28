@@ -8,7 +8,8 @@ use app\common\controller\ApiBase;
 
 class Search extends ApiBase
 {
-    //商户搜索求职者信息
+
+    //招聘商户搜索求职者信息
     public function sh_search_seek_info(){
         if($this->request->isPost()){
             $content=$this->reuqest->param('content');
@@ -38,5 +39,18 @@ class Search extends ApiBase
           }
 
       }
+    }
+
+    //招聘商户搜索求权限判断
+    public function search_auth_judge(){
+        if($this->request->isPost()){
+            $user_id=$this->request->param('user_id');
+            $res=Db::name('users')->where(array('id'=>$user_id))->field('sh_super_member')->find();
+            if($res['sh_super_member']==1){
+                return json(array('code'=>502,'info'=>'有权限搜索'));
+            }else{
+                return json(array('code'=>503,'info'=>'无权限搜索'));
+            }
+        }
     }
 }

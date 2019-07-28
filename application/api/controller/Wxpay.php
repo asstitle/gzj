@@ -2,7 +2,7 @@
 namespace app\api\controller;
 use app\common\controller\ApiBase;
 use think\Db;
-class Wxpay extends ApiBase{
+class Wxpay extends ApiBase {
     //充值金币
     public function pay()
     {
@@ -10,6 +10,10 @@ class Wxpay extends ApiBase{
         if($this->request->isPost()) {
             //用code获取openid
             $code = $this->request->param('code');
+            $user_id = $this->request->param('user_id') ? $this->request->param('user_id') : 1;
+            $select_type = $this->request->param('select_type') ? $this->request->param('select_type') : 1;
+            $is_merchant = $this->request->param('is_merchant') ? $this->request->param('is_merchant') : 2;
+            $member_type = $this->request->param('member_type') ? $this->request->param('member_type') : 1;
             $WX_APPID = 'wxfd3f63c9f418f478';//小程序appid
             $WX_SECRET = '45149e892b99aab9b6d1fe7adfc46604';//小程序AppSecret
             $url = "https://api.weixin.qq.com/sns/jscode2session?appid=" . $WX_APPID . "&secret=" . $WX_SECRET . "&js_code=" . $code . "&grant_type=authorization_code";
@@ -18,17 +22,18 @@ class Wxpay extends ApiBase{
 
 
             //$fee = I("post.total_fee");
-            $fee = 0.01;//举例支付0.01
+            $fee = $this->request->param('coins');//举例支付0.01
             $appid = 'wxfd3f63c9f418f478';//appid.如果是公众号 就是公众号的appid
-            $body = '测试';
+            $body = '用户充值';
             $mch_id = '1517166241';  //商户号
             $nonce_str = $this->nonce_str();//随机字符串
-            $notify_url = 'http://gzj.majiangyun.com/api/Wxpay/notify'; //回调的url【自己填写】
+            $notify_url = 'http://gzj.majiangyun.com:80/api/Notify/notify'; //回调的url【自己填写】
             $openid = $openid;
-            $out_trade_no = $this->order_number();//商户订单号
+            $out_trade_no = $this->order_number($openid);//商户订单号
             $spbill_create_ip = '121.40.148.132';//服务器的ip【自己填写】;
-            $total_fee = $fee;// 微信支付单位是分，所以这里需要*100
+            $total_fee = $fee*100;// 微信支付单位是分，所以这里需要*100
             $trade_type = 'JSAPI';//交易类型 默认
+            $key='cai68dar98en12xi56aoche66ng88xun';
             //这里是按照顺序的 因为下面的签名是按照顺序 排序错误 肯定出错
             $post['appid'] = $appid;
             $post['body'] = $body;
@@ -55,17 +60,15 @@ class Wxpay extends ApiBase{
            <sign>' . $sign . '</sign>
         </xml> ';
 
-            //print_r($post_xml);die;
             //统一接口prepay_id
             $url = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
             $xml = $this->http_request($url, $post_xml);
-
             $array = $this->xml($xml);//全要大写
 
-            //print_r($array);
-            if ($array['RETURN_CODE'] == 'SUCCESS' && $array['RESULT_CODE'] == 'SUCCESS') {
+
+            if ($array['RETURN_CODE'] == 'SUCCESS' && $array['RETURN_MSG'] == 'OK') {
                 $time = time();
-                $tmp = '';//临时数组用于签名
+                $tmp = [];//临时数组用于签名
                 $tmp['appId'] = $appid;
                 $tmp['nonceStr'] = $nonce_str;
                 $tmp['package'] = 'prepay_id=' . $array['PREPAY_ID'];
@@ -80,10 +83,13 @@ class Wxpay extends ApiBase{
                 $data['paySign'] = $this->sign($tmp);//签名,具体签名方案参见微信公众号支付帮助文档;
                 $data['out_trade_no'] = $out_trade_no;
                 //写入数据库
-                $order_data['user_id']=1;
+                $order_data['user_id']=$user_id;
                 $order_data['order_number']=$out_trade_no;
-                $order_data['money']=$total_fee;
+                $order_data['money']=$fee;
                 $order_data['add_time']=time();
+                $order_data['select_type']=$select_type;
+                $order_data['is_merchant']=$is_merchant;
+                $order_data['member_type']=$member_type;
                 $res=Db::name('order')->insert($order_data);
                 if($res){
                     return json(array('code' => 200, 'info' => '操作成功', 'data' => $data));
@@ -125,7 +131,7 @@ class Wxpay extends ApiBase{
             if($stringA) $stringA .= '&'.$key."=".$value;
             else $stringA = $key."=".$value;
         }
-        $wx_key = '';//申请支付后有给予一个商户账号和密码，登陆后自己设置的key
+        $wx_key = 'cai68dar98en12xi56aoche66ng88xun';//申请支付后有给予一个商户账号和密码，登陆后自己设置的key
         $stringSignTemp = $stringA.'&key='.$wx_key;
         return strtoupper(md5($stringSignTemp));
     }
@@ -152,64 +158,17 @@ class Wxpay extends ApiBase{
      //获取xml
     private function xml($xml){
         $p = xml_parser_create();
+
         xml_parse_into_struct($p, $xml, $vals, $index);
         xml_parser_free($p);
-        $data = "";
+        $data = [];
+
         foreach ($index as $key=>$value) {
-            if($key == 'xml' || $key == 'XML') continue;
+            if($key == 'XML'||$key == 'xml') continue;
             $tag = $vals[$value[0]]['tag'];
             $value = $vals[$value[0]]['value'];
             $data[$tag] = $value;
         }
         return $data;
     }
-
-
-    /**
-     * 支付通知
-     */
-    public function  notify()
-    {
-        if (!$xml = file_get_contents('php://input')) {
-           return json(array('code'=>205,'info'=>"not found data"));
-        }
-        // 将服务器返回的XML数据转化为数组
-        $data = $this->fromXml($xml);
-        // 保存微信服务器返回的签名sign
-        $dataSign = $data['paySign'];
-        // sign不参与签名算法
-        unset($data['paySign']);
-        // 生成签名
-        $sign = $this->sign($data);
-        //$wx_total_fee = $data['total_fee'];
-        // 判断签名是否正确  判断支付状态
-        if (($sign === $dataSign) && ($data['return_code'] == 'SUCCESS') && ($data['result_code'] == 'SUCCESS')) {
-            $order_sn = $data['out_trade_no'];
-            $order_info = Db::name('order')->where(['order_number' => "$order_sn"])->find();
-            $res=Db::name('order')->where(array('id'=>$order_info['id']))->update(array('status'=>1,'done_time'=>time()));
-            //用户表金额增加
-            //写入消费明细表
-            if($res){
-               return json(array('code'=>200,'info'=>'支付成功'));
-            }else{
-               return json(array('code'=>201,'info'=>'支付失败'));
-            }
-        }
-    }
-    //将XML转化成数组
-    public function fromXml($xml){
-        // 禁止引用外部xml实体
-        libxml_disable_entity_loader(true);
-        return json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
-    }
-    //商户充值
-    public function recharge_super_member(){
-       if($this->request->isPost()){
-           $user_id=$this->request->param('user_id');
-           $coins=$this->request->param('coins');
-           $code = $this->request->param('code');
-           //写入商户充值超级会员记录表,更新用户金币
-       }
-    }
-
 }
