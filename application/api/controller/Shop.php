@@ -8,7 +8,7 @@ class Shop extends ApiBase
     public function index(){
 
     }
-
+    //发布店铺
     public function publish_shop(){
       if($this->request->isPost()){
           $user_id=$this->request->param('user_id');
@@ -33,6 +33,7 @@ class Shop extends ApiBase
           $data['price']=$this->request->param('price');
           $data['add_time']=time();
           $data['shop_mj']=$this->request->param('shop_mj');
+          $data['user_id']=$user_id;
           $result=Db::name('shop_info')->insert($data);
           if($result){
               if(empty($publish_record)){
@@ -54,7 +55,7 @@ class Shop extends ApiBase
           }
       }
     }
-
+    //删除店铺
     public function shop_publish_delete(){
         if($this->request->isPost()){
             $id=$this->request->param('id');
@@ -67,7 +68,7 @@ class Shop extends ApiBase
         }
     }
 
-
+    //关闭店铺
     public function shop_publish_close(){
         if($this->request->isPost()){
             $id=$this->request->param('id');
@@ -89,6 +90,67 @@ class Shop extends ApiBase
             }else{
                 return json(array('code'=>710,'info'=>'获取失败','result'=>[]));
             }
+        }
+    }
+    //店铺列表
+    public function shop_lists(){
+      if($this->request->isPost()){
+          $user_id=$this->request->param('user_id');
+          $res=Db::name('shop_info')->order('add_time desc')->where(array('status'=>1,'user_id'=>$user_id))->select();
+          return json(array('code'=>711,'info'=>'获取成功','res'=>$res));
+      }
+    }
+    //搜索商铺
+    public function search_shop(){
+      if($this->request->isPost()){
+          $search_key=$this->request->param('search_key') ? $this->request->param('search_key') : '';
+          if($search_key){
+              $where['shop_mj']=array('like',"$search_key%");
+              $res=Db::name('shop_info')->where($where)->order('add_time desc')->select();
+          }else{
+              $res=Db::name('shop_info')->order('add_time desc')->select();
+          }
+          return json(array('code'=>712,'info'=>'获取成功','res'=>$res));
+      }
+    }
+    //商铺筛选
+    public function shop_screen(){
+       if($this->request->isPost()){
+           $area=$this->request->param('area');
+           $cat_id=$this->request->param('cat_id');
+           $add_time=$this->request->param('add_time');
+           $start=strtotime($add_time);
+           $end=strtotime(date('Y-m-d 23:59:59',strtotime($add_time)));
+           $where=[];
+           if($area){
+               $where['province']=$area;
+           }
+           if($cat_id){
+               $where['cat_id']=$cat_id;
+           }
+           if($add_time){
+               $where['add_time']=array('between',[$start,$end]);
+           }
+           $lists=Db::name('shop_info')->where($where)->select();
+           return json(array('code'=>713,'info'=>'搜索成功','lists'=>$lists));
+
+       }
+    }
+
+    //获取商铺类型
+    public function get_shop_cat(){
+        if($this->request->isPost()){
+            $cat_list=Db::name('shop_cat')->select();
+            return json(array('code'=>714,'info'=>'获取成功','cat_list'=>$cat_list));
+        }
+    }
+
+    //已关闭的发布列表
+    public function shop_close_list(){
+        if($this->request->isPost()){
+            $user_id=$this->request->param('user_id');
+            $result=Db::name('shop_info')->where(array('status'=>0,'user_id'=>$user_id))->order('add_time desc')->select();
+            return json(array('code'=>715,'info'=>'获取成功','result'=>$result));
         }
     }
 
