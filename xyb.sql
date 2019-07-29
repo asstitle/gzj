@@ -1,22 +1,22 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : test
-Source Server Version : 50553
+Source Server         : localhost_3306
+Source Server Version : 50714
 Source Host           : localhost:3306
 Source Database       : xyb
 
 Target Server Type    : MYSQL
-Target Server Version : 50553
+Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2019-07-28 21:58:06
+Date: 2019-07-29 18:02:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for `xyb_admin_menu`
+-- Table structure for xyb_admin_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_admin_menu`;
 CREATE TABLE `xyb_admin_menu` (
@@ -68,7 +68,7 @@ INSERT INTO `xyb_admin_menu` VALUES ('24', '0', '1', '1', '0', 'xyb', 'index', '
 INSERT INTO `xyb_admin_menu` VALUES ('25', '1', '1', '1', '0', 'xyb', 'user', 'add_user', '', '添加用户', '', '');
 
 -- ----------------------------
--- Table structure for `xyb_auth_access`
+-- Table structure for xyb_auth_access
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_auth_access`;
 CREATE TABLE `xyb_auth_access` (
@@ -86,7 +86,7 @@ CREATE TABLE `xyb_auth_access` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `xyb_auth_rule`
+-- Table structure for xyb_auth_rule
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_auth_rule`;
 CREATE TABLE `xyb_auth_rule` (
@@ -132,7 +132,7 @@ INSERT INTO `xyb_auth_rule` VALUES ('23', '1', 'xyb', 'admin_url', 'xyb/menu/add
 INSERT INTO `xyb_auth_rule` VALUES ('24', '1', 'xyb', 'admin_url', 'xyb/user/add_user', '', '添加用户', '');
 
 -- ----------------------------
--- Table structure for `xyb_city`
+-- Table structure for xyb_city
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_city`;
 CREATE TABLE `xyb_city` (
@@ -494,7 +494,7 @@ INSERT INTO `xyb_city` VALUES ('344', '654300', '阿勒泰地区', '650000');
 INSERT INTO `xyb_city` VALUES ('345', '659000', '省直辖行政单位', '650000');
 
 -- ----------------------------
--- Table structure for `xyb_coin_money_select`
+-- Table structure for xyb_coin_money_select
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_coin_money_select`;
 CREATE TABLE `xyb_coin_money_select` (
@@ -514,7 +514,7 @@ INSERT INTO `xyb_coin_money_select` VALUES ('4', '100', '200');
 INSERT INTO `xyb_coin_money_select` VALUES ('5', '500', '500');
 
 -- ----------------------------
--- Table structure for `xyb_company`
+-- Table structure for xyb_company
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_company`;
 CREATE TABLE `xyb_company` (
@@ -544,13 +544,14 @@ CREATE TABLE `xyb_company` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `xyb_company_publish_record`
+-- Table structure for xyb_company_publish_record
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_company_publish_record`;
 CREATE TABLE `xyb_company_publish_record` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `company_name` varchar(30) NOT NULL DEFAULT '' COMMENT '公司名称',
   `work_address` varchar(30) NOT NULL DEFAULT '' COMMENT '工作地址',
+  `num` int(11) NOT NULL DEFAULT '0' COMMENT '发布次数',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -559,7 +560,7 @@ CREATE TABLE `xyb_company_publish_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `xyb_look_recruit_record`
+-- Table structure for xyb_look_recruit_record
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_look_recruit_record`;
 CREATE TABLE `xyb_look_recruit_record` (
@@ -577,7 +578,7 @@ CREATE TABLE `xyb_look_recruit_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `xyb_look_resume_record`
+-- Table structure for xyb_look_resume_record
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_look_resume_record`;
 CREATE TABLE `xyb_look_resume_record` (
@@ -596,7 +597,7 @@ CREATE TABLE `xyb_look_resume_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `xyb_member_day`
+-- Table structure for xyb_member_day
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_member_day`;
 CREATE TABLE `xyb_member_day` (
@@ -615,7 +616,7 @@ INSERT INTO `xyb_member_day` VALUES ('3', '半年会员', '180');
 INSERT INTO `xyb_member_day` VALUES ('4', '一年会员', '360');
 
 -- ----------------------------
--- Table structure for `xyb_order`
+-- Table structure for xyb_order
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_order`;
 CREATE TABLE `xyb_order` (
@@ -639,7 +640,7 @@ CREATE TABLE `xyb_order` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `xyb_person`
+-- Table structure for xyb_person
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_person`;
 CREATE TABLE `xyb_person` (
@@ -658,7 +659,7 @@ CREATE TABLE `xyb_person` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `xyb_province`
+-- Table structure for xyb_province
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_province`;
 CREATE TABLE `xyb_province` (
@@ -708,7 +709,7 @@ INSERT INTO `xyb_province` VALUES ('33', '810000', '香港特别行政区');
 INSERT INTO `xyb_province` VALUES ('34', '820000', '澳门特别行政区');
 
 -- ----------------------------
--- Table structure for `xyb_recruit_company`
+-- Table structure for xyb_recruit_company
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_recruit_company`;
 CREATE TABLE `xyb_recruit_company` (
@@ -736,7 +737,7 @@ CREATE TABLE `xyb_recruit_company` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `xyb_recruit_pic`
+-- Table structure for xyb_recruit_pic
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_recruit_pic`;
 CREATE TABLE `xyb_recruit_pic` (
@@ -750,7 +751,7 @@ CREATE TABLE `xyb_recruit_pic` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `xyb_role`
+-- Table structure for xyb_role
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_role`;
 CREATE TABLE `xyb_role` (
@@ -774,7 +775,7 @@ INSERT INTO `xyb_role` VALUES ('1', '0', '1', '1562828141', '1562828141', '0', '
 INSERT INTO `xyb_role` VALUES ('2', '0', '1', '1562837129', '1562837129', '0', '任课教师', '任教某堂课');
 
 -- ----------------------------
--- Table structure for `xyb_role_user`
+-- Table structure for xyb_role_user
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_role_user`;
 CREATE TABLE `xyb_role_user` (
@@ -793,7 +794,7 @@ INSERT INTO `xyb_role_user` VALUES ('1', '2', '2');
 INSERT INTO `xyb_role_user` VALUES ('2', '2', '3');
 
 -- ----------------------------
--- Table structure for `xyb_seeker_pull_black`
+-- Table structure for xyb_seeker_pull_black
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_seeker_pull_black`;
 CREATE TABLE `xyb_seeker_pull_black` (
@@ -811,7 +812,7 @@ CREATE TABLE `xyb_seeker_pull_black` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `xyb_select_salary`
+-- Table structure for xyb_select_salary
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_select_salary`;
 CREATE TABLE `xyb_select_salary` (
@@ -839,7 +840,7 @@ INSERT INTO `xyb_select_salary` VALUES ('13', '100K以上');
 INSERT INTO `xyb_select_salary` VALUES ('14', '不限');
 
 -- ----------------------------
--- Table structure for `xyb_select_salary_time`
+-- Table structure for xyb_select_salary_time
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_select_salary_time`;
 CREATE TABLE `xyb_select_salary_time` (
@@ -857,7 +858,7 @@ INSERT INTO `xyb_select_salary_time` VALUES ('3', '周结');
 INSERT INTO `xyb_select_salary_time` VALUES ('4', '小时结');
 
 -- ----------------------------
--- Table structure for `xyb_select_work_time`
+-- Table structure for xyb_select_work_time
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_select_work_time`;
 CREATE TABLE `xyb_select_work_time` (
@@ -873,7 +874,32 @@ INSERT INTO `xyb_select_work_time` VALUES ('1', '周一至周五');
 INSERT INTO `xyb_select_work_time` VALUES ('2', '周一至周六');
 
 -- ----------------------------
--- Table structure for `xyb_shop_pic`
+-- Table structure for xyb_shop_info
+-- ----------------------------
+DROP TABLE IF EXISTS `xyb_shop_info`;
+CREATE TABLE `xyb_shop_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `province` int(11) NOT NULL,
+  `city` int(11) NOT NULL,
+  `address` varchar(40) NOT NULL DEFAULT '' COMMENT '详细地址',
+  `cat_id` tinyint(4) NOT NULL DEFAULT '0' COMMENT '类型',
+  `contact_user` varchar(20) NOT NULL DEFAULT '' COMMENT '联系人',
+  `contact_tel` int(11) NOT NULL DEFAULT '0' COMMENT '联系电话',
+  `price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '价格',
+  `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
+  `shop_mj` varchar(20) NOT NULL DEFAULT '' COMMENT '店铺面积',
+  `status` char(1) NOT NULL DEFAULT '1' COMMENT '0关闭，1发布中',
+  PRIMARY KEY (`id`),
+  KEY `province` (`province`) USING BTREE,
+  KEY `city` (`city`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of xyb_shop_info
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for xyb_shop_pic
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_shop_pic`;
 CREATE TABLE `xyb_shop_pic` (
@@ -888,7 +914,7 @@ CREATE TABLE `xyb_shop_pic` (
 INSERT INTO `xyb_shop_pic` VALUES ('1', '3');
 
 -- ----------------------------
--- Table structure for `xyb_sh_post_message`
+-- Table structure for xyb_sh_post_message
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_sh_post_message`;
 CREATE TABLE `xyb_sh_post_message` (
@@ -907,7 +933,7 @@ CREATE TABLE `xyb_sh_post_message` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `xyb_sh_pull_black`
+-- Table structure for xyb_sh_pull_black
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_sh_pull_black`;
 CREATE TABLE `xyb_sh_pull_black` (
@@ -926,7 +952,7 @@ CREATE TABLE `xyb_sh_pull_black` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `xyb_super_member_record`
+-- Table structure for xyb_super_member_record
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_super_member_record`;
 CREATE TABLE `xyb_super_member_record` (
@@ -947,7 +973,7 @@ CREATE TABLE `xyb_super_member_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `xyb_user`
+-- Table structure for xyb_user
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_user`;
 CREATE TABLE `xyb_user` (
@@ -971,7 +997,7 @@ INSERT INTO `xyb_user` VALUES ('2', '1', '1562917266', '1562837322', '1', 'dkd',
 INSERT INTO `xyb_user` VALUES ('3', '1', '1562917376', '1562917356', '1', '123', '00e0678b1678a8c2a597a4935e1a180d', '18259662301');
 
 -- ----------------------------
--- Table structure for `xyb_users`
+-- Table structure for xyb_users
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_users`;
 CREATE TABLE `xyb_users` (
@@ -1004,7 +1030,7 @@ CREATE TABLE `xyb_users` (
 INSERT INTO `xyb_users` VALUES ('1', '1838555555555', '1', '1', '0', '2', '0', '', '', '0', '', '0', '0', '0', '0', '0', '0');
 
 -- ----------------------------
--- Table structure for `xyb_user_consume_fee_detail`
+-- Table structure for xyb_user_consume_fee_detail
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_user_consume_fee_detail`;
 CREATE TABLE `xyb_user_consume_fee_detail` (
@@ -1025,7 +1051,7 @@ CREATE TABLE `xyb_user_consume_fee_detail` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `xyb_user_seek_job`
+-- Table structure for xyb_user_seek_job
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_user_seek_job`;
 CREATE TABLE `xyb_user_seek_job` (
@@ -1057,7 +1083,7 @@ CREATE TABLE `xyb_user_seek_job` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `xyb_user_type_info`
+-- Table structure for xyb_user_type_info
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_user_type_info`;
 CREATE TABLE `xyb_user_type_info` (
@@ -1075,7 +1101,7 @@ CREATE TABLE `xyb_user_type_info` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `xyb_zz_pic`
+-- Table structure for xyb_zz_pic
 -- ----------------------------
 DROP TABLE IF EXISTS `xyb_zz_pic`;
 CREATE TABLE `xyb_zz_pic` (
