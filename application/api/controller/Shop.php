@@ -72,7 +72,7 @@ class Shop extends ApiBase
     public function shop_publish_close(){
         if($this->request->isPost()){
             $id=$this->request->param('id');
-            $result=Db::name('shop_info')->where(array('id'=>$id))->update(array('status'=>0));
+            $result=Db::name('shop_info')->where(array('id'=>$id))->update(array('status'=>0,'close_time'=>time()));
             if($result){
                 return json(array('code'=>707,'info'=>'关闭成功'));
             }else{
@@ -153,5 +153,56 @@ class Shop extends ApiBase
             return json(array('code'=>715,'info'=>'获取成功','result'=>$result));
         }
     }
+    //店铺开启
+    public function shop_open(){
+        if($this->request->isPost()){
+            $id=$this->request->param('id');
+            $coins=$this->request->param('coins');
+            //关闭超过24小时开启就重新收费
+            $info=Db::name('shop_info')->where(array('id'=>$id))->field('id,close_time,user_id')->find();
+            if($info['close_time']+86400>time()){
+               $user_info=Db::name('users')->where(array('id'=>$info['user_id']))->field('coins,id')->find();
+               if($coins>$user_info['coins']){
+                   return json(array('code'=>716,'info'=>'金币余额不足，请充值'));
+               }
+               $res=Db::name('shop_info')->where(array('id'=>$id))->update(array('status'=>1));
+               $result=Db::name('users')->where(array('id'=>$info['user_id']))->setDec('coins',$coins);
+               if($res&&$result){
+                   return json(array('code'=>717,'info'=>'开启成功'));
+               }else{
+                   return json(array('code'=>718,'info'=>'开启失败'));
+               }
+            }else{
+                $res=Db::name('shop_info')->where(array('id'=>$id))->update(array('status'=>1));
+                $result=Db::name('users')->where(array('id'=>$info['user_id']))->setDec('coins',$coins);
+                if($res&&$result){
+                    return json(array('code'=>717,'info'=>'开启成功'));
+                }else{
+                    return json(array('code'=>718,'info'=>'开启失败'));
+                }
+            }
+        }
+    }
 
+    //编辑某个店铺信息
+    public function shop_edit_post(){
+        if($this->request->isPost()){
+            $id=$this->request->param('id');
+            $data['province']=$this->request->param('province');
+            $data['city']=$this->request->param('city');
+            $data['address']=$this->request->param('address');
+            $data['cat_id']=$this->request->param('cat_id');
+            $data['contact_user']=$this->request->param('contact_user');
+            $data['contact_tel']=$this->request->param('contact_tel');
+            $data['price']=$this->request->param('price');
+            $data['add_time']=time();
+            $data['shop_mj']=$this->request->param('shop_mj');
+            $result=Db::name('shop_info')->where(array('id'=>$id))->update($data);
+            if($result){
+                return json(array('code'=>719,'info'=>'编辑成功'));
+            }else{
+                return json(array('code'=>720,'info'=>'编辑失败'));
+            }
+        }
+    }
 }
