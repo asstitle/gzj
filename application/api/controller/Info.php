@@ -137,7 +137,7 @@ class Info extends ApiBase
               $arr[]=$v;
               unset($arr);
           }
-          return json(array('code'=>200,'info'=>'获取成功','arr'=>$arr));
+          return json(array('code'=>200,'info'=>'获取成功','data'=>$arr));
       }
     }
 }

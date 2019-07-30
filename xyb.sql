@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2019-07-30 15:12:38
+Date: 2019-07-30 18:01:32
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -205,6 +205,9 @@ CREATE TABLE `xyb_car_info` (
   `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
   `status` char(1) NOT NULL DEFAULT '1' COMMENT '1已发布，0已关闭',
   `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '用户id',
+  `car_pic` varchar(255) NOT NULL DEFAULT '' COMMENT '汽车图片',
+  `contact_user` varchar(20) NOT NULL DEFAULT '' COMMENT '联系人',
+  `contact_tel` int(11) NOT NULL DEFAULT '0' COMMENT '联系电话',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1104,6 +1107,23 @@ CREATE TABLE `xyb_sh_pull_black` (
 
 -- ----------------------------
 -- Records of xyb_sh_pull_black
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for xyb_sh_pull_black_car
+-- ----------------------------
+DROP TABLE IF EXISTS `xyb_sh_pull_black_car`;
+CREATE TABLE `xyb_sh_pull_black_car` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `car_info_id` int(11) NOT NULL DEFAULT '0' COMMENT '汽车信息id',
+  `do_user_id` int(11) NOT NULL DEFAULT '0' COMMENT '操作人id',
+  `pull_black_user_id` int(11) NOT NULL DEFAULT '0' COMMENT '拉黑用户的id',
+  `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of xyb_sh_pull_black_car
 -- ----------------------------
 
 -- ----------------------------

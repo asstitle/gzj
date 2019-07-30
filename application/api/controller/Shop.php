@@ -86,9 +86,9 @@ class Shop extends ApiBase
             $id=$this->request->param('id');
             $result=Db::name('shop_info')->where(array('id'=>$id))->find();
             if($result){
-                return json(array('code'=>709,'info'=>'获取成功','result'=>$result));
+                return json(array('code'=>709,'info'=>'获取成功','data'=>$result));
             }else{
-                return json(array('code'=>710,'info'=>'获取失败','result'=>[]));
+                return json(array('code'=>710,'info'=>'获取失败','data'=>[]));
             }
         }
     }
@@ -97,7 +97,7 @@ class Shop extends ApiBase
       if($this->request->isPost()){
           $user_id=$this->request->param('user_id');
           $res=Db::name('shop_info')->order('add_time desc')->where(array('status'=>1,'user_id'=>$user_id))->select();
-          return json(array('code'=>711,'info'=>'获取成功','res'=>$res));
+          return json(array('code'=>711,'info'=>'获取成功','data'=>$res));
       }
     }
     //搜索商铺
@@ -110,7 +110,7 @@ class Shop extends ApiBase
           }else{
               $res=Db::name('shop_info')->order('add_time desc')->select();
           }
-          return json(array('code'=>712,'info'=>'获取成功','res'=>$res));
+          return json(array('code'=>712,'info'=>'获取成功','data'=>$res));
       }
     }
     //商铺筛选
@@ -132,7 +132,7 @@ class Shop extends ApiBase
                $where['add_time']=array('between',[$start,$end]);
            }
            $lists=Db::name('shop_info')->where($where)->select();
-           return json(array('code'=>713,'info'=>'搜索成功','lists'=>$lists));
+           return json(array('code'=>713,'info'=>'搜索成功','data'=>$lists));
 
        }
     }
@@ -141,7 +141,7 @@ class Shop extends ApiBase
     public function get_shop_cat(){
         if($this->request->isPost()){
             $cat_list=Db::name('shop_cat')->select();
-            return json(array('code'=>714,'info'=>'获取成功','cat_list'=>$cat_list));
+            return json(array('code'=>714,'info'=>'获取成功','data'=>$cat_list));
         }
     }
 
@@ -150,7 +150,7 @@ class Shop extends ApiBase
         if($this->request->isPost()){
             $user_id=$this->request->param('user_id');
             $result=Db::name('shop_info')->where(array('status'=>0,'user_id'=>$user_id))->order('add_time desc')->select();
-            return json(array('code'=>715,'info'=>'获取成功','result'=>$result));
+            return json(array('code'=>715,'info'=>'获取成功','data'=>$result));
         }
     }
     //店铺开启

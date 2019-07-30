@@ -1,8 +1,6 @@
 <?php
 
 namespace app\api\controller;
-
-
 use app\common\controller\ApiBase;
 use think\Db;
 class Recruit extends ApiBase
@@ -45,7 +43,7 @@ class Recruit extends ApiBase
                      Db::name('users')->where(array('id'=>$user_id))->setDec('coins',$coins);
                      //返回求职者详细信息
                      $jl_info=Db::name('user_seek_job')->where(array('id'=>$usj_id))->find();
-                     return json(array('code'=>402,'info'=>'操作成功','jl_info'=>$jl_info));
+                     return json(array('code'=>402,'info'=>'操作成功','data'=>$jl_info));
                  }
              }
 
@@ -76,9 +74,9 @@ class Recruit extends ApiBase
                  }
              }
              if(empty($arr)){
-                 return json(array('code'=>201,'info'=>'暂无数据','arr'=>$arr,'is_super_member'=>$is_super_member));
+                 return json(array('code'=>201,'info'=>'暂无数据','data'=>$arr,'is_super_member'=>$is_super_member));
              }else{
-                 return json(array('code'=>200,'info'=>'请求成功','arr'=>$arr,'is_super_member'=>$is_super_member));
+                 return json(array('code'=>200,'info'=>'请求成功','data'=>$arr,'is_super_member'=>$is_super_member));
              }
          }
      }

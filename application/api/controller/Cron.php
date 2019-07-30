@@ -3,7 +3,7 @@
 
 namespace app\api\controller;
 use think\Controller;
-
+use think\Db;
 class Cron extends Controller
 {
     //查询商铺发布的信息是否超过30天，超过30天就关闭发布的信息

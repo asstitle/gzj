@@ -1,24 +1,20 @@
 <?php
-
-
 namespace app\api\controller;
-
-
 use app\common\controller\ApiBase;
-
+use think\Db;
 class Search extends ApiBase
 {
 
     //招聘商户搜索求职者信息
     public function sh_search_seek_info(){
         if($this->request->isPost()){
-            $content=$this->reuqest->param('content');
+            $content=$this->request->param('content');
             $content=trim($content);
             $info=Db::name('user_seek_job')->where('job_name','like',"$content%")->select();
             if(!empty($info)){
-                return json(array('code'=>500,'info'=>'搜索成功','info'=>$info));
+                return json(array('code'=>500,'info'=>'搜索成功','data'=>$info));
             }else{
-                return json(array('code'=>501,'info'=>'数据为空','info'=>$info));
+                return json(array('code'=>501,'info'=>'数据为空','data'=>$info));
             }
         }
     }

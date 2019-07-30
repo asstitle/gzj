@@ -34,7 +34,7 @@ class Authorize extends Controller
             }
             $value = Db::name('users')->where(['openid' => $data['openid']])->field('id,sex,avater,user_nickname,openid')->select();
             $array = array_merge_recursive($errCode, $value);
-            return json(array('code' => 200, 'info' => '获取成功', 'arr' => $array));
+            return json(array('code' => 200, 'info' => '获取成功', 'data' => $array));
 
         }else{
             return json(array('code' => 201, 'info' => '获取session_key失败！'));

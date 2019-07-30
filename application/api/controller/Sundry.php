@@ -11,9 +11,9 @@ class Sundry extends ApiBase
         if($this->request->isPost()){
           $res=Db::name('select_work_time')->select();
           if($res){
-           return json(array('code'=>200,'info'=>'获取成功','info'=>$res));
+           return json(array('code'=>200,'info'=>'获取成功','data'=>$res));
           }else{
-           return json(array('code'=>201,'info'=>'获取失败','info'=>[]));
+           return json(array('code'=>201,'info'=>'获取失败','data'=>[]));
           }
         }
 
@@ -23,9 +23,9 @@ class Sundry extends ApiBase
         if($this->request->isPost()){
             $res=Db::name('select_salary_time')->select();
             if($res){
-                return json(array('code'=>200,'info'=>'获取成功','info'=>$res));
+                return json(array('code'=>200,'info'=>'获取成功','data'=>$res));
             }else{
-                return json(array('code'=>201,'info'=>'获取失败','info'=>[]));
+                return json(array('code'=>201,'info'=>'获取失败','data'=>[]));
             }
         }
     }
@@ -34,9 +34,9 @@ class Sundry extends ApiBase
         if($this->request->isPost()){
             $res=Db::name('select_salary')->select();
             if($res){
-                return json(array('code'=>200,'info'=>'获取成功','info'=>$res));
+                return json(array('code'=>200,'info'=>'获取成功','data'=>$res));
             }else{
-                return json(array('code'=>201,'info'=>'获取失败','info'=>[]));
+                return json(array('code'=>201,'info'=>'获取失败','data'=>[]));
             }
         }
     }

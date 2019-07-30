@@ -1,11 +1,7 @@
 <?php
-
-
 namespace app\api\controller;
-
-
 use app\common\controller\ApiBase;
-//
+use think\Db;
 class Recharge extends ApiBase
 {
     //充值列表展示
