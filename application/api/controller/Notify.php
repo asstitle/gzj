@@ -71,5 +71,4 @@ class Notify extends Controller
         $stringSignTemp = $stringA.'&key='.$wx_key;
         return strtoupper(md5($stringSignTemp));
     }
-
 }
