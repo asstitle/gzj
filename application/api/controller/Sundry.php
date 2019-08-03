@@ -1,10 +1,8 @@
 <?php
-
-
 namespace app\api\controller;
-use app\common\controller\ApiBase;
+use think\Controller;
 use think\Db;
-class Sundry extends ApiBase
+class Sundry extends Controller
 {
     //获取工作时间
     public function get_select_work_time(){

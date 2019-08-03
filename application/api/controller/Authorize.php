@@ -34,6 +34,7 @@ class Authorize extends Controller
             }
             $value = Db::name('users')->where(['openid' => $data['openid']])->field('id,sex,avater,user_nickname,openid')->select();
             $array = array_merge_recursive($errCode, $value);
+            session('user_id',$value[0]['id']);
             return json(array('code' => 200, 'info' => '获取成功', 'data' => $array));
 
         }else{
@@ -143,7 +144,7 @@ class Authorize extends Controller
      */
     public function get_first_authorize_select_type(){
        if($this->request->isPost()){
-           $user_id=$this->request->param('user_id');
+           $user_id=session('user_id');
            $type=$this->request->param('type');//1商家 2用户
            $select_type=$this->request->param('select_type');//1 招聘者 2商户租赁 3 二手车
            $info=Db::name('user_type_info')->where(array('type'=>$type,'user_id'=>$user_id,'select_type'=>$select_type))->find();

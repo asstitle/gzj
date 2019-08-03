@@ -1,10 +1,8 @@
 <?php
 namespace app\api\controller;
-
-
-use app\common\controller\ApiBase;
+use think\Controller;
 use think\Db;
-class Feedback extends ApiBase
+class Feedback extends Controller
 {
 
     /**
@@ -12,7 +10,7 @@ class Feedback extends ApiBase
      */
     public function post_info(){
       if($this->request->isPost()){
-          $data['user_id']=$this->request->param('user_id');
+          $data['user_id']=session('user_id');
           $data['content']=$this->request->param('content');
           $data['add_time']=$this->request->param('add_time');
           $result=Db::name('user_feedback')->insert($data);

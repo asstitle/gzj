@@ -1,8 +1,8 @@
 <?php
 namespace app\api\controller;
-use app\common\controller\ApiBase;
+use think\Controller;
 use think\Db;
-class Wxpay extends ApiBase {
+class Wxpay extends Controller {
     //充值金币
     public function pay()
     {
@@ -10,7 +10,7 @@ class Wxpay extends ApiBase {
         if($this->request->isPost()) {
             //用code获取openid
             $code = $this->request->param('code');
-            $user_id = $this->request->param('user_id') ? $this->request->param('user_id') : 1;
+            $user_id = session('user_id');
             $select_type = $this->request->param('select_type') ? $this->request->param('select_type') : 1;
             $is_merchant = $this->request->param('is_merchant') ? $this->request->param('is_merchant') : 2;
             $member_type = $this->request->param('member_type') ? $this->request->param('member_type') : 1;

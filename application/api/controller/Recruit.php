@@ -1,9 +1,9 @@
 <?php
 
 namespace app\api\controller;
-use app\common\controller\ApiBase;
+use think\Controller;
 use think\Db;
-class Recruit extends ApiBase
+class Recruit extends Controller
 {
       //招聘雇主首页信息展示
       public function index(){
@@ -12,7 +12,7 @@ class Recruit extends ApiBase
      //招聘雇主求职者详情
      public function look_recruit(){
          if($this->request->isPost()){
-             $user_id=$this->request->param('user_id');//商家id
+             $user_id=session('user_id');//商家id
              $coins=$this->request->param('coins');//金币
              $usj_id=$this->request->param('usj_id');//求职者user_seek_job发布简历的id
              //先查询该商户是否查看过该简历
@@ -52,7 +52,7 @@ class Recruit extends ApiBase
      //商家查看用户找工作列表
      public function user_seek_job_list(){
          if($this->request->isPost()){
-             $user_id=$this->request->param('user_id');
+             $user_id=session('user_id');
              $info=Db::name('users')->where(array('id'=>$user_id))->field('sh_super_member')->find();
              if($info['sh_super_member']){
                 $is_super_member=1;//超级会员
@@ -84,7 +84,7 @@ class Recruit extends ApiBase
      //商户把求职者拉入黑名单
      public function pull_user_seek_black(){
          if($this->request->isPost()){
-             $user_id=$this->request->param('user_id');//商家id
+             $user_id=session('user_id');//商家id
              $seek_user_id=$this->request->param('seek_user_id');//求职者id
              $usj_id=$this->request->param('usj_id');
              $coins=$this->request->param('coins');
@@ -92,16 +92,23 @@ class Recruit extends ApiBase
              if($coins>$info['coins']){
                  return json(array('code'=>403,'info'=>'金币余额不足'));
              }
-             $data['user_id']=$user_id;
-             $data['seek_user_id']=$seek_user_id;
-             $data['usj_id']=$usj_id;
-             $data['add_time']=time();
-             $res=Db::name('sh_pull_black')->insert($data);
-             if($res){
-                return json(array('code'=>404,'info'=>'拉黑成功'));
+             //查询该求职者是否被该用户拉黑过
+             $info=Db::name('sh_pull_black')->where(array('user_id'=>$user_id,'seek_user_id'=>$seek_user_id))->find();
+             if(empty($info)){
+                 $data['user_id']=$user_id;
+                 $data['seek_user_id']=$seek_user_id;
+                 $data['usj_id']=$usj_id;
+                 $data['add_time']=time();
+                 $res=Db::name('sh_pull_black')->insert($data);
+                 if($res){
+                     return json(array('code'=>404,'info'=>'拉黑成功'));
+                 }else{
+                     return json(array('code'=>405,'info'=>'拉黑失败'));
+                 }
              }else{
-               return json(array('code'=>405,'info'=>'拉黑失败'));
+                 return json(array('code'=>406,'info'=>'该用户已经被拉黑过'));
              }
+
          }
      }
 
@@ -111,7 +118,7 @@ class Recruit extends ApiBase
             date_timezone_set('PRC');
             $start=mktime(0,0,0,date('m'),date('d'),date('Y'));
             $end=mktime(0,0,0,date('m'),date('d')+1,date('Y'))-1;
-            $user_id=$this->request->param('user_id');//商户ID
+            $user_id=session('user_id');//商户ID
             $type=$this->request->param('type');//1 商户 2 普通用户
             $info_arr=Db::name('users')->where(array('user_id'=>$user_id))->field('sh_super_member')->find();
             if($type==1){
@@ -150,7 +157,7 @@ class Recruit extends ApiBase
      public function employ_require(){
          if($this->request->isPost()){
               $coins=$this->request->param('coins');
-              $user_id=$this->request->param('user_id');
+              $user_id=session('user_id');
               $info=Db::name('users')->where(array('id'=>$user_id))->field('coins')->find();
               $public_status=Db::name('company')->where(array('user_id'=>$user_id,'select_type'=>1,'status'=>1))->find();
               $publish_record=Db::name('company_publish_record')->where(array('company_name'=>$this->request->param('company_name'),'work_address'=>$this->request->param('work_address')))->find();
@@ -180,7 +187,7 @@ class Recruit extends ApiBase
               $data['tel']=$this->request->param('tel'); //'联系电话',
               $data['status']=1;// '1发布中，0已关闭',
               $data['add_time']=time();// '发布时间',
-              $data['user_id']=$this->request->param('user_id');// '发布人',
+              $data['user_id']=session('user_id');// '发布人',
               $res=Db::name('recruit_company')->insert($data);
               if($res){
                   if(empty($publish_record)){
@@ -199,7 +206,7 @@ class Recruit extends ApiBase
      public function edit_employ(){
          if($this->request->isPost()){
              $coins=$this->request->param('coins');
-             $user_id=$this->request->param('user_id');
+             $user_id=session('user_id');
              $info=Db::name('users')->where(array('id'=>$user_id))->field('coins')->find();
              $publish_record=Db::name('company_publish_record')->where(array('company_name'=>$this->request->param('company_name'),'work_address'=>$this->request->param('work_address')))->find();
              if(empty($publish_record)){
@@ -225,7 +232,7 @@ class Recruit extends ApiBase
              $data['contact_user'] =$this->request->param('contact_user');//'联系人',
              $data['tel']=$this->request->param('tel'); //'联系电话',
              $data['status']=1;// '1发布中，0已关闭',
-             $data['user_id']=$this->request->param('user_id');// '发布人',
+             $data['user_id']=session('user_id');// '发布人',
              $res=Db::name('recruit_company')->where(array('id'=>$id))->update($data);
              if($res){
                  if(empty($publish_record)){
@@ -265,13 +272,29 @@ class Recruit extends ApiBase
      //招聘者邀请求职者查看岗位
      public function invite_user(){
         if($this->request->isPost()){
-            $user_id=$this->request->param('user_id');
+            $user_id=session('user_id');
             $seek_user_id=$this->request->param('seek_user_id');
             $usj_id=$this->request->param('usj_id');
             $job_info=Db::name('user_seek_job')->where(array('id'=>$usj_id))->field('job_name')->find();
             $c_info=Db::name('company')->where(array('user_id'=>$user_id))->field('company_name')->find();
             $add_time=time();
             $content=$c_info['company_name'].'正在招聘'.$job_info['job_name'].'岗位,充值金币查看吧';
+            //会员商家每天30条消息上限,非会员每天15条消息上限
+            $user_info=Db::name('users')->where(array('id'=>$user_id))->field('sh_super_member')->find();
+            $start=mktime(0,0,0,date('m'),date('d'),date('Y'));
+            $end=mktime(0,0,0,date('m'),date('d')+1,date('Y'))-1;
+            $count=Db::name('sh_post_message')->where(array('user_id'=>$user_id))->where('add_time','between',[$start,$end])->count();
+            if($user_info['sh_super_member']==1){
+                //会员
+                if($count>=30){
+                  return json(array('code'=>419,'info'=>'今天发送消息已达30条,请明日再试'));
+                }
+            }else{
+                //非会员
+                if($count>=15){
+                  return json(array('code'=>420,'info'=>'今天发送消息已达15条,请明日再试'));
+                }
+            }
             $data['user_id']=$user_id;
             $data['seek_user_id']=$seek_user_id;
             $data['add_time']=$add_time;

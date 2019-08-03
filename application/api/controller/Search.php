@@ -1,8 +1,8 @@
 <?php
 namespace app\api\controller;
-use app\common\controller\ApiBase;
+use think\Controller;
 use think\Db;
-class Search extends ApiBase
+class Search extends Controller
 {
 
     //招聘商户搜索求职者信息
@@ -40,7 +40,7 @@ class Search extends ApiBase
     //招聘商户搜索求权限判断
     public function search_auth_judge(){
         if($this->request->isPost()){
-            $user_id=$this->request->param('user_id');
+            $user_id=session('user_id');
             $res=Db::name('users')->where(array('id'=>$user_id))->field('sh_super_member')->find();
             if($res['sh_super_member']==1){
                 return json(array('code'=>502,'info'=>'有权限搜索'));

@@ -1,10 +1,9 @@
 <?php
 
 namespace app\api\controller;
-use app\common\controller\ApiBase;
 use think\Controller;
 use think\Db;
-class Register extends ApiBase
+class Register extends Controller
 {
     /**
      * 注册操作
@@ -113,5 +112,27 @@ class Register extends ApiBase
            }
        }
     }
+    //获取验证码
+    public function get_code(){
+        if($this->request->isPost()){
+            $mobile=$this->request->param('mobile');
+            $clapi = new \info\ChuanglanSmsApi();
 
+            //生成随机数（6位数）
+            $code = mt_rand(100000,999999);
+            //设置您要发送的内容：其中“【】”中括号为运营商签名符号，多签名内容前置添加提交
+            $result = $clapi->sendSMS($mobile,'【253云通讯】您好！验证码是:'.$code);
+
+            if(!is_null(json_decode($result))){
+                $output=json_decode($result,true);
+                if(isset($output['code'])  && $output['code']=='0'){
+                 return json(array('code'=>200,'info'=>'发送成功','code_num'=>$code));
+                }else{
+                    return json(array('code'=>201,'info'=>$output['errorMsg'],'code_num'=>'')) ;
+                }
+            }else{
+                return json(array('code'=>200,'info'=>'发送成功','code_num'=>$code));
+            }
+        }
+    }
 }

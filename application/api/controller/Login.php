@@ -1,9 +1,9 @@
 <?php
 namespace app\api\controller;
-use app\common\Controller\ApiBase;
+use think\Controller;
 use think\Db;
 //登录
-class Login extends ApiBase
+class Login extends Controller
 {
     public function login_in(){
         if($this->request->isPost()){
@@ -27,6 +27,7 @@ class Login extends ApiBase
                 }
                 $info=Db::name('users')->where(array('mobile'=>$mobile,'passwd'=>$new_passwd))->field('id,mobile,passwd,type')->find();
                 if($info){
+                       session('user_id',$info['id']);
                       return json(array('code'=>305,'info'=>'登录成功','user_id'=>$info['id'],'type'=>$type));
                 }else{
                     return json(array('code'=>306,'info'=>'登录失败'));
@@ -40,7 +41,7 @@ class Login extends ApiBase
 
         if($this->request->isPost()){
             $select_type=$this->request->param('select_type');//1-招聘者 2-商铺 3-二手车
-            $user_id=$this->request->param('user_id');
+            $user_id=session('user_id');
             //更新商户当前身份状态
             Db::name('users')->where(array('id'=>$user_id))->update(array('now_select_type'=>$select_type));
             $info=Db::name('user_type_info')->where(array('user_id'=>$user_id,'select_type'=>$select_type))->find();
@@ -54,5 +55,14 @@ class Login extends ApiBase
                 }
             }
         }
+    }
+
+    //退出登录
+    public function login_out(){
+      if($this->request->isPost()){
+          session('user_id',null);
+          session(null);
+          return json(array('code'=>310,'info'=>'退出成功'));
+      }
     }
 }

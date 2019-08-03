@@ -1,8 +1,8 @@
 <?php
 namespace app\api\controller;
-use app\common\controller\ApiBase;
+use think\Controller;
 use think\Db;
-class Shop extends ApiBase
+class Shop extends Controller
 {
 
     public function index(){
@@ -11,7 +11,7 @@ class Shop extends ApiBase
     //发布店铺
     public function publish_shop(){
       if($this->request->isPost()){
-          $user_id=$this->request->param('user_id');
+          $user_id=session('user_id');
           $coins=$this->request->param('coins');
           $info=Db::name('users')->where(array('id'=>$user_id))->field('coins')->find();
           $public_status=Db::name('company')->where(array('user_id'=>$user_id,'select_type'=>2))->find();
@@ -95,7 +95,7 @@ class Shop extends ApiBase
     //店铺列表
     public function shop_lists(){
       if($this->request->isPost()){
-          $user_id=$this->request->param('user_id');
+          $user_id=session('user_id');
           $res=Db::name('shop_info')->order('add_time desc')->where(array('status'=>1,'user_id'=>$user_id))->select();
           return json(array('code'=>711,'info'=>'获取成功','data'=>$res));
       }
@@ -148,7 +148,7 @@ class Shop extends ApiBase
     //已关闭的发布列表
     public function shop_close_list(){
         if($this->request->isPost()){
-            $user_id=$this->request->param('user_id');
+            $user_id=session('user_id');
             $result=Db::name('shop_info')->where(array('status'=>0,'user_id'=>$user_id))->order('add_time desc')->select();
             return json(array('code'=>715,'info'=>'获取成功','data'=>$result));
         }
