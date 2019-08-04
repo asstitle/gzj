@@ -21,6 +21,7 @@ class Authorize extends Controller
             $encrypteData = urldecode($get['encrypteData']);
             $iv = $this->define_str_replace($get['iv']);
             $errCode =$this-> decryptData($appid, $session_key['session_key'], $encrypteData, $iv);
+            //file_put_contents('/p.txt',print_r($errCode,true));
             //把appid写入到数据库中
             $data['openid'] = $errCode['openId'];
             $data['user_nickname'] = $errCode['nickName'];
@@ -144,7 +145,7 @@ class Authorize extends Controller
      */
     public function get_first_authorize_select_type(){
        if($this->request->isPost()){
-           $user_id=session('user_id');
+           $user_id=$this->request->param('user_id');
            $type=$this->request->param('type');//1商家 2用户
            $select_type=$this->request->param('select_type');//1 招聘者 2商户租赁 3 二手车
            $info=Db::name('user_type_info')->where(array('type'=>$type,'user_id'=>$user_id,'select_type'=>$select_type))->find();
@@ -152,7 +153,7 @@ class Authorize extends Controller
                $datas['user_id']=$user_id;
                $datas['type']=$type;
                $datas['select_type']=$select_type;
-               Db::name('user_type_info')->insert($select_type);
+               Db::name('user_type_info')->insert($datas);
              return json(array('code'=>201,'info'=>'该商家尚未完善信息','is_deal'=>0));
            }else{
                if($info['is_deal']==0){

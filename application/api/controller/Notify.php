@@ -32,13 +32,15 @@ class Notify extends Controller
             if($order_info['is_merchant']==1){
                 //用户表金额增加
              Db::name('users')->where(array('id'=>$order_info['user_id']))->setInc('coins',$order_info['money']);
-             Db::name('users')->where(array('id'=>$order_info['user_id']))->update(array('sh_super_member'=>1,'sh_super_day'=>$day['day']));
+             Db::name('users')->where(array('id'=>$order_info['user_id']))->update(array('sh_super_member'=>1));
+             Db::name('users')->where(array('id'=>$order_info['user_id']))->setInc('sh_super_day',$day['day']);
             }
             //现在身份是普通用户充值超级用户就更新users表中超级用户字段
             if($order_info['is_merchant']==2){
                 //用户表金额增加
                 Db::name('users')->where(array('id'=>$order_info['user_id']))->setInc('user_coins',$order_info['money']);
-                Db::name('users')->where(array('id'=>$order_info['user_id']))->update(array('user_super_member'=>1,'user_super_day'=>$day['day']));
+                Db::name('users')->where(array('id'=>$order_info['user_id']))->update(array('user_super_member'=>1));
+                Db::name('users')->where(array('id'=>$order_info['user_id']))->setInc('user_super_day',$day['day']);
             }
             //写入消费明细表
             $detail_info['user_id']=$order_info['user_id'];

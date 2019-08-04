@@ -10,7 +10,7 @@ class Feedback extends Controller
      */
     public function post_info(){
       if($this->request->isPost()){
-          $data['user_id']=session('user_id');
+          $data['user_id']=$this->request->param('user_id');
           $data['content']=$this->request->param('content');
           $data['add_time']=$this->request->param('add_time');
           $result=Db::name('user_feedback')->insert($data);

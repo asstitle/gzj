@@ -9,7 +9,7 @@ class MyRecruit extends Controller
     public function my_index()
     {
         if ($this->request->isPost()) {
-            $user_id = session('user_id');
+            $user_id = $this->request->param('user_id');
             $data = Db::name('users')->where(array('id' => $user_id))->field('coins,avater,user_nickname,sh_super_day')->find();
             if ($data) {
                 return json(array('code' => 100, 'info' => '获取成功', 'data' => $data));
@@ -23,7 +23,7 @@ class MyRecruit extends Controller
     public function close_status()
     {
         if ($this->request->isPost()) {
-            $user_id = session('user_id');
+            $user_id = $this->request->param('user_id');
             $result = Db::name('recruit_company')->where(array('user_id' => $user_id, 'status' => 1))->update(array('status' => 0));
             if ($result) {
                 return json(array('code' => 102, 'info' => '关闭成功'));
@@ -37,7 +37,7 @@ class MyRecruit extends Controller
     public function cat_pull_message()
     {
         if ($this->request->isPost()) {
-            $user_id = session('user_id');
+            $user_id = $this->request->param('user_id');
             $result = Db::name('user_post_message')->where(array('to_user' => $user_id))->order('add_time desc')->select();
             $arr = array();
             foreach ($result as $v) {
@@ -65,7 +65,7 @@ class MyRecruit extends Controller
         if ($this->request->isPost()) {
             $person_file_id = $this->request->param('person_file_id');
             $coins = $this->request->param('coins');
-            $user_id = session('user_id');
+            $user_id = $this->request->param('user_id');
             $user_info = Db::name('users')->where(array('id' => $user_id))->field('coins')->find();
             $record_info = Db::name('look_recruit_record')->where(array('user_id' => $user_id, 'usj_id' => $person_file_id))->find();
             $data = Db::name('user_seek_job')->where(array('id' => $person_file_id))->find();
@@ -104,7 +104,7 @@ class MyRecruit extends Controller
     public function consume_detail()
     {
         if ($this->request->isPost()) {
-            $user_id = session('user_id');
+            $user_id = $this->request->param('user_id');
             $p = $this->request->param('p');
             $pageSize = 15;
             $data = Db::name('user_consume_fee_detail')->where(array('user_id' => $user_id))->order('add_time desc')->limit(($p - 1) * $pageSize, $pageSize)->field('add_time,content,coins')->select();
@@ -117,7 +117,7 @@ class MyRecruit extends Controller
     public function cat_authorize_info()
     {
         if ($this->request->isPost()) {
-            $user_id = session('user_id');
+            $user_id = $this->request->param('user_id');
             $data = Db::name('users')->where(array('id' => $user_id))->field('user_nickname,avater')->find();
             return json(array('code' => 111, 'info' => '获取成功', 'data' => $data));
         }
@@ -127,7 +127,7 @@ class MyRecruit extends Controller
     public function statistics()
     {
         if ($this->request->isPost()) {
-            $user_id = session('user_id');
+            $user_id = $this->request->param('user_id');
             $data = Db::name('recruit_company')->where(array('user_id' => $user_id))->field('user_id,add_time,seek_job')->select();
             return json(array('code' => 112, 'info' => '获取成功', 'data' => $data));
         }
@@ -137,7 +137,7 @@ class MyRecruit extends Controller
     public function my_tip()
     {
         if ($this->request->isPost()) {
-            $user_id = session('user_id');
+            $user_id = $this->request->param('user_id');
             $info = Db::name('sh_pull_black')->where(array('user_id' => $user_id))->order('add_time desc')->select();
             $arr = array();
             if (!empty($info)) {
@@ -159,7 +159,7 @@ class MyRecruit extends Controller
     public function my_tiped()
     {
         if ($this->request->isPost()) {
-            $user_id = session('user_id');
+            $user_id = $this->request->param('user_id');
             $info = Db::name('seeker_pull_black')->where(array('pull_user_id' => $user_id))->where(array('status' => 0))->field('user_id,id')->order('add_time desc')->select();
             $arr = array();
             if (!empty($info)) {
@@ -182,7 +182,7 @@ class MyRecruit extends Controller
     {
         if ($this->request->isPost()) {
             $id = $this->request->param('id');
-            $user_id = session('user_id');
+            $user_id = $this->request->param('user_id');
             $coins = $this->request->param('coins');
             //查询用户的金币情况
             $user_info = Db::name('users')->where(array('id' => $user_id))->field('coins')->find();
@@ -212,8 +212,8 @@ class MyRecruit extends Controller
     public function reset_all_tips(){
         if($this->request->isPost()){
             $ids=$this->request->param('ids');
-            $coins=$this->request->param('ids');
-            $user_id = session('user_id');
+            $coins=$this->request->param('coins');
+            $user_id = $this->request->param('user_id');
             //查询用户的金币情况
             $user_info = Db::name('users')->where(array('id' => $user_id))->field('coins')->find();
             if ($coins > $user_info['coins']) {
@@ -248,7 +248,7 @@ class MyRecruit extends Controller
     //商家切换
     public function sh_switch(){
         if($this->request->isPost()){
-            $user_id=session('user_id');
+            $user_id=$this->request->param('user_id');
             $select_type=$this->request->param('select_type');
             $type=1;
             $info=Db::name('user_type_info')->where(array('user_id'=>$user_id,'select_type'=>$select_type,'type'=>$type))->find();

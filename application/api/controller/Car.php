@@ -11,7 +11,7 @@ class Car extends Controller
     {
         $p = $this->request->param('p');
         $pageSize = 10;
-        $result = Db::name('car_info')->order('add_time desc')->limit(($p - 1) * $pageSize, $pageSize)->select();
+        $result = Db::name('car_info')->order('add_time desc')->limit(($p - 1) * $pageSize, $pageSize)->where(array('status'=>1))->select();
         return json(array('code' => 800, 'info' => '获取成功', 'data' => $result));
     }
 
@@ -19,7 +19,7 @@ class Car extends Controller
     public function car_screen()
     {
         if ($this->request->isPost()) {
-            $user_id = session('user_id');
+            $user_id = $this->request->param('user_id');
             //查询该用户是不是超级会员
             $user_info = Db::name('users')->where(array('id' => $user_id))->field('sh_super_member')->find();
             if ($user_info['sh_super_member'] == 0) {
@@ -46,7 +46,7 @@ class Car extends Controller
     public function used_car_info()
     {
         if ($this->request->isPost()) {
-            $user_id = session('user_id');
+            $user_id = $this->request->param('user_id');
             //商户信息
             $data = Db::name('company')->where(array('user_id' => $user_id, 'select_type' => 3))->field('province,city,open_time,photos,company_name,contact_person,contact_tel')->find();
             //商户所填二手车信息
@@ -83,7 +83,7 @@ class Car extends Controller
     public function car_search()
     {
         if ($this->request->isPost()) {
-            $user_id = session('user_id');
+            $user_id = $this->request->param('user_id');
             $search_content = $this->request->param('search_content');
             $result = Db::name('users')->where(array('id' => $user_id))->field('sh_super_member')->find();
             if ($result['sh_super_member'] == 0) {
@@ -106,7 +106,7 @@ class Car extends Controller
     {
         if ($this->request->isPost()) {
             $car_info_id = $this->request->param('car_info_id');
-            $user_id = session('user_id');
+            $user_id = $this->request->param('user_id');
             $result = Db::name('user_pull_car_black')->where(array('car_info_id' => $car_info_id, 'user_id' => $user_id))->find();
             if (empty($result)) {
                 $data['car_info_id'] = $car_info_id;
@@ -128,7 +128,7 @@ class Car extends Controller
     //商家发布中的二手车
     public function publish_car_having(){
         if($this->request->isPost()){
-          $user_id=session('user_id');
+          $user_id=$this->request->param('user_id');
           $data=Db::name('car_info')->where(array('user_id'=>$user_id,'status'=>1))->select();
           return json(array('code'=>812,'info'=>'获取成功','data'=>$data));
         }
@@ -139,7 +139,7 @@ class Car extends Controller
     {
         if ($this->request->isPost()) {
             $coins=$this->request->param('coins');
-            $user_id = session('user_id');
+            $user_id = $this->request->param('user_id');
             $add_time = time();
             $contact_user = $this->request->param('contact_user');
             $contact_tel = $this->request->param('contact_tel');
@@ -260,7 +260,7 @@ class Car extends Controller
     //二手车编辑新发布
     public function edit_new_publish(){
         if($this->request->isPost()){
-            $user_id=session('user_id');
+            $user_id=$this->request->param('user_id');
             $info=Db::name('company')->where(array('user_id'=>$user_id))->field('address,contact_person,contact_tel')->find();
             return json(array('code'=>820,'info'=>'获取成功','data'=>$info));
         }

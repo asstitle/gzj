@@ -8,7 +8,7 @@ class Info extends Controller
 
     //商家第一次登录完善信息
     public function update_info_do(){
-        $user_id =session('user_id');
+        $user_id =$this->request->param('user_id');
         $select_type=$this->request->param('select_type');
         $open_time=$this->request->param('open_time') ? $this->request->param('open_time') : '';
         $is_company=$this->request->param('is_company') ? $this->request->param('is_company') : 0;
@@ -109,7 +109,7 @@ class Info extends Controller
             $add_info['user_id']=$user_id;
             $add_info['add_time']=time();
             $add_info['status']=0;
-            $result=Db::name('person')->insert($add_info);
+            $result=Db::name('company')->insert($add_info);
         }
 
         if($result){

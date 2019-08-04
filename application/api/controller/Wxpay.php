@@ -10,7 +10,7 @@ class Wxpay extends Controller {
         if($this->request->isPost()) {
             //用code获取openid
             $code = $this->request->param('code');
-            $user_id = session('user_id');
+            $user_id = $this->request->param('user_id');
             $select_type = $this->request->param('select_type') ? $this->request->param('select_type') : 1;
             $is_merchant = $this->request->param('is_merchant') ? $this->request->param('is_merchant') : 2;
             $member_type = $this->request->param('member_type') ? $this->request->param('member_type') : 1;

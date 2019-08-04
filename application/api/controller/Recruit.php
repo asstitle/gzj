@@ -12,7 +12,7 @@ class Recruit extends Controller
      //招聘雇主求职者详情
      public function look_recruit(){
          if($this->request->isPost()){
-             $user_id=session('user_id');//商家id
+             $user_id=$this->request->param('user_id');//商家id
              $coins=$this->request->param('coins');//金币
              $usj_id=$this->request->param('usj_id');//求职者user_seek_job发布简历的id
              //先查询该商户是否查看过该简历
@@ -52,7 +52,7 @@ class Recruit extends Controller
      //商家查看用户找工作列表
      public function user_seek_job_list(){
          if($this->request->isPost()){
-             $user_id=session('user_id');
+             $user_id=$this->request->param('user_id');
              $info=Db::name('users')->where(array('id'=>$user_id))->field('sh_super_member')->find();
              if($info['sh_super_member']){
                 $is_super_member=1;//超级会员
@@ -84,7 +84,7 @@ class Recruit extends Controller
      //商户把求职者拉入黑名单
      public function pull_user_seek_black(){
          if($this->request->isPost()){
-             $user_id=session('user_id');//商家id
+             $user_id=$this->request->param('user_id');//商家id
              $seek_user_id=$this->request->param('seek_user_id');//求职者id
              $usj_id=$this->request->param('usj_id');
              $coins=$this->request->param('coins');
@@ -118,7 +118,7 @@ class Recruit extends Controller
             date_timezone_set('PRC');
             $start=mktime(0,0,0,date('m'),date('d'),date('Y'));
             $end=mktime(0,0,0,date('m'),date('d')+1,date('Y'))-1;
-            $user_id=session('user_id');//商户ID
+            $user_id=$this->request->param('user_id');//商户ID
             $type=$this->request->param('type');//1 商户 2 普通用户
             $info_arr=Db::name('users')->where(array('user_id'=>$user_id))->field('sh_super_member')->find();
             if($type==1){
@@ -157,7 +157,7 @@ class Recruit extends Controller
      public function employ_require(){
          if($this->request->isPost()){
               $coins=$this->request->param('coins');
-              $user_id=session('user_id');
+              $user_id=$this->request->param('user_id');
               $info=Db::name('users')->where(array('id'=>$user_id))->field('coins')->find();
               $public_status=Db::name('company')->where(array('user_id'=>$user_id,'select_type'=>1,'status'=>1))->find();
               $publish_record=Db::name('company_publish_record')->where(array('company_name'=>$this->request->param('company_name'),'work_address'=>$this->request->param('work_address')))->find();
@@ -187,7 +187,7 @@ class Recruit extends Controller
               $data['tel']=$this->request->param('tel'); //'联系电话',
               $data['status']=1;// '1发布中，0已关闭',
               $data['add_time']=time();// '发布时间',
-              $data['user_id']=session('user_id');// '发布人',
+              $data['user_id']=$this->request->param('user_id');// '发布人',
               $res=Db::name('recruit_company')->insert($data);
               if($res){
                   if(empty($publish_record)){
@@ -206,7 +206,7 @@ class Recruit extends Controller
      public function edit_employ(){
          if($this->request->isPost()){
              $coins=$this->request->param('coins');
-             $user_id=session('user_id');
+             $user_id=$this->request->param('user_id');
              $info=Db::name('users')->where(array('id'=>$user_id))->field('coins')->find();
              $publish_record=Db::name('company_publish_record')->where(array('company_name'=>$this->request->param('company_name'),'work_address'=>$this->request->param('work_address')))->find();
              if(empty($publish_record)){
@@ -232,7 +232,7 @@ class Recruit extends Controller
              $data['contact_user'] =$this->request->param('contact_user');//'联系人',
              $data['tel']=$this->request->param('tel'); //'联系电话',
              $data['status']=1;// '1发布中，0已关闭',
-             $data['user_id']=session('user_id');// '发布人',
+             $data['user_id']=$this->request->param('user_id');// '发布人',
              $res=Db::name('recruit_company')->where(array('id'=>$id))->update($data);
              if($res){
                  if(empty($publish_record)){
@@ -272,7 +272,7 @@ class Recruit extends Controller
      //招聘者邀请求职者查看岗位
      public function invite_user(){
         if($this->request->isPost()){
-            $user_id=session('user_id');
+            $user_id=$this->request->param('user_id');
             $seek_user_id=$this->request->param('seek_user_id');
             $usj_id=$this->request->param('usj_id');
             $job_info=Db::name('user_seek_job')->where(array('id'=>$usj_id))->field('job_name')->find();

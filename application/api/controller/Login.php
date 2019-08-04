@@ -41,7 +41,7 @@ class Login extends Controller
 
         if($this->request->isPost()){
             $select_type=$this->request->param('select_type');//1-招聘者 2-商铺 3-二手车
-            $user_id=session('user_id');
+            $user_id=$this->request->param('user_id');
             //更新商户当前身份状态
             Db::name('users')->where(array('id'=>$user_id))->update(array('now_select_type'=>$select_type));
             $info=Db::name('user_type_info')->where(array('user_id'=>$user_id,'select_type'=>$select_type))->find();
