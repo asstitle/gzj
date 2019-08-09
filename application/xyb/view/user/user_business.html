@@ -8,6 +8,9 @@
         } catch (e) {
         }
     </script>
+    <style>
+
+    </style>
     {include file="Public/sidebar"/}
     <div class="main-content">
         <div class="main-content-inner">
@@ -29,45 +32,96 @@
                                     <ul class="nav nav-tabs">
                                         <li class="active"><a>商家列表</a></li>
                                     </ul>
-                                    <div style="margin-top: 20px;"></div>
-                                    <form action="" method="post" class="margin-top-20">
+                                    <div style="margin-top: 10px;"></div>
+                                    <form action="<{:url('User/user_business')}>" method="post" id="forms">
+                                        <div class="col-xs-12">
+                                            <div style="line-height: 34px;width:80px;float: left;margin-left:-10px;margin-top: 5px; ">
+                                                <select style="width:80px;float: left;height:34px;" class="type" name="status" id="status">
+                                                      <option value="-1" {if condition="$status eq -1"}selected="selected"{/if}>状态</option>
+                                                      <option value="1" {if condition="$status eq 1"}selected="selected"{/if}>已审核</option>
+                                                      <option value="2" {if condition="$status eq 2"}selected="selected"{/if}>未审核</option>
+                                                 </select>
+                                            </div>
+                                            <div style="line-height: 34px;width:150px;float: left;margin-left:10px;margin-top: 5px; ">
+                                                <input type="text" name="search_content" style="width:150px;float: left;height:34px;" placeholder="联系电话或者联系人" id="search_content" value="<{$search_content}>"/>
+                                            </div>
+                                            <div  style="line-height: 34px;width:200px;float:left;margin-left: 10px;margin-top: 5px;">
+                                                <input type="text" id="chose_time" name='add_time' style="height:34px;float: left;width:200px;" placeholder="提交时间" value="<{$add_time}>"/>
+                                            </div>
+                                            <div style="line-height: 34px;width:50px;float:left;margin-left: 10px;margin-top: 5px;">
+                                                <button type="submit" class="btn btn-info btn-sm">
+                                                    <span class="icon-on-right bigger-110">搜索</span>
+                                                </button>
+                                            </div>
+                                            <div style="line-height: 34px;width:50px;float:left;margin-left: 10px;margin-top: 5px;">
+                                                <button type="button" class="btn btn-info btn-sm" id="removes">
+                                                    <span class="icon-on-right bigger-110">清空</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div style="margin-bottom: 56px;"></div>
+                                    <form action="" method="post" class="margin-top-40">
                                         <table class="table table-hover table-bordered">
                                             <thead>
                                             <tr>
                                                 <th width="40">ID</th>
-                                                <th align="left">名称</th>
+                                                <th align="left">公司名称</th>
+                                                <th align="left">地理位置</th>
+                                                <th align="left">详细地址</th>
                                                 <th align="left">联系人</th>
                                                 <th align="left">联系电话</th>
                                                 <th align="left">类别</th>
+                                                <th align="left">身份类型</th>
                                                 <th align="left">超级会员</th>
                                                 <th align="left">状态</th>
                                                 <th align="left">详情</th>
-                                                <th width="160">操作</th>
+                                                <th align="left">提交时间</th>
+                                                <th align="left">操作</th>
                                             </tr>
                                             </thead>
                                             <tbody>
+                                              {volist name='data' id='v'}
                                               <tr>
-                                                  <td>1</td>
-                                                  <td>xx公司</td>
-                                                  <td>张三</td>
-                                                  <td>18125963301</td>
-                                                  <td>商家</td>
-                                                  <td>是</td>
-                                                  <td>待审核</td>
-                                                  <td><span class="cat_info" value="<{:url('user/user_cat_info')}>" title="详情">查看</span></td>
-                                                  <td><a>编辑</a></td>
+                                                  <td><{$v.id}></td>
+                                                  <td><{$v.company_name}></td>
+                                                  <td><{$v.province}><{$v.city}></td>
+                                                  <td><{$v.address}></td>
+                                                  <td><{$v.contact_person}></td>
+                                                  <td><{$v.contact_tel}></td>
+                                                  <td><{$v.type_name}></td>
+                                                  <td>
+                                                      {if condition='$v.select_type eq 1'}
+                                                       招聘商家
+                                                      {elseif condition='$v.select_type eq 2'/}
+                                                       商铺租赁商家
+                                                      {elseif condition='$v.select_type eq 3'/}
+                                                      二手车商家
+                                                      {/if}
+                                                  </td>
+                                                  <td>
+                                                      {if condition='$v.is_super eq 1'}
+                                                      <span style="color: green">是</span>
+                                                      {else/}
+                                                      <span style="color: red">否</span>
+                                                      {/if}
+                                                  </td>
+                                                  <td>
+                                                      {if condition='$v.status eq 1'}
+                                                      <span style="color: green">已审核</span>
+                                                      {else/}
+                                                      <span style="color: red">待审核</span>
+                                                      {/if}
+                                                  </td>
+                                                  <td><span class="cat_info" value="<{:url('user/user_cat_info',['id'=>$v.id])}>" title="详情">查看</span></td>
+                                                  <td><{$v.add_time|date='Y-m-d H:i',###}></td>
+                                                  {if condition='$v.status eq 1'}
+                                                  <td>已审</td>
+                                                  {else/}
+                                                  <td onclick="check_info(<{$v.id}>)" style="cursor: pointer"><span class="label label-warning label-lg label-disabled" >审核</span></td>
+                                                  {/if}
                                               </tr>
-                                              <tr>
-                                                  <td>1</td>
-                                                  <td>李四</td>
-                                                  <td>李四</td>
-                                                  <td>18125963300</td>
-                                                  <td>个人</td>
-                                                  <td>是</td>
-                                                  <td>待审核</td>
-                                                  <td><span class="cat_info" value="<{:url('user/user_cat_info')}>" title="详情">查看</span></td>
-                                                  <td><a>编辑</a></td>
-                                              </tr>
+                                            {/volist}
                                             </tbody>
                                         </table>
                                     </form>
@@ -76,7 +130,7 @@
                                 </div><!-- /.tabbable -->
                             </div><!-- /.col -->
                         </div><!-- /.row -->
-
+                          <{$page}>
                         <!-- PAGE CONTENT ENDS -->
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -89,6 +143,7 @@
 </div><!-- /.main-container -->
 
 {include file="Public/footerjs"/}
+<script src="__PUBLIC__xyb/layer/laydate/laydate.js"></script>
 <!-- inline scripts related to this page -->
 </body>
 </html>
@@ -112,4 +167,51 @@
             }
         });
     });
+    var now = new Date();
+    var year = now.getFullYear();       //年
+    var month = now.getMonth() + 1;     //月
+    var day = now.getDate();            //日
+    laydate.render({
+        elem: '#chose_time',
+        event:"focus",
+        format: 'yyyy/MM/dd',
+        max: year+"-" + month + "-" + day,
+        theme: 'grid',
+        range:true
+    });
+
+    function check_info(id){
+        layer.confirm('确定已查看信息？', {icon: 3, title:'审核信息'}, function(){
+          $.post('__URL__user/check_user_info',{id:id},function(data){
+            if(data.status==1){
+                layer.msg(data.info, {
+                    icon: 1,
+                    time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                }, function(){
+                    parent.layer.close(index);
+                });
+                setTimeout(function(){
+                    parent.location.reload();
+                },500);
+            }else{
+                layer.msg(data.info, {
+                    icon: 2,
+                    time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                }, function(){
+                    parent.layer.close(index);
+                });
+                setTimeout(function(){
+                    parent.location.reload();
+                },500);
+            }
+          })
+        });
+    }
+
+    //点击清空数据信息
+    $("#removes").click(function(){
+        $("#status").val('-1');
+        $("input[name=search_content]").val('');
+        $("input[name=add_time]").val('');
+    })
 </script>

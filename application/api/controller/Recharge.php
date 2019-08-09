@@ -1,8 +1,9 @@
 <?php
 namespace app\api\controller;
+use app\common\controller\ApiBase;
 use think\Controller;
 use think\Db;
-class Recharge extends Controller
+class Recharge extends ApiBase
 {
     //充值列表展示
     public function lists(){

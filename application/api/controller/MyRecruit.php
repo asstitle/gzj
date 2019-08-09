@@ -1,16 +1,17 @@
 <?php
 namespace app\api\controller;
+use app\common\controller\ApiBase;
 use think\Controller;
 use think\Db;
 
-class MyRecruit extends Controller
+class MyRecruit extends ApiBase
 {
     //招聘雇主我的个人中心
     public function my_index()
     {
         if ($this->request->isPost()) {
             $user_id = $this->request->param('user_id');
-            $data = Db::name('users')->where(array('id' => $user_id))->field('coins,avater,user_nickname,sh_super_day')->find();
+            $data = Db::name('users')->where(array('id' => $user_id))->field('coins,avater,user_nickname,sh_super_day,mobile')->find();
             if ($data) {
                 return json(array('code' => 100, 'info' => '获取成功', 'data' => $data));
             } else {
@@ -64,38 +65,17 @@ class MyRecruit extends Controller
     {
         if ($this->request->isPost()) {
             $person_file_id = $this->request->param('person_file_id');
-            $coins = $this->request->param('coins');
-            $user_id = $this->request->param('user_id');
-            $user_info = Db::name('users')->where(array('id' => $user_id))->field('coins')->find();
-            $record_info = Db::name('look_recruit_record')->where(array('user_id' => $user_id, 'usj_id' => $person_file_id))->find();
             $data = Db::name('user_seek_job')->where(array('id' => $person_file_id))->find();
-            if (empty($record_info)) {
-                if ($coins > $user_info['coins']) {
-                    return json(array('code' => 106, 'info' => '账户金币余额不足,请充值'));
-                }
-                //写入查看简历记录表
-                $data['user_id'] = $user_id;
-                $data['add_time'] = time();
-                $data['usj_id'] = $person_file_id;
-                $result = Db::name('look_recruit_record')->insert($data);
-                if ($result) {
-                    //写入消费明细表
-                    $consume_data['user_id'] = $user_id;
-                    $consume_data['content'] = '查看求职者简历';
-                    $consume_data['select_type'] = 1;
-                    $consume_data['is_merchant'] = 1;
-                    $consume_data['add_time'] = time();
-                    $consume_data['coins'] = -$coins;
-                    Db::name('user_consume_fee_detail')->insert($consume_data);
-                    //更新用户剩余金币数量
-                    Db::name('users')->where(array('id' => $user_id))->setDec('coins', $coins);
-                    return json(array('code' => 107, 'info' => '查看成功', 'data' => $data));
-                } else {
-                    return json(array('code' => 108, 'info' => '写入查看记录失败,查看失败'));
-                }
-
+            $result=Db::name('sh_pull_black')->where(array('user_seek_id'=>$data['user_id']))->find();
+            if(empty($result)){
+                $is_black=0;//0未拉黑
+            }else{
+                $is_black=1;//已拉黑
+            }
+            if (empty($data)) {
+                return json(array('code' => 201, 'info' => '数据为空', 'data' => [],'is_black'=>$is_black));
             } else {
-                return json(array('code' => 109, 'info' => '该求职者简历你查看过', 'data' => $data));
+                return json(array('code' => 200, 'info' => '获取成功', 'data' => $data,'is_black'=>$is_black));
             }
         }
     }

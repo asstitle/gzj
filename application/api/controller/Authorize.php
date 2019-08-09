@@ -27,6 +27,7 @@ class Authorize extends Controller
             $data['user_nickname'] = $errCode['nickName'];
             $data['sex'] = $errCode['gender'];
             $data['avater'] = $errCode['avatarUrl'];
+            $data['add_time'] = time();
             if (false == Db::name('users')->where(['openid' => $data['openid']])->find()) {
                 Db::name('users')->insert($data);
             } else {
@@ -35,7 +36,6 @@ class Authorize extends Controller
             }
             $value = Db::name('users')->where(['openid' => $data['openid']])->field('id,sex,avater,user_nickname,openid')->select();
             $array = array_merge_recursive($errCode, $value);
-            session('user_id',$value[0]['id']);
             return json(array('code' => 200, 'info' => '获取成功', 'data' => $array));
 
         }else{

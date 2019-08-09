@@ -1,8 +1,9 @@
 <?php
 namespace app\api\controller;
+use app\common\controller\ApiBase;
 use think\Controller;
 use think\Db;
-class Feedback extends Controller
+class Feedback extends ApiBase
 {
 
     /**

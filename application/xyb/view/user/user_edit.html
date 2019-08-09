@@ -26,28 +26,24 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="tabbable">
-                                    <ul class="nav nav-tabs">
-                                        <li ><a href="<{:url('user/index')}>">用户管理</a></li>
-                                        <li class="active"><a >添加用户</a></li>
-                                    </ul>
                                     <div style="margin-top: 20px;"></div>
-                                    <form class="form-horizontal margin-top-20" action="<{:url('user/add_user_post')}>" method="post">
+                                    <form class="form-horizontal margin-top-20" action="<{:url('user/user_edit_post')}>" method="post">
                                         <div class="form-group">
                                             <label for="input-name" class="col-sm-2 control-label"><span style="color: red">*</span>用户名</label>
                                             <div class="col-md-6 col-sm-10">
-                                                <input type="text" class="form-control" id="input-name" name="user_login">
+                                                <input type="text" class="form-control" id="input-name" name="user_login" value="<{$user.user_login}>">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="input-name" class="col-sm-2 control-label"><span style="color: red">*</span>密码</label>
                                             <div class="col-md-6 col-sm-10">
-                                                <input type="text" class="form-control" id="input-name" name="user_pass">
+                                                <input type="password" class="form-control" id="input-name" name="user_pass" value="" placeholder="*******">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="input-name" class="col-sm-2 control-label"><span style="color: red">*</span>手机</label>
                                             <div class="col-md-6 col-sm-10">
-                                                <input type="text" class="form-control" id="input-name" name="mobile">
+                                                <input type="text" class="form-control" id="input-name" name="mobile" value="<{$user.mobile}>">
                                             </div>
                                         </div>
 
@@ -55,10 +51,10 @@
                                             <label class="col-sm-2 control-label">性别</label>
                                             <div class="col-md-6 col-sm-10">
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="sex" value="1" checked> 男
+                                                    <input type="radio" name="sex" value="1" {if condition="$user.sex eq 1"}checked="checked"{/if}> 男
                                                 </label>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="sex" value="0"> 女
+                                                    <input type="radio" name="sex" value="0" {if condition="$user.sex eq 0"}checked="checked"{/if}> 女
                                                 </label>
                                             </div>
                                         </div>
@@ -66,10 +62,10 @@
                                             <label class="col-sm-2 control-label">是否开启</label>
                                             <div class="col-md-6 col-sm-10">
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="user_status" value="1" checked> 是
+                                                    <input type="radio" name="user_status" value="1" {if condition="$user.user_status eq 1"}checked="checked"{/if}> 是
                                                 </label>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="user_status" value="0"> 否
+                                                    <input type="radio" name="user_status" value="0" {if condition="$user.user_status eq 0"}checked="checked"{/if}> 否
                                                 </label>
                                             </div>
                                         </div>
@@ -77,15 +73,17 @@
                                             <label class="col-sm-2 control-label"><span style="color:red">*</span>角色</label>
                                             <div class="col-md-6 col-sm-10">
                                                 {foreach name="roles" item="vo"}
-                                                    <label class="checkbox-inline">
-                                                        <input value="<{$vo.id}>" type="checkbox" name="role_id[]" ><{$vo.name}>
-                                                    </label>
+                                                <label class="checkbox-inline">
+                                                    {php}$role_id_checked=in_array($vo['id'],$role_ids)?"checked":"";{/php}
+                                                    <input value="<{$vo.id}>" type="checkbox" name="role_id[]" <{$role_id_checked}>><{$vo.name}>
+                                                </label>
                                                 {/foreach}
                                             </div>
                                         </div>
+                                        <input type="hidden" name="id" value="<{$id}>" />
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-10">
-                                                <button type="submit" class="btn btn-primary">添加</button>
+                                                <button type="submit" class="btn btn-primary">修改</button>
                                             </div>
                                         </div>
                                     </form>

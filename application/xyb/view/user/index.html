@@ -30,7 +30,25 @@
                                         <li class="active"><a>用户列表</a></li>
                                         <li><a href="<{:url('user/add_user')}>">添加用户</a></li>
                                     </ul>
-                                    <div style="margin-top: 20px;"></div>
+                                    <div style="margin-top: 10px;"></div>
+                                    <form action="<{:url('User/index')}>" method="post" id="forms">
+                                        <div class="col-xs-12">
+                                            <div style="line-height: 34px;width:150px;float: left;margin-left:-10px;margin-top: 5px; ">
+                                                <input type="text" name="search_content" style="width:150px;float: left;height:34px;" placeholder="联系电话" id="search_content" value="<{$search_content}>"/>
+                                            </div>
+                                            <div style="line-height: 34px;width:50px;float:left;margin-left: 10px;margin-top: 5px;">
+                                                <button type="submit" class="btn btn-info btn-sm">
+                                                    <span class="icon-on-right bigger-110">搜索</span>
+                                                </button>
+                                            </div>
+                                            <div style="line-height: 34px;width:50px;float:left;margin-left: 10px;margin-top: 5px;">
+                                                <button type="button" class="btn btn-info btn-sm" id="removes">
+                                                    <span class="icon-on-right bigger-110">清空</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div style="margin-bottom: 56px;"></div>
                                     <form action="" method="post" class="margin-top-20">
                                         <table class="table table-hover table-bordered">
                                             <thead>
@@ -40,6 +58,7 @@
                                                 <th align="left">性别</th>
                                                 <th align="left">电话</th>
                                                 <th align="left">状态</th>
+                                                <th align="left">创建时间</th>
                                                 <th align="left">最近登录</th>
                                                 <th width="160">操作</th>
                                             </tr>
@@ -59,9 +78,9 @@
                                                      <td><{$i.mobile}></td>
                                                      <td>
                                                          {if condition='$i.user_status eq 1'}
-                                                         <span style="color: green">在职</span>
+                                                         <span style="color: green">启用</span>
                                                          {else /}
-                                                         <span style="color: red">离职</span>
+                                                         <span style="color: red">禁用</span>
                                                          {/if}
                                                      </td>
                                                      <td>
@@ -71,7 +90,17 @@
                                                          暂未登录
                                                          {/if}
                                                      </td>
-                                                     <td><a>编辑</a></td>
+                                                     <td><{$i.create_time|date='Y-m-d H:i',###}></td>
+                                                     <td>
+                                                         {if condition='$i.id neq 1'}
+                                                         <a href="<{:url('User/user_edit',['id'=>$i.id])}>" style="cursor: pointer"><span class="label label-primary">编辑</span></a>
+                                                         {if condition='$i.user_status eq 1'}
+                                                         <span class="label label-primary" onclick="do_jy(<{$i.id}>)" style="cursor: pointer">禁用</span>
+                                                         {else/}
+                                                         <span class="label label-primary" onclick="do_open(<{$i.id}>)" style="cursor: pointer">启用</span>
+                                                         {/if}
+                                                         {/if}
+                                                     </td>
                                                  </tr>
                                              {/volist}
 
@@ -99,3 +128,65 @@
 <!-- inline scripts related to this page -->
 </body>
 </html>
+<script>
+    //点击清空数据信息
+    $("#removes").click(function(){
+        $("input[name=search_content]").val('');
+    })
+
+    function do_jy(id){
+        layer.confirm('确定将此用户禁用？', {icon: 3, title:'禁用用户'}, function(){
+            $.post('__URL__user/forbidden_user_info',{id:id},function(data){
+                if(data.status==1){
+                    layer.msg(data.info, {
+                        icon: 1,
+                        time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                    }, function(){
+                        parent.layer.close(index);
+                    });
+                    setTimeout(function(){
+                        parent.location.reload();
+                    },500);
+                }else{
+                    layer.msg(data.info, {
+                        icon: 2,
+                        time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                    }, function(){
+                        parent.layer.close(index);
+                    });
+                    setTimeout(function(){
+                        parent.location.reload();
+                    },500);
+                }
+            })
+        });
+    }
+
+    function do_open(id){
+        layer.confirm('确定将此用户启用？', {icon: 3, title:'启用用户'}, function(){
+            $.post('__URL__user/open_user_info',{id:id},function(data){
+                if(data.status==1){
+                    layer.msg(data.info, {
+                        icon: 1,
+                        time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                    }, function(){
+                        parent.layer.close(index);
+                    });
+                    setTimeout(function(){
+                        parent.location.reload();
+                    },500);
+                }else{
+                    layer.msg(data.info, {
+                        icon: 2,
+                        time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                    }, function(){
+                        parent.layer.close(index);
+                    });
+                    setTimeout(function(){
+                        parent.location.reload();
+                    },500);
+                }
+            })
+        });
+    }
+</script>

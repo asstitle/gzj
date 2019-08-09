@@ -1,8 +1,9 @@
 <?php
 namespace app\api\controller;
+use app\common\controller\ApiBase;
 use think\Controller;
 use think\Db;
-class Search extends Controller
+class Search extends ApiBase
 {
 
     //招聘商户搜索求职者信息

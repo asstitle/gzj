@@ -27,7 +27,6 @@ class Login extends Controller
                 }
                 $info=Db::name('users')->where(array('mobile'=>$mobile,'passwd'=>$new_passwd))->field('id,mobile,passwd,type')->find();
                 if($info){
-                       session('user_id',$info['id']);
                       return json(array('code'=>305,'info'=>'登录成功','user_id'=>$info['id'],'type'=>$type));
                 }else{
                     return json(array('code'=>306,'info'=>'登录失败'));

@@ -13,6 +13,6 @@ class Test extends Controller
     }
 
     public function pt(){
-        print_r($_FILES);
+       print_r($this->request->param('tel'));
     }
 }

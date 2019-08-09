@@ -3,16 +3,19 @@ namespace app\api\controller;
 use app\common\controller\ApiBase;
 use think\Controller;
 use think\Db;
-class Car extends Controller
+class Car extends ApiBase
 {
 
     //二手车列表
     public function car_lists()
     {
-        $p = $this->request->param('p');
-        $pageSize = 10;
-        $result = Db::name('car_info')->order('add_time desc')->limit(($p - 1) * $pageSize, $pageSize)->where(array('status'=>1))->select();
-        return json(array('code' => 800, 'info' => '获取成功', 'data' => $result));
+        if($this->request->isPost()){
+            $p = $this->request->param('p');
+            $pageSize = 10;
+            $result = Db::name('car_info')->order('add_time desc')->limit(($p - 1) * $pageSize, $pageSize)->where(array('status'=>1))->select();
+            return json(array('code' => 800, 'info' => '获取成功', 'data' => $result));
+        }
+
     }
 
     //二手车筛选

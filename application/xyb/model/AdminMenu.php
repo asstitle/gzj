@@ -124,7 +124,7 @@ class AdminMenu extends Model
                 //$ret[] = $array;
                 $child           = $this->getTree($a['id'], $id, $Level);
                 //由于后台管理界面只支持三层，超出的不层级的不显示
-                if ($child && $Level <= 3) {
+                if ($child && $Level <= 2) {
                     $ret[$id]['children'] = $child;
                 }
 

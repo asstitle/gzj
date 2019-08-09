@@ -60,10 +60,10 @@
                                                             <font color="#cccccc">配置权限</font>  <!-- <a href="javascript:openIframeDialog('{:url('rbac/member',array('id'=>$vo['id']))}','成员管理');">成员管理</a> | -->
                                                             <font color="#cccccc">编辑</font>  <font color="#cccccc">删除</font>
                                                             {else /}
-                                                            <a href="{:url('Rbac/authorize',array('id'=>$v['id']))}">配置权限</a>
+                                                            <a href="<{:url('Rbac/authorize',array('id'=>$v['id']))}>">配置权限</a>
                                                             <!-- <a href="javascript:openIframeDialog('{:url('rbac/member',array('id'=>$vo['id']))}','成员管理');">成员管理</a>| -->
-                                                            <a href="{:url('Rbac/roleedit',array('id'=>$v['id']))}">编辑</a>
-                                                            <a class="js-ajax-delete" href="{:url('Rbac/roledelete',array('id'=>$v['id']))}">删除</a>
+                                                            <a href="<{:url('Rbac/role_edit',array('id'=>$v['id']))}>">编辑</a>
+                                                            <a class="js-ajax-delete" href="<{:url('Rbac/role_delete',array('id'=>$v['id']))}>">删除</a>
                                                          {/if}
                                                     </td>
                                                 </tr>

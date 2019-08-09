@@ -1,5 +1,5 @@
 <?php
-define('api_val','!#gzj^+*');//接口常量
+define('api_val','gzj2019dkd6379');//接口常量
 /**
  * 检查权限
  * @param $userId  int        要检查权限的用户 ID

@@ -1,8 +1,9 @@
 <?php
 namespace app\api\controller;
+use app\common\controller\ApiBase;
 use think\Controller;
 use think\Db;
-class MyCar extends Controller
+class MyCar extends ApiBase
 {
     //二手车首页
     public function my_index(){

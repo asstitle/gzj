@@ -94,6 +94,92 @@ class Menu extends Base
                 $this->success("添加成功！", url($to));
             }
     }
-
-
+    //菜单编辑
+    public function edit(){
+        $tree   = new Tree();
+        $id     = $this->request->param("id", 0, 'intval');
+        $rs     = Db::name('AdminMenu')->where(["id" => $id])->find();
+        $result = Db::name('AdminMenu')->order(["list_order" => "ASC"])->select();
+        $array  = [];
+        foreach ($result as $r) {
+            $r['selected'] = $r['id'] == $rs['parent_id'] ? 'selected' : '';
+            $array[]       = $r;
+        }
+        $str = "<option value='\$id' \$selected>\$spacer \$name</option>";
+        $tree->init($array);
+        $selectCategory = $tree->getTree(0, $str);
+        $this->assign("data", $rs);
+        $this->assign("select_category", $selectCategory);
+        return $this->fetch();
+    }
+    //菜单编辑提交
+    public function editPost()
+    {
+        if ($this->request->isPost()) {
+            $id      = $this->request->param('id', 0, 'intval');
+            $oldMenu = Db::name('AdminMenu')->where(['id' => $id])->find();
+                Db::name('AdminMenu')->strict(false)->field(true)->update($this->request->param());
+                $app          = $this->request->param("app");
+                $controller   = $this->request->param("controller");
+                $action       = $this->request->param("action");
+                $param        = $this->request->param("param");
+                $authRuleName = "$app/$controller/$action";
+                $menuName     = $this->request->param("name");
+                $findAuthRuleCount = Db::name('auth_rule')->where([
+                    'app'  => $app,
+                    'name' => $authRuleName,
+                    'type' => 'admin_url'
+                ])->count();
+                if (empty($findAuthRuleCount)) {
+                    $oldApp        = $oldMenu['app'];
+                    $oldController = $oldMenu['controller'];
+                    $oldAction     = $oldMenu['action'];
+                    $oldName       = "$oldApp/$oldController/$oldAction";
+                    $findOldRuleId = Db::name('AuthRule')->where(["name" => $oldName])->value('id');
+                    if (empty($findOldRuleId)) {
+                        Db::name('AuthRule')->insert([
+                            "name"  => $authRuleName,
+                            "app"   => $app,
+                            "type"  => "admin_url",
+                            "title" => $menuName,
+                            "param" => $param
+                        ]);//type 1-admin rule;2-user rule
+                    } else {
+                        Db::name('AuthRule')->where(['id' => $findOldRuleId])->update([
+                            "name"  => $authRuleName,
+                            "app"   => $app,
+                            "type"  => "admin_url",
+                            "title" => $menuName,
+                            "param" => $param]);//type 1-admin rule;2-user rule
+                    }
+                } else {
+                    Db::name('AuthRule')->where([
+                        'app'  => $app,
+                        'name' => $authRuleName,
+                        'type' => 'admin_url'
+                    ])->update(["title" => $menuName, 'param' => $param]);//type 1-admin rule;2-user rule
+                }
+                $this->success("保存成功！",url('menu/index'));
+            }
+    }
+    //菜单删除
+    public function delete(){
+        $id    = $this->request->param("id", 0, 'intval');
+        $count = Db::name('AdminMenu')->where(["parent_id" => $id])->count();
+        if ($count > 0) {
+            $this->error("该菜单下还有子菜单，无法删除！");
+        }
+        if (Db::name('AdminMenu')->delete($id) !== false) {
+            $this->success("删除菜单成功！");
+        } else {
+            $this->error("删除失败！");
+        }
+    }
+    //后台菜单排序
+    public function listOrder()
+    {
+        $adminMenuModel = new AdminMenuModel();
+        parent::listOrders($adminMenuModel);
+        $this->success("排序更新成功！");
+    }
 }

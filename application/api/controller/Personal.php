@@ -1,11 +1,11 @@
 <?php
 
 namespace app\api\controller;
+use app\common\controller\ApiBase;
 use think\Controller;
 use think\Db;
-use think\Session;
 
-class Personal extends Controller
+class Personal extends ApiBase
 {
     //招聘首页
     public function recruit_index(){

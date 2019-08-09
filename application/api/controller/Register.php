@@ -49,6 +49,7 @@ class Register extends Controller
             $data['mobile']=$mobile;
             $data['passwd']=md5($key.$passwd);
             $data['tj_code']=$tj_code;
+            $data['add_time']=time();
             $user_id=Db::name('users')->insertGetId($data);
             if($user_id){
                 return json(array('code'=>200,'info'=>'注册成功','user_id'=>$user_id));
